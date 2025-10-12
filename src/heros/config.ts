@@ -51,6 +51,7 @@ export const hero: Field = {
           ]
         },
       }),
+      localized: true,
       label: false,
     },
     linkGroup({

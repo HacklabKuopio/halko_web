@@ -6,18 +6,24 @@ import type { Footer } from '@/payload-types'
 
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
-import { Logo } from '@/components/Logo/Logo'
+import { TypedLocale } from 'payload'
 
-export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+export async function Footer({ locale }: { locale: TypedLocale }) {
+  const footer: Footer = await getCachedGlobal('footer', 1, locale)()
 
-  const navItems = footerData?.navItems || []
+  const navItems = footer?.navItems || []
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
+    <footer className="border-t border-border bg-black dark:bg-card text-white">
       <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
         <Link className="flex items-center" href="/">
-          <Logo />
+          <picture>
+            <img
+              alt="Payload Logo"
+              className="max-w-[6rem] invert-0"
+              src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg"
+            />
+          </picture>
         </Link>
 
         <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">

@@ -71,6 +71,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'reference',
       type: 'relationship',
+      localized: true,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
@@ -81,6 +82,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     {
       name: 'url',
       type: 'text',
+      localized: true,
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
@@ -105,6 +107,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         {
           name: 'label',
           type: 'text',
+          localized: true,
           admin: {
             width: '50%',
           },

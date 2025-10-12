@@ -46,6 +46,7 @@ const columnFields: Field[] = [
         ]
       },
     }),
+    localized: true,
     label: false,
   },
   {
