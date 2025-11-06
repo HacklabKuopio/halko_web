@@ -100,4 +100,3 @@ const queryPage = cache(async ({ locale, slug }: { locale: TypedLocale; slug: st
 
   return result.docs?.[0] || null
 })
-

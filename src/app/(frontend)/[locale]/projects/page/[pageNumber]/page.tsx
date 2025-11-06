@@ -25,8 +25,8 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound()
 
-  const posts = await payload.find({
-    collection: 'posts',
+  const projects = await payload.find({
+    collection: 'projects',
     depth: 1,
     limit: 12,
     page: sanitizedPageNumber,
@@ -38,24 +38,24 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none">
-          <h1>Posts</h1>
+          <h1>Projects</h1>
         </div>
       </div>
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
-          currentPage={posts.page}
+          collection="projects"
+          currentPage={projects.page}
           limit={12}
-          totalDocs={posts.totalDocs}
+          totalDocs={projects.totalDocs}
         />
       </div>
 
-      <CollectionArchive docs={posts.docs} />
+      <CollectionArchive docs={projects.docs} relationTo="projects" />
 
       <div className="container">
-        {posts?.page && posts?.totalPages > 1 && (
-          <Pagination page={posts.page} totalPages={posts.totalPages} />
+        {projects?.page && projects?.totalPages > 1 && (
+          <Pagination page={projects.page} totalPages={projects.totalPages} />
         )}
       </div>
     </div>
@@ -72,11 +72,12 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const { totalDocs } = await payload.count({
-    collection: 'posts',
+    collection: 'projects',
     overrideAccess: false,
   })
 
-  const totalPages = Math.ceil(totalDocs / 10)
+  // Match the page size used in the query above (limit: 12)
+  const totalPages = Math.ceil(totalDocs / 12)
 
   const pages: { pageNumber: string }[] = []
 

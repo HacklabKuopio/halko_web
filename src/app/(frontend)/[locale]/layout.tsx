@@ -21,11 +21,12 @@ import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import localization from '@/i18n/localization'
+import type { Locale } from '@/i18n/routing'
 
 type Args = {
   children: React.ReactNode
   params: Promise<{
-    locale: TypedLocale
+    locale: Locale
   }>
 }
 
@@ -34,7 +35,7 @@ export default async function RootLayout({ children, params }: Args) {
   const currentLocale = localization.locales.find((loc) => loc.code === locale)
   const direction = currentLocale?.rtl ? 'rtl' : 'ltr'
 
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale)) {
     notFound()
   }
   setRequestLocale(locale)
@@ -49,26 +50,27 @@ export default async function RootLayout({ children, params }: Args) {
       dir={direction}
       suppressHydrationWarning
     >
-    <head>
-      <InitTheme />
-      <link href="/favicon.ico" rel="icon" sizes="32x32" />
-      <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-    </head>
-    <body>
-    <Providers>
-      <AdminBar
-        adminBarProps={{
-          preview: isEnabled,
-        }}
-      />
-      <NextIntlClientProvider messages={messages}>
-        <LivePreviewListener />
-        <Header locale={locale} />
-        {children}
-        <Footer locale={locale} />
-      </NextIntlClientProvider>
-    </Providers>
-    </body>
+      <head>
+        <InitTheme />
+        <link href="/favicon.ico" rel="icon" sizes="32x32" />
+        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <title>Site</title>
+      </head>
+      <body>
+        <Providers>
+          <AdminBar
+            adminBarProps={{
+              preview: isEnabled,
+            }}
+          />
+          <NextIntlClientProvider messages={messages}>
+            <LivePreviewListener />
+            <Header locale={locale as TypedLocale} />
+            {children}
+            <Footer locale={locale as TypedLocale} />
+          </NextIntlClientProvider>
+        </Providers>
+      </body>
     </html>
   )
 }

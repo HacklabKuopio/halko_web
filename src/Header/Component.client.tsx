@@ -10,28 +10,24 @@ import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import { useLocale } from 'next-intl'
 import localization from '@/i18n/localization'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { TypedLocale } from 'payload'
 import { usePathname, useRouter } from '@/i18n/routing'
+import { Menu, X } from 'lucide-react'
 
 interface HeaderClientProps {
   header: Header
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
-  /* Storing the value in a useState to avoid hydration errors */
+  // Store theme to avoid hydration errors
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const pathname = usePathname()
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     setHeaderTheme(null)
+    setOpen(false) // Close mobile menu on route change
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
@@ -42,22 +38,42 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
 
   return (
     <header
-      className="container relative z-20 py-8 flex justify-end gap-2"
+      className="sticky top-0 inset-x-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <Link href="/" className="me-auto">
-        <Logo />
-      </Link>
-      <div className="bg-yellow-500 w-fit flex items-center rounded-lg px-2 py-1 gap-2">
-        <HeaderNav header={header} />
-        <LocaleSwitcher />
+      <div className="mx-auto max-w-screen-xl px-4 py-3 flex items-center gap-3">
+        <Link href="/" className="flex items-center shrink-0 me-auto">
+          <Logo />
+        </Link>
+        {/* Desktop nav */}
+        <div className="hidden sm:flex items-center gap-4">
+          <HeaderNav header={header} className="flex-row" />
+          <LocaleSwitcher className="ms-2" />
+        </div>
+        {/* Mobile controls */}
+        <button
+          type="button"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen(o => !o)}
+          className="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+      {/* Mobile menu panel */}
+      <div
+        className={`sm:hidden transition-[max-height] duration-300 ease-in-out overflow-hidden ${open ? 'max-h-[500px]' : 'max-h-0'}`}
+      >
+        <div className="px-4 pb-4 flex flex-col gap-4 border-t bg-background">
+          <HeaderNav header={header} onNavigate={() => setOpen(false)} />
+          <LocaleSwitcher />
+        </div>
       </div>
     </header>
   )
 }
 
-function LocaleSwitcher() {
-  // inspired by https://github.com/amannn/next-intl/blob/main/examples/example-app-router/src/components/LocaleSwitcherSelect.tsx
+function LocaleSwitcher({ className }: { className?: string }) {
   const locale = useLocale()
   const router = useRouter()
   const [, startTransition] = useTransition()
@@ -65,31 +81,54 @@ function LocaleSwitcher() {
   const params = useParams()
 
   function onSelectChange(value: TypedLocale) {
+    if (value === locale) return
     startTransition(() => {
       router.replace(
-        // @ts-expect-error -- TypeScript will validate that only known `params`
-        // are used in combination with a given `pathname`. Since the two will
-        // always match for the current route, we can skip runtime checks.
+        // @ts-expect-error validated by next-intl routing
         { pathname, params },
         { locale: value },
       )
     })
   }
 
+  const locales = localization.locales
+    .slice()
+    .sort((a, b) => a.label.localeCompare(b.label))
+
+  // Compact two-lang segmented toggle
+  const activeIndex = locales.findIndex(l => l.code === locale)
+
   return (
-    <Select onValueChange={onSelectChange} value={locale}>
-      <SelectTrigger className="w-auto text-sm bg-transparent gap-2 pl-0 md:pl-3 border-none">
-        <SelectValue placeholder="Theme" />
-      </SelectTrigger>
-      <SelectContent>
-        {localization.locales
-          .sort((a, b) => a.label.localeCompare(b.label)) // Ordenar por label
-          .map((locale) => (
-            <SelectItem value={locale.code} key={locale.code}>
-              {locale.label}
-            </SelectItem>
-          ))}
-      </SelectContent>
-    </Select>
+    <div className={className || ''}>
+      <div
+        role="group"
+        aria-label="Language selector"
+        className="relative inline-flex items-center rounded-md border border-muted-foreground/20 bg-muted/40 backdrop-blur-sm px-0.5 py-0.5 text-xs"
+      >
+        {/* Sliding highlight */}
+        <span
+          aria-hidden
+          className="absolute inset-y-0 left-0 w-1/2 rounded-[4px] bg-background shadow transition-transform duration-200 ease-out"
+          style={{ transform: `translateX(${activeIndex * 100}%)` }}
+        />
+        {locales.map((loc, i) => {
+          const isActive = i === activeIndex
+          const code = loc.code.toUpperCase()
+          return (
+            <button
+              key={loc.code}
+              type="button"
+              aria-pressed={isActive}
+              aria-current={isActive ? 'true' : undefined}
+              title={loc.label}
+              onClick={() => onSelectChange(loc.code as TypedLocale)}
+              className="relative z-10 px-2.5 py-1 leading-none font-medium tracking-wide uppercase text-[11px] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50"
+            >
+              <span className={isActive ? 'text-foreground' : 'text-muted-foreground'}>{code}</span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
   )
 }

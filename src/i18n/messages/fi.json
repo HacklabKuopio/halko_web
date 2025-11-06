@@ -12,5 +12,8 @@
   "dashboard": "Hallintapaneeli",
   "previous": "Edellinen",
   "next": "Seuraava",
-  "more-pages": "Lisää sivuja"
+  "more-pages": "Lisää sivuja",
+  "navigation": {
+    "main": "Päävalikko"
+  }
 }
