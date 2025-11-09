@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     projects: Project;
+    sponsors: Sponsor;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -90,6 +91,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -193,7 +195,7 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SponsorsBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -738,6 +740,35 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorsBlock".
+ */
+export interface SponsorsBlock {
+  heading?: string | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  tiers?: ('platinum' | 'gold' | 'silver' | 'bronze' | 'community')[] | null;
+  onlyFeatured?: boolean | null;
+  onlyCurrentlyActive?: boolean | null;
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sponsors';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
@@ -777,6 +808,51 @@ export interface Project {
         name?: string | null;
       }[]
     | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsors".
+ */
+export interface Sponsor {
+  id: number;
+  name: string;
+  lightLogo: number | Media;
+  darkLogo?: (number | null) | Media;
+  about?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  website?: string | null;
+  tier: 'platinum' | 'gold' | 'silver' | 'bronze' | 'community';
+  isFeatured?: boolean | null;
+  order?: number | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -981,6 +1057,10 @@ export interface PayloadLockedDocument {
         value: number | Project;
       } | null)
     | ({
+        relationTo: 'sponsors';
+        value: number | Sponsor;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1078,6 +1158,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        sponsors?: T | SponsorsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1174,6 +1255,20 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorsBlock_select".
+ */
+export interface SponsorsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  introContent?: T;
+  tiers?: T;
+  onlyFeatured?: T;
+  onlyCurrentlyActive?: T;
+  limit?: T;
   id?: T;
   blockName?: T;
 }
@@ -1369,6 +1464,35 @@ export interface ProjectsSelect<T extends boolean = true> {
         id?: T;
         name?: T;
       };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sponsors_select".
+ */
+export interface SponsorsSelect<T extends boolean = true> {
+  name?: T;
+  lightLogo?: T;
+  darkLogo?: T;
+  about?: T;
+  website?: T;
+  tier?: T;
+  isFeatured?: T;
+  order?: T;
+  startDate?: T;
+  endDate?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -1754,6 +1878,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'projects';
           value: number | Project;
+        } | null)
+      | ({
+          relationTo: 'sponsors';
+          value: number | Sponsor;
         } | null);
     global?: string | null;
     user?: (number | null) | User;

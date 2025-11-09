@@ -13,6 +13,7 @@ import localization from '@/i18n/localization'
 import { TypedLocale } from 'payload'
 import { usePathname, useRouter } from '@/i18n/routing'
 import { Menu, X } from 'lucide-react'
+import { KokStatusIndicator } from './KokStatusIndicator'
 
 interface HeaderClientProps {
   header: Header
@@ -48,6 +49,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
         {/* Desktop nav */}
         <div className="hidden sm:flex items-center gap-4">
           <HeaderNav header={header} className="flex-row" />
+          <KokStatusIndicator className="ms-1" />
           <LocaleSwitcher className="ms-2" />
         </div>
         {/* Mobile controls */}
@@ -66,6 +68,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
       >
         <div className="px-4 pb-4 flex flex-col gap-4 border-t bg-background">
           <HeaderNav header={header} onNavigate={() => setOpen(false)} />
+          <KokStatusIndicator />
           <LocaleSwitcher />
         </div>
       </div>

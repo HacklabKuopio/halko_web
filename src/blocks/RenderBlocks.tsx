@@ -7,6 +7,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { SponsorsBlock } from '@/blocks/Sponsors/Component'
 import { TypedLocale } from 'payload'
 
 const blockComponents = {
@@ -15,6 +16,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  sponsors: SponsorsBlock,
 }
 
 export const RenderBlocks: React.FC<{
