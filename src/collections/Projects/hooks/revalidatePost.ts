@@ -1,8 +1,8 @@
-import type {CollectionAfterChangeHook, CollectionAfterDeleteHook} from 'payload'
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
-import {revalidatePath, revalidateTag} from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type {Project} from '@/payload-types'
+import type { Project } from '@/payload-types'
 
 export const revalidatePost: CollectionAfterChangeHook<Project> = ({
   doc,
@@ -38,7 +38,10 @@ export const revalidatePost: CollectionAfterChangeHook<Project> = ({
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Project> = ({ doc, req: { context, payload } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<Project> = ({
+  doc,
+  req: { context, payload },
+}) => {
   if (!context.disableRevalidate) {
     const slug = typeof doc?.slug === 'string' ? doc.slug : ''
     if (slug) {

@@ -13,7 +13,7 @@ const localization = {
     {
       code: 'fi',
       label: 'Finnish (Suomi)',
-      rtl: false
+      rtl: false,
     },
   ],
 }

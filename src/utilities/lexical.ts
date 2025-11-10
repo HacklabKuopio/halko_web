@@ -33,8 +33,10 @@ export const EMPTY_EDITOR_STATE = {
 } as const
 
 // Ensure we never store an empty string for a Lexical field
-export function normalizeRichTextValue<T = any>(value: unknown, fallback: T = EMPTY_EDITOR_STATE as unknown as T): T {
+export function normalizeRichTextValue<T = any>(
+  value: unknown,
+  fallback: T = EMPTY_EDITOR_STATE as unknown as T,
+): T {
   if (value === '' || typeof value === 'string') return fallback
   return (value as T) ?? fallback
 }
-

@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 
 interface KokStatusResponse {
@@ -69,11 +69,14 @@ export const KokStatusIndicator: React.FC<KokStatusIndicatorProps> = ({ classNam
       <span
         aria-label={label}
         title={lastChanged ? `${label}\nLast change: ${lastChanged}` : label}
-        className={clsx('h-3 w-3 rounded-full shadow-inner transition-colors', colorClass, pulseClass)}
+        className={clsx(
+          'h-3 w-3 rounded-full shadow-inner transition-colors',
+          colorClass,
+          pulseClass,
+        )}
       />
     </div>
   )
 }
 
 export default KokStatusIndicator
-

@@ -1,11 +1,11 @@
 import React from 'react'
-import type {StaticImageData} from 'next/image'
-import {cn} from '@/utilities/ui'
+import type { StaticImageData } from 'next/image'
+import { cn } from '@/utilities/ui'
 import RichText from '@/components/RichText'
-import {Media} from '@/components/Media'
+import { Media } from '@/components/Media'
 import configPromise from '@payload-config'
-import {getPayload} from 'payload'
-import type {Sponsor, SponsorsBlock as SponsorsBlockType} from '@/payload-types'
+import { getPayload } from 'payload'
+import type { Sponsor, SponsorsBlock as SponsorsBlockType } from '@/payload-types'
 
 // Local props to keep the block flexible in the app layer
 // Mirrors fields defined in ./config.ts
@@ -216,10 +216,16 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
                       )}
 
                       <div className="flex flex-wrap gap-2 mt-1">
-                        {start && <span className="text-[11px] text-muted-foreground">Start: {start}</span>}
-                        {end && <span className="text-[11px] text-muted-foreground">End: {end}</span>}
+                        {start && (
+                          <span className="text-[11px] text-muted-foreground">Start: {start}</span>
+                        )}
+                        {end && (
+                          <span className="text-[11px] text-muted-foreground">End: {end}</span>
+                        )}
                         {typeof sponsor.order === 'number' && sponsor.order !== 0 && (
-                          <span className="text-[11px] text-muted-foreground">Order: {sponsor.order}</span>
+                          <span className="text-[11px] text-muted-foreground">
+                            Order: {sponsor.order}
+                          </span>
                         )}
                       </div>
 

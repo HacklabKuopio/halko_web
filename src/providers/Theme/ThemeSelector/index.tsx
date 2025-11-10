@@ -1,12 +1,18 @@
 'use client'
 
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue,} from '@/components/ui/select'
-import React, {useState} from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import React, { useState } from 'react'
 
-import type {Theme} from './types'
-import {themeLocalStorageKey} from './types'
+import type { Theme } from './types'
+import { themeLocalStorageKey } from './types'
 
-import {useTheme} from '..'
+import { useTheme } from '..'
 
 export const ThemeSelector: React.FC = () => {
   const { setTheme } = useTheme()

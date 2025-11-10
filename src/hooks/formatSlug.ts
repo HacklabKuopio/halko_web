@@ -1,9 +1,9 @@
-import type {FieldHook} from 'payload'
+import type { FieldHook } from 'payload'
 
 const format = (val: string): string =>
   val
-    .normalize('NFD')               // split letters + accents
-    .replace(/[\u0300-\u036f]/g, '')// remove accents (ä→a, ö→o, å→a)
+    .normalize('NFD') // split letters + accents
+    .replace(/[\u0300-\u036f]/g, '') // remove accents (ä→a, ö→o, å→a)
     .replace(/ /g, '-')
     .replace(/[^\w-]+/g, '')
     .toLowerCase()

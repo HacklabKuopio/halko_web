@@ -1,6 +1,6 @@
-import {getRequestConfig} from 'next-intl/server'
-import type {Locale} from './routing'
-import {routing} from './routing'
+import { getRequestConfig } from 'next-intl/server'
+import type { Locale } from './routing'
+import { routing } from './routing'
 
 import en from './messages/en.json'
 
@@ -10,7 +10,9 @@ type Messages = typeof en
 export type IntlMessages = Messages
 
 // Dummy helper to ensure IntlMessages is referenced
-function _assertMessagesShape<T extends IntlMessages>(m: T): T { return m }
+function _assertMessagesShape<T extends IntlMessages>(m: T): T {
+  return m
+}
 _assertMessagesShape(en)
 
 export default getRequestConfig(async ({ requestLocale }) => {

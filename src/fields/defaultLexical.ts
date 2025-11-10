@@ -1,4 +1,4 @@
-import type {TextFieldSingleValidation} from 'payload'
+import type { TextFieldSingleValidation } from 'payload'
 import {
   BoldFeature,
   ItalicFeature,

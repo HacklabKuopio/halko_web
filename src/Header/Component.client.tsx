@@ -1,19 +1,19 @@
 'use client'
-import {useHeaderTheme} from '@/providers/HeaderTheme'
+import { useHeaderTheme } from '@/providers/HeaderTheme'
 import Link from 'next/link'
-import {useParams} from 'next/navigation'
-import React, {useEffect, useState, useTransition} from 'react'
+import { useParams } from 'next/navigation'
+import React, { useEffect, useState, useTransition } from 'react'
 
-import type {Header} from '@/payload-types'
+import type { Header } from '@/payload-types'
 
-import {Logo} from '@/components/Logo/Logo'
-import {HeaderNav} from './Nav'
-import {useLocale} from 'next-intl'
+import { Logo } from '@/components/Logo/Logo'
+import { HeaderNav } from './Nav'
+import { useLocale } from 'next-intl'
 import localization from '@/i18n/localization'
-import {TypedLocale} from 'payload'
-import {usePathname, useRouter} from '@/i18n/routing'
-import {Menu, X} from 'lucide-react'
-import {KokStatusIndicator} from './KokStatusIndicator'
+import { TypedLocale } from 'payload'
+import { usePathname, useRouter } from '@/i18n/routing'
+import { Menu, X } from 'lucide-react'
+import { KokStatusIndicator } from './KokStatusIndicator'
 
 interface HeaderClientProps {
   header: Header
@@ -55,8 +55,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
         {/* Mobile controls */}
         <button
           type="button"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen(o => !o)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen((o) => !o)}
           className="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -94,12 +94,10 @@ function LocaleSwitcher({ className }: { className?: string }) {
     })
   }
 
-  const locales = localization.locales
-    .slice()
-    .sort((a, b) => a.label.localeCompare(b.label))
+  const locales = localization.locales.slice().sort((a, b) => a.label.localeCompare(b.label))
 
   // Compact two-lang segmented toggle
-  const activeIndex = locales.findIndex(l => l.code === locale)
+  const activeIndex = locales.findIndex((l) => l.code === locale)
 
   return (
     <div className={className || ''}>

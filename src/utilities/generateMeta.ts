@@ -1,9 +1,9 @@
-import type {Metadata} from 'next'
+import type { Metadata } from 'next'
 
-import type {Config, Media, Page, Post} from '../payload-types'
+import type { Config, Media, Page, Post } from '../payload-types'
 
-import {mergeOpenGraph} from './mergeOpenGraph'
-import {getServerSideURL} from './getURL'
+import { mergeOpenGraph } from './mergeOpenGraph'
+import { getServerSideURL } from './getURL'
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
@@ -26,9 +26,7 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Hacklab Kuopio ry'
-    : 'Hacklab Kuopio ry'
+  const title = doc?.meta?.title ? doc?.meta?.title + ' | Hacklab Kuopio ry' : 'Hacklab Kuopio ry'
 
   return {
     description: doc?.meta?.description,
