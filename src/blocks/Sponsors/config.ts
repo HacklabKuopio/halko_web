@@ -6,6 +6,7 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+import { EMPTY_EDITOR_STATE, normalizeRichTextValue } from '@/utilities/lexical'
 
 export const Sponsors: Block = {
   slug: 'sponsors',
@@ -16,14 +17,13 @@ export const Sponsors: Block = {
       type: 'text',
       label: 'Heading',
       localized: true,
-      required: false,
     },
     {
       name: 'introContent',
       type: 'richText',
       label: 'Intro',
-      required: false,
       localized: true,
+      defaultValue: EMPTY_EDITOR_STATE as any,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [
           ...rootFeatures,
@@ -32,6 +32,9 @@ export const Sponsors: Block = {
           InlineToolbarFeature(),
         ],
       }),
+      hooks: {
+        beforeValidate: [({ value }) => normalizeRichTextValue(value)],
+      },
     },
     {
       type: 'row',
@@ -41,7 +44,6 @@ export const Sponsors: Block = {
           label: 'Tiers to include',
           type: 'select',
           hasMany: true,
-          required: false,
           defaultValue: [],
           options: [
             { label: 'Platinum', value: 'platinum' },

@@ -14,15 +14,7 @@ import { Banner } from '@/blocks/Banner/config'
 import { Code } from '@/blocks/Code/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
-
-import {
-  MetaDescriptionField,
-  MetaImageField,
-  MetaTitleField,
-  OverviewField,
-  PreviewField,
-} from '@payloadcms/plugin-seo/fields'
-import { slugField } from '@/fields/slug'
+import { EMPTY_EDITOR_STATE, normalizeRichTextValue } from '@/utilities/lexical'
 
 export const Sponsors: CollectionConfig<'sponsors'> = {
   slug: 'sponsors',
@@ -35,28 +27,23 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
 
   defaultPopulate: {
     name: true,
-    slug: true,
     website: true,
     tier: true,
-    meta: {
-      image: true,
-      description: true,
-    },
   },
 
   admin: {
     defaultColumns: ['name', 'tier', 'website', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) =>
+      url: ({ req }) =>
         generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+          slug: '',
           collection: 'sponsors',
           req,
         }),
     },
-    preview: (data, { req }) =>
+    preview: (_data, { req }) =>
       generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        slug: '',
         collection: 'sponsors',
         req,
       }),
@@ -64,11 +51,7 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
   },
 
   fields: [
-    {
-      name: 'name',
-      type: 'text',
-      required: true,
-    },
+    { name: 'name', type: 'text', required: true },
 
     {
       type: 'tabs',
@@ -108,7 +91,10 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
                   HorizontalRuleFeature(),
                 ],
               }),
-              required: false,
+              defaultValue: EMPTY_EDITOR_STATE as any,
+              hooks: {
+                beforeValidate: [({ value }) => normalizeRichTextValue(value)],
+              },
             },
           ],
         },
@@ -120,12 +106,10 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
               name: 'website',
               label: 'Website URL',
               type: 'text',
-              required: false,
               admin: {
                 position: 'sidebar',
                 placeholder: 'https://example.com',
               },
-              // satisfies TextFieldSingleValidation signature
               validate: (value: unknown) => {
                 if (!value) return true
                 if (typeof value !== 'string') return 'Enter a valid URL (https://...)'
@@ -169,26 +153,6 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
             },
           ],
         },
-
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({ hasGenerateFn: true }),
-            MetaImageField({ relationTo: 'media' }),
-            MetaDescriptionField({}),
-            PreviewField({
-              hasGenerateFn: true,
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
-        },
       ],
     },
 
@@ -208,16 +172,10 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
         ],
       },
     },
-
-    // Use your shared slug field (no slugify dependency)
-    ...slugField('name'),
   ],
 
   versions: {
-    drafts: {
-      autosave: { interval: 100 },
-      schedulePublish: true,
-    },
+    drafts: { autosave: { interval: 100 }, schedulePublish: true },
     maxPerDoc: 50,
   },
 }
