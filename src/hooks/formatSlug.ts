@@ -1,4 +1,4 @@
-import type { FieldHook } from 'payload'
+import type {FieldHook} from 'payload'
 
 const format = (val: string): string =>
   val

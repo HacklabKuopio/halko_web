@@ -1,7 +1,7 @@
-import { cn } from '@/utilities/ui'
+import {cn} from '@/utilities/ui'
 import React from 'react'
 
-import { Card, CardDocData } from '@/components/Card'
+import {Card, CardDocData} from '@/components/Card'
 
 export type Props = {
   docs: CardDocData[]

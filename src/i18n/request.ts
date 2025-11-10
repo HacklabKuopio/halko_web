@@ -1,6 +1,6 @@
-import { getRequestConfig } from 'next-intl/server'
-import { routing } from './routing'
-import type { Locale } from './routing'
+import {getRequestConfig} from 'next-intl/server'
+import type {Locale} from './routing'
+import {routing} from './routing'
 
 import en from './messages/en.json'
 

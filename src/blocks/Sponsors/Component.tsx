@@ -1,11 +1,11 @@
 import React from 'react'
-import type { StaticImageData } from 'next/image'
-import { cn } from '@/utilities/ui'
+import type {StaticImageData} from 'next/image'
+import {cn} from '@/utilities/ui'
 import RichText from '@/components/RichText'
-import { Media } from '@/components/Media'
+import {Media} from '@/components/Media'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import type { Sponsor, SponsorsBlock as SponsorsBlockType } from '@/payload-types'
+import {getPayload} from 'payload'
+import type {Sponsor, SponsorsBlock as SponsorsBlockType} from '@/payload-types'
 
 // Local props to keep the block flexible in the app layer
 // Mirrors fields defined in ./config.ts

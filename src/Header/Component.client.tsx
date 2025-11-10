@@ -1,19 +1,19 @@
 'use client'
-import { useHeaderTheme } from '@/providers/HeaderTheme'
+import {useHeaderTheme} from '@/providers/HeaderTheme'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
-import React, { useEffect, useState, useTransition } from 'react'
+import {useParams} from 'next/navigation'
+import React, {useEffect, useState, useTransition} from 'react'
 
-import type { Header } from '@/payload-types'
+import type {Header} from '@/payload-types'
 
-import { Logo } from '@/components/Logo/Logo'
-import { HeaderNav } from './Nav'
-import { useLocale } from 'next-intl'
+import {Logo} from '@/components/Logo/Logo'
+import {HeaderNav} from './Nav'
+import {useLocale} from 'next-intl'
 import localization from '@/i18n/localization'
-import { TypedLocale } from 'payload'
-import { usePathname, useRouter } from '@/i18n/routing'
-import { Menu, X } from 'lucide-react'
-import { KokStatusIndicator } from './KokStatusIndicator'
+import {TypedLocale} from 'payload'
+import {usePathname, useRouter} from '@/i18n/routing'
+import {Menu, X} from 'lucide-react'
+import {KokStatusIndicator} from './KokStatusIndicator'
 
 interface HeaderClientProps {
   header: Header

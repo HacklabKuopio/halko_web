@@ -1,12 +1,7 @@
-import type { Block } from 'payload'
+import type {Block} from 'payload'
 
-import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
-import { EMPTY_EDITOR_STATE, normalizeRichTextValue } from '@/utilities/lexical'
+import {FixedToolbarFeature, HeadingFeature, InlineToolbarFeature, lexicalEditor,} from '@payloadcms/richtext-lexical'
+import {EMPTY_EDITOR_STATE, normalizeRichTextValue} from '@/utilities/lexical'
 
 export const Sponsors: Block = {
   slug: 'sponsors',

@@ -1,17 +1,16 @@
-import type { Metadata } from 'next'
+import type {Metadata} from 'next'
 
-import { PayloadRedirects } from '@/components/PayloadRedirects'
+import {PayloadRedirects} from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
-import type { Page as PageType } from '@/payload-types'
+import {getPayload, TypedLocale} from 'payload'
+import {draftMode} from 'next/headers'
+import React, {cache} from 'react'
+import type {Page as PageType} from '@/payload-types'
 
-import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { RenderHero } from '@/heros/RenderHero'
-import { generateMeta } from '@/utilities/generateMeta'
+import {RenderBlocks} from '@/blocks/RenderBlocks'
+import {RenderHero} from '@/heros/RenderHero'
+import {generateMeta} from '@/utilities/generateMeta'
 import PageClient from './page.client'
-import { TypedLocale } from 'payload'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })

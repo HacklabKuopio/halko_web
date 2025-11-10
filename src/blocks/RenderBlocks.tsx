@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react'
+import React, {Fragment} from 'react'
 
-import type { Page } from '@/payload-types'
+import type {Page} from '@/payload-types'
 
-import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { SponsorsBlock } from '@/blocks/Sponsors/Component'
-import { TypedLocale } from 'payload'
+import {ArchiveBlock} from '@/blocks/ArchiveBlock/Component'
+import {CallToActionBlock} from '@/blocks/CallToAction/Component'
+import {ContentBlock} from '@/blocks/Content/Component'
+import {FormBlock} from '@/blocks/Form/Component'
+import {MediaBlock} from '@/blocks/MediaBlock/Component'
+import {SponsorsBlock} from '@/blocks/Sponsors/Component'
+import {TypedLocale} from 'payload'
 
 const blockComponents = {
   archive: ArchiveBlock,

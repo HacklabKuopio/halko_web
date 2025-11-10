@@ -1,4 +1,4 @@
-import { draftMode } from 'next/headers'
+import {draftMode} from 'next/headers'
 
 export async function GET(): Promise<Response> {
   const draft = await draftMode()

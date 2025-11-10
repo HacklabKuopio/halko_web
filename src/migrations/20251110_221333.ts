@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
+import {MigrateDownArgs, MigrateUpArgs, sql} from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
@@ -28,7 +28,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   	"_locale" "_locales" NOT NULL,
   	"_parent_id" integer NOT NULL
   );
-  
+
   CREATE TABLE "_sponsors_v_locales" (
   	"version_meta_title" varchar,
   	"version_meta_image_id" integer,
@@ -37,7 +37,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   	"_locale" "_locales" NOT NULL,
   	"_parent_id" integer NOT NULL
   );
-  
+
   ALTER TABLE "pages_blocks_sponsors_locales" ALTER COLUMN "intro_content" DROP DEFAULT;
   ALTER TABLE "_pages_v_blocks_sponsors_locales" ALTER COLUMN "intro_content" DROP DEFAULT;
   ALTER TABLE "sponsors" ALTER COLUMN "about" DROP DEFAULT;

@@ -1,23 +1,23 @@
 // storage-adapter-import-placeholder
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import {postgresAdapter} from '@payloadcms/db-postgres'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
-import { buildConfig, PayloadRequest } from 'payload'
-import { fileURLToPath } from 'url'
+import {buildConfig, PayloadRequest} from 'payload'
+import {fileURLToPath} from 'url'
 
-import { Categories } from './collections/Categories'
-import { Media } from './collections/Media'
-import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
-import { Projects } from './collections/Projects'
-import { Users } from './collections/Users'
-import { Sponsors } from './collections/Sponsors'
-import { Footer } from './Footer/config'
-import { Header } from './Header/config'
-import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
-import { getServerSideURL } from './utilities/getURL'
+import {Categories} from './collections/Categories'
+import {Media} from './collections/Media'
+import {Pages} from './collections/Pages'
+import {Posts} from './collections/Posts'
+import {Projects} from './collections/Projects'
+import {Users} from './collections/Users'
+import {Sponsors} from './collections/Sponsors'
+import {Footer} from './Footer/config'
+import {Header} from './Header/config'
+import {plugins} from './plugins'
+import {defaultLexical} from '@/fields/defaultLexical'
+import {getServerSideURL} from './utilities/getURL'
 import localization from './i18n/localization'
 
 const filename = fileURLToPath(import.meta.url)

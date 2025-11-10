@@ -1,8 +1,8 @@
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
+import type {CollectionAfterChangeHook, CollectionAfterDeleteHook} from 'payload'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import {revalidatePath, revalidateTag} from 'next/cache'
 
-import type { Project } from '@/payload-types'
+import type {Project} from '@/payload-types'
 
 export const revalidatePost: CollectionAfterChangeHook<Project> = ({
   doc,

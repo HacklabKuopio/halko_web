@@ -1,4 +1,4 @@
-import type { FieldHook } from 'payload'
+import type {FieldHook} from 'payload'
 
 export const formatSlug = (val: string): string | undefined =>
   val
