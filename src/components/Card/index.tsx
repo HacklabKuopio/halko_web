@@ -8,8 +8,8 @@ import type { Post, Project } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
-export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title'>
-export type CardProjectData = Pick<Project, 'slug' | 'categories' | 'meta' | 'title'>
+export type CardPostData = Pick<Post, 'slug' | 'categories' | 'meta' | 'title' | 'heroImage'>
+export type CardProjectData = Pick<Project, 'slug' | 'categories' | 'meta' | 'title' | 'heroImage'>
 export type CardDocData = CardPostData | CardProjectData
 
 export const Card: React.FC<{
@@ -25,6 +25,9 @@ export const Card: React.FC<{
 
   const { slug, categories, meta, title } = doc || {}
   const { description, image: metaImage } = meta || {}
+  // Prefer explicit meta image, otherwise fall back to heroImage
+  const heroImage = (doc as CardPostData | CardProjectData)?.heroImage as any
+  const primaryImage = metaImage || heroImage
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
@@ -40,8 +43,10 @@ export const Card: React.FC<{
       ref={card.ref}
     >
       <div className="relative w-full ">
-        {!metaImage && <div className="">No image</div>}
-        {metaImage && typeof metaImage !== 'string' && <Media resource={metaImage} size="33vw" />}
+        {!primaryImage && <div className="">No image</div>}
+        {primaryImage && typeof primaryImage === 'object' && (
+          <Media resource={primaryImage} size="33vw" />
+        )}
       </div>
       <div className="p-4">
         {showCategories && hasCategories && (

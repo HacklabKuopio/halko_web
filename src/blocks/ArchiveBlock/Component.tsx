@@ -1,4 +1,5 @@
-import type { ArchiveBlock as ArchiveBlockProps, Post } from '@/payload-types'
+import type { ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { CardPostData } from '@/components/Card'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -16,7 +17,7 @@ export const ArchiveBlock: React.FC<
 
   const limit = limitFromProps || 3
 
-  let posts: Post[] = []
+  let posts: CardPostData[] = []
 
   if (populateBy === 'collection') {
     const payload = await getPayload({ config: configPromise })
@@ -39,14 +40,25 @@ export const ArchiveBlock: React.FC<
             },
           }
         : {}),
+      select: {
+        title: true,
+        slug: true,
+        categories: true,
+        heroImage: true,
+        meta: {
+          title: true,
+          description: true,
+          image: true,
+        },
+      },
     })
 
-    posts = fetchedPosts.docs
+    posts = fetchedPosts.docs as CardPostData[]
   } else {
     if (selectedDocs?.length) {
       posts = selectedDocs.map((post) => {
         if (typeof post.value === 'object') return post.value
-      }) as Post[]
+      }) as CardPostData[]
     }
   }
 
