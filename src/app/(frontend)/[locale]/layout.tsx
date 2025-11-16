@@ -22,6 +22,7 @@ import type { Locale } from '@/i18n/routing'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import localization from '@/i18n/localization'
+import Script from 'next/script'
 
 type Args = {
   children: React.ReactNode
@@ -55,6 +56,17 @@ export default async function RootLayout({ children, params }: Args) {
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <title>Site</title>
+        {/* Plausible Analytics */}
+        <Script
+          id="plausible-inline"
+          strategy="beforeInteractive"
+        >{`window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`}</Script>
+        <Script
+          id="plausible-script"
+          strategy="afterInteractive"
+          data-domain="halko.fi"
+          src="https://analytics.bittive.com/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
+        />
       </head>
       <body>
         <Providers>
