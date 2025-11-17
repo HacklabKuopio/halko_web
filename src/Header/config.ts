@@ -10,19 +10,36 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Logo',
+      admin: {
+        description: 'Image shown in the site header',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
         link({
           appearances: false,
         }),
+        {
+          name: 'children',
+          type: 'array',
+          label: 'Dropdown links (optional)',
+          admin: { initCollapsed: true },
+          fields: [link({ appearances: false })],
+        },
       ],
-      maxRows: 6,
+      maxRows: 12,
       admin: {
         initCollapsed: true,
         components: {
           RowLabel: '@/Header/RowLabel#RowLabel',
         },
+        description: 'Add optional dropdown links under each item',
       },
     },
   ],

@@ -14,6 +14,7 @@ import { TypedLocale } from 'payload'
 import { usePathname, useRouter } from '@/i18n/routing'
 import { Menu, X } from 'lucide-react'
 import { KokStatusIndicator } from './KokStatusIndicator'
+import { Media } from '@/components/Media'
 
 interface HeaderClientProps {
   header: Header
@@ -43,40 +44,59 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="mx-auto max-w-screen-xl px-4 py-3 flex items-center gap-3">
-        <Link href="/" className="flex items-center shrink-0 me-auto">
-          <Logo />
+        <Link href="/" className="flex items-center shrink-0">
+          {header?.logo ? (
+            <Media resource={header.logo as any} imgClassName="h-8 w-auto object-contain" pictureClassName="block" />
+          ) : (
+            <Logo />
+          )}
         </Link>
-        {/* Desktop nav */}
-        <div className="hidden sm:flex items-center gap-4">
-          <HeaderNav header={header} className="flex-row" />
-          <KokStatusIndicator className="ms-1" />
-          <LocaleSwitcher className="ms-2" />
+
+        {/* Mobile-only language switcher positioned left next to logo */}
+        {/* Removed: now rendered inside mobile dropdown in HeaderNav */}
+
+        {/* Right side controls */}
+        <div className="ms-auto flex items-center gap-3">
+
+          {/* Desktop nav */}
+          <div className="hidden sm:flex items-center gap-4">
+            <HeaderNav header={header} className="flex-row" />
+            <KokStatusIndicator />
+            <LocaleSwitcher className="ms-2" />
+          </div>
+
+          <div className="block sm:hidden">
+            <KokStatusIndicator />
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="mobile-drawer"
+            onClick={() => setOpen((o) => !o)}
+            className="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
-        {/* Mobile controls */}
-        <button
-          type="button"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          onClick={() => setOpen((o) => !o)}
-          className="sm:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </div>
-      {/* Mobile menu panel */}
+
+      {/* Mobile menu panel (collapsible under header) */}
       <div
         className={`sm:hidden transition-[max-height] duration-300 ease-in-out overflow-hidden ${open ? 'max-h-[500px]' : 'max-h-0'}`}
       >
         <div className="px-4 pb-4 flex flex-col gap-4 border-t bg-background">
-          <HeaderNav header={header} onNavigate={() => setOpen(false)} />
-          <KokStatusIndicator />
-          <LocaleSwitcher />
+          <HeaderNav header={header} className="items-start text-left" onNavigateAction={() => setOpen(false)} />
+          {/* Removed mobile LocaleSwitcher here (moved next to logo) */}
         </div>
       </div>
     </header>
   )
 }
 
-function LocaleSwitcher({ className }: { className?: string }) {
+export function LocaleSwitcher({ className }: { className?: string }) {
   const locale = useLocale()
   const router = useRouter()
   const [, startTransition] = useTransition()
@@ -95,8 +115,6 @@ function LocaleSwitcher({ className }: { className?: string }) {
   }
 
   const locales = localization.locales.slice().sort((a, b) => a.label.localeCompare(b.label))
-
-  // Compact two-lang segmented toggle
   const activeIndex = locales.findIndex((l) => l.code === locale)
 
   return (
@@ -106,7 +124,6 @@ function LocaleSwitcher({ className }: { className?: string }) {
         aria-label="Language selector"
         className="relative inline-flex items-center rounded-md border border-muted-foreground/20 bg-muted/40 backdrop-blur-sm px-0.5 py-0.5 text-xs"
       >
-        {/* Sliding highlight */}
         <span
           aria-hidden
           className="absolute inset-y-0 left-0 w-1/2 rounded-[4px] bg-background shadow transition-transform duration-200 ease-out"

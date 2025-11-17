@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
+import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
@@ -9,6 +10,101 @@ export const Footer: GlobalConfig = {
     read: () => true,
   },
   fields: [
+    // Brand/logo and optional short rich text
+    {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      localized: false,
+      label: 'Logo',
+      admin: {
+        description: 'Image shown on the left of the footer',
+      },
+    },
+    {
+      name: 'about',
+      type: 'richText',
+      label: 'About text',
+      admin: {
+        description: 'Optional short text shown under the logo',
+      },
+      localized: true,
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+    },
+
+    // Columns similar to Flowbite (Resources / Follow us / Legal)
+    {
+      name: 'columns',
+      type: 'array',
+      label: 'Link columns',
+      admin: {
+        initCollapsed: false,
+      },
+      fields: [
+        {
+          type: 'row',
+          fields: [
+            {
+              name: 'title',
+              type: 'text',
+              localized: true,
+              label: 'Column heading',
+              admin: { width: '50%' },
+              required: true,
+            },
+            {
+              name: 'hideTitle',
+              type: 'checkbox',
+              label: 'Hide heading',
+              admin: { width: '50%', style: { alignSelf: 'flex-end' } },
+            },
+          ],
+        },
+      ],
+    },
+
+    // Social icons row
+    {
+      name: 'socialLinks',
+      type: 'array',
+      label: 'Social links',
+      admin: { initCollapsed: true },
+      fields: [
+        {
+          name: 'icon',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Icon image',
+          required: false,
+        },
+        {
+          name: 'alt',
+          type: 'text',
+          label: 'Icon alt text',
+          required: false,
+          localized: true,
+        },
+        link({ appearances: false, disableLabel: true }),
+      ],
+    },
+
+    // Bottom copyright text
+    {
+      name: 'bottomText',
+      type: 'text',
+      label: 'Bottom text (e.g. © year Company. All rights reserved.)',
+      localized: true,
+    },
+
+    // Legacy simple nav (kept for backward compatibility)
     {
       name: 'navItems',
       type: 'array',
@@ -23,6 +119,7 @@ export const Footer: GlobalConfig = {
         components: {
           RowLabel: '@/Footer/RowLabel#RowLabel',
         },
+        description: 'Legacy simple navigation. Prefer using Link columns above.',
       },
     },
   ],
