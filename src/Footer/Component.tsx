@@ -28,18 +28,16 @@ function mergeFooterLocalized(primary: any, fallback: any): any {
   // bottom text
   merged.bottomText = primary?.bottomText ?? fallback?.bottomText ?? null
 
-  // columns
+  // columns with links
   const pCols = Array.isArray(primary?.columns) ? primary.columns : []
   const fCols = Array.isArray(fallback?.columns) ? fallback.columns : []
   merged.columns = (pCols.length > 0 ? pCols : fCols).map((col: any, i: number) => {
     const fCol = fCols[i] || {}
     const pCol = pCols[i] || {}
-    const out: any = {
-      ...fCol,
-      ...pCol,
-    }
-    // title may be empty on primary
+    const out: any = { ...fCol, ...pCol }
+    // title
     out.title = pCol?.title ?? fCol?.title
+
     // links array
     const pLinks = Array.isArray(pCol?.links) ? pCol.links : []
     const fLinks = Array.isArray(fCol?.links) ? fCol.links : []
@@ -47,18 +45,17 @@ function mergeFooterLocalized(primary: any, fallback: any): any {
       const fItem = fLinks[j] || {}
       const pItem = pLinks[j] || {}
       const outItem: any = { ...fItem, ...pItem }
-      // merge link group fields
       const pLink = pItem?.link || {}
       const fLink = fItem?.link || {}
       outItem.link = {
         ...fLink,
         ...pLink,
-        // for text fields, choose primary else fallback
         label: pLink?.label ?? fLink?.label,
         url: pLink?.url ?? fLink?.url,
       }
       return outItem
     })
+
     return out
   })
 
@@ -79,9 +76,6 @@ function mergeFooterLocalized(primary: any, fallback: any): any {
       },
     }
   })
-
-  // navItems (legacy) - prefer primary if exists else fallback
-  merged.navItems = Array.isArray(primary?.navItems) && primary.navItems.length > 0 ? primary.navItems : fallback?.navItems || []
 
   return merged
 }

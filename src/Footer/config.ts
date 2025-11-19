@@ -68,6 +68,16 @@ export const Footer: GlobalConfig = {
             },
           ],
         },
+        {
+          name: 'links',
+          type: 'array',
+          label: 'Links',
+          minRows: 0,
+          maxRows: 12,
+          fields: [
+            link({ appearances: false }),
+          ],
+        },
       ],
     },
 
@@ -102,25 +112,6 @@ export const Footer: GlobalConfig = {
       type: 'text',
       label: 'Bottom text (e.g. © year Company. All rights reserved.)',
       localized: true,
-    },
-
-    // Legacy simple nav (kept for backward compatibility)
-    {
-      name: 'navItems',
-      type: 'array',
-      fields: [
-        link({
-          appearances: false,
-        }),
-      ],
-      maxRows: 6,
-      admin: {
-        initCollapsed: true,
-        components: {
-          RowLabel: '@/Footer/RowLabel#RowLabel',
-        },
-        description: 'Legacy simple navigation. Prefer using Link columns above.',
-      },
     },
   ],
   hooks: {
