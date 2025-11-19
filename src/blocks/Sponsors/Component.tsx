@@ -106,7 +106,12 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
         {sponsors.length === 0 ? (
           <div className="text-sm text-muted-foreground">No sponsors to display.</div>
         ) : (
-          <ul className="flex gap-4 md:gap-6">
+          <ul
+            className={cn(
+              // Mobiilissa grid, isommilla ruuduilla flex kuten ennen
+              'grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 md:flex md:flex-wrap md:justify-center'
+            )}
+          >
             {sponsors.map((sponsor: Sponsor) => {
               const lightLogo = sponsor.lightLogo as any
               const darkLogo = sponsor.darkLogo as any
@@ -122,7 +127,8 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
                         resource={lightLogo}
                         alt={`${sponsor.name || 'Sponsor'} logo`}
                         imgClassName={cn(
-                          'max-h-16 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 block dark:hidden rounded-lg bg-background',
+                          // Isompi logo mobiilissa
+                          'max-h-14 sm:max-h-16 md:max-h-20 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 block dark:hidden rounded-lg bg-background',
                           imgClassName,
                         )}
                       />
@@ -130,7 +136,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
                         resource={darkLogo}
                         alt={`${sponsor.name || 'Sponsor'} logo`}
                         imgClassName={cn(
-                          'max-h-16 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 hidden dark:block rounded-lg bg-background',
+                          'max-h-14 sm:max-h-16 md:max-h-20 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 hidden dark:block rounded-lg bg-background',
                           imgClassName,
                         )}
                       />
@@ -140,7 +146,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
                       resource={lightLogo}
                       alt={`${sponsor.name || 'Sponsor'} logo`}
                       imgClassName={cn(
-                        'max-h-16 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 block rounded-lg bg-background',
+                        'max-h-14 sm:max-h-16 md:max-h-20 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 block rounded-lg bg-background',
                         imgClassName,
                       )}
                     />
@@ -149,7 +155,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
                       resource={darkLogo}
                       alt={`${sponsor.name || 'Sponsor'} logo`}
                       imgClassName={cn(
-                        'max-h-16 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 block rounded-lg bg-background',
+                        'max-h-14 sm:max-h-16 md:max-h-20 w-auto object-contain opacity-90 transition-opacity group-hover:opacity-100 block rounded-lg bg-background',
                         imgClassName,
                       )}
                     />
@@ -170,76 +176,19 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
                         href={sponsor.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center mb-4"
+                        className="flex items-center justify-center mb-4 p-3 sm:p-4"
                         aria-label={sponsor.name}
                         title={sponsor.name}
                       >
                         {LogoContent}
                       </a>
                     ) : (
-                      <div className="flex items-center justify-center mb-4">{LogoContent}</div>
+                      <div className="flex items-center justify-center mb-4 p-3 sm:p-4">
+                        {LogoContent}
+                      </div>
                     )}
 
-                    {/*<div className="flex flex-col gap-2">*/}
-                    {/*  <div className="flex items-center gap-2 flex-wrap">*/}
-                    {/*    <h3 className="text-base font-semibold leading-none tracking-tight">*/}
-                    {/*      {sponsor.name}*/}
-                    {/*    </h3>*/}
-                    {/*    {sponsor.tier && (*/}
-                    {/*      <span*/}
-                    {/*        className={cn(*/}
-                    {/*          'text-xs font-medium px-2 py-1 rounded-md capitalize',*/}
-                    {/*          {*/}
-                    {/*            platinum:*/}
-                    {/*              'bg-gradient-to-r from-slate-200 to-slate-400 text-slate-900',*/}
-                    {/*            gold: 'bg-yellow-400/90 text-yellow-950',*/}
-                    {/*            silver: 'bg-slate-300/80 text-slate-800',*/}
-                    {/*            bronze: 'bg-amber-600/80 text-amber-50',*/}
-                    {/*            community: 'bg-indigo-600/80 text-indigo-50',*/}
-                    {/*          }[sponsor.tier] || 'bg-muted text-foreground',*/}
-                    {/*        )}*/}
-                    {/*      >*/}
-                    {/*        {sponsor.tier}*/}
-                    {/*      </span>*/}
-                    {/*    )}*/}
-                    {/*    {sponsor.isFeatured && (*/}
-                    {/*      <span className="text-[10px] font-semibold uppercase tracking-wider bg-accent/80 text-accent-foreground px-1.5 py-0.5 rounded">*/}
-                    {/*        Featured*/}
-                    {/*      </span>*/}
-                    {/*    )}*/}
-                    {/*  </div>*/}
-
-                    {/*  {sponsor.about && (*/}
-                    {/*    <div className="text-sm text-muted-foreground line-clamp-4">*/}
-                    {/*      <RichText data={sponsor.about as any} enableGutter={false} />*/}
-                    {/*    </div>*/}
-                    {/*  )}*/}
-
-                    {/*  <div className="flex flex-wrap gap-2 mt-1">*/}
-                    {/*    {start && (*/}
-                    {/*      <span className="text-[11px] text-muted-foreground">Start: {start}</span>*/}
-                    {/*    )}*/}
-                    {/*    {end && (*/}
-                    {/*      <span className="text-[11px] text-muted-foreground">End: {end}</span>*/}
-                    {/*    )}*/}
-                    {/*    {typeof sponsor.order === 'number' && sponsor.order !== 0 && (*/}
-                    {/*      <span className="text-[11px] text-muted-foreground">*/}
-                    {/*        Order: {sponsor.order}*/}
-                    {/*      </span>*/}
-                    {/*    )}*/}
-                    {/*  </div>*/}
-
-                    {/*  {sponsor.website && (*/}
-                    {/*    <a*/}
-                    {/*      href={sponsor.website}*/}
-                    {/*      target="_blank"*/}
-                    {/*      rel="noopener noreferrer"*/}
-                    {/*      className="text-xs font-medium text-primary hover:underline mt-1"*/}
-                    {/*    >*/}
-                    {/*      Visit website →*/}
-                    {/*    </a>*/}
-                    {/*  )}*/}
-                    {/*</div>*/}
+                    {/* jos joskus haluat tiedot/logon alle takaisin, ne voi palauttaa täältä */}
                   </div>
                 </li>
               )
