@@ -1,7 +1,7 @@
 import { Banner } from '@payloadcms/ui/elements/Banner'
 import React from 'react'
 
-import { SeedButton } from './SeedButton'
+import RedeployButton from './RedeployButton'
 import './index.scss'
 
 const baseClass = 'before-dashboard'
@@ -9,64 +9,50 @@ const baseClass = 'before-dashboard'
 const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
-      <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your dashboard!</h4>
+      <Banner className={`${baseClass}__banner`} type="info">
+        <h4>Website Management Dashboard</h4>
       </Banner>
-      Here&apos;s what to do next:
-      <ul className={`${baseClass}__instructions`}>
-        <li>
-          <SeedButton />
-          {' with a few pages, posts, and projects to jump-start your new site, then '}
-          <a href="/" target="_blank">
-            visit your website
-          </a>
-          {' to see the results.'}
-        </li>
-        <li>
-          If you created this repo using Payload Cloud, head over to GitHub and clone it to your
-          local machine. It will be under the <i>GitHub Scope</i> that you selected when creating
-          this project.
-        </li>
-        <li>
-          {'Modify your '}
-          <a
-            href="https://payloadcms.com/docs/configuration/collections"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            collections
-          </a>
-          {' and add more '}
-          <a
-            href="https://payloadcms.com/docs/fields/overview"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            fields
-          </a>
-          {' as needed. If you are new to Payload, we also recommend you check out the '}
-          <a
-            href="https://payloadcms.com/docs/getting-started/what-is-payload"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Getting Started
-          </a>
-          {' docs.'}
-        </li>
-        <li>
-          Commit and push your changes to the repository to trigger a redeployment of your project.
-        </li>
-      </ul>
-      {'Pro Tip: This block is a '}
-      <a
-        href="https://payloadcms.com/docs/custom-components/overview"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        custom component
-      </a>
-      , you can remove it at any time by updating your <strong>payload.config</strong>.
+
+      <div className={`${baseClass}__instructions`}>
+        <p>
+          Manage your content (Pages, Posts, Projects, etc.) using the collections below.
+          Since the website runs inside Payload, changes to content are usually immediate.
+        </p>
+
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          marginTop: '1.5rem',
+          padding: '1.5rem',
+          backgroundColor: 'var(--theme-elevation-50)',
+          border: '1px solid var(--theme-elevation-100)',
+          borderRadius: '4px'
+        }}>
+          <strong>Quick Actions</strong>
+
+          <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+            <li style={{ marginBottom: '1rem' }}>
+              <a href="/" target="_blank" rel="noreferrer">
+                <strong>View Live Website &rarr;</strong>
+              </a>
+              <div style={{ fontSize: '0.9em', color: 'var(--theme-elevation-400)', marginTop: '5px' }}>
+                Open the homepage in a new tab to preview your changes.
+              </div>
+            </li>
+
+            <li>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <span>Trigger a new build:</span>
+                <RedeployButton />
+              </div>
+              <div style={{ fontSize: '0.9em', color: 'var(--theme-elevation-400)', marginTop: '5px' }}>
+                Use this if you have modified code or site configuration that requires a rebuild.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }

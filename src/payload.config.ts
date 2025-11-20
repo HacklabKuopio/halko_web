@@ -19,6 +19,7 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import localization from './i18n/localization'
+import { redeployEndpoint } from './endpoints/redeploy'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -70,6 +71,7 @@ export default buildConfig({
   collections: [Pages, Posts, Media, Categories, Users, Projects, Sponsors],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
+  endpoints: [redeployEndpoint],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
