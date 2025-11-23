@@ -21,6 +21,12 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        protocol: 'https',
+        hostname: 'halko.fi',
+        port: '',
+        pathname: '/api/media/**',
+      },
     ],
     unoptimized: false,
   },
