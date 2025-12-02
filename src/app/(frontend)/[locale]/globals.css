@@ -97,6 +97,12 @@ html {
   opacity: 0;
 }
 
+@media (scripting: none) {
+  html {
+    opacity: 1 !important;
+  }
+}
+
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;

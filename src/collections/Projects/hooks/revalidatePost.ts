@@ -16,7 +16,7 @@ export const revalidatePost: CollectionAfterChangeHook<Project> = ({
         const path = `/projects/${slug}`
         payload.logger.info(`Revalidating post at path: ${path}`)
         revalidatePath(path)
-        revalidateTag('projects-sitemap')
+        revalidateTag('projects-sitemap', 'max')
       } else {
         payload.logger.warn('Skipping revalidation: project has no slug')
       }
@@ -29,7 +29,7 @@ export const revalidatePost: CollectionAfterChangeHook<Project> = ({
         const oldPath = `/projects/${oldSlug}`
         payload.logger.info(`Revalidating old post at path: ${oldPath}`)
         revalidatePath(oldPath)
-        revalidateTag('projects-sitemap')
+        revalidateTag('projects-sitemap', 'max')
       } else {
         payload.logger.warn('Skipping revalidation of old path: previous project had no slug')
       }
@@ -47,7 +47,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Project> = ({
     if (slug) {
       const path = `/projects/${slug}`
       revalidatePath(path)
-      revalidateTag('projects-sitemap')
+      revalidateTag('projects-sitemap', 'max')
     } else {
       payload.logger?.warn?.('Skipping revalidation on delete: project had no slug')
     }

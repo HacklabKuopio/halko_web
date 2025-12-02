@@ -55,7 +55,7 @@ export default async function RootLayout({ children, params }: Args) {
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-        <title>Site</title>
+        <title>Hacklab Kuopio ry</title>
         {/* Plausible Analytics */}
         <Script
           id="plausible-inline"
@@ -78,6 +78,7 @@ export default async function RootLayout({ children, params }: Args) {
           <NextIntlClientProvider messages={messages}>
             <LivePreviewListener />
             <Header locale={locale as TypedLocale} />
+            <noscript>For the best experience, please enable JavaScript in your browser settings.</noscript>
             {children}
             <Footer locale={locale as TypedLocale} />
           </NextIntlClientProvider>

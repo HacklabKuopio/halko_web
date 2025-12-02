@@ -1,9 +1,14 @@
+// proxy.ts
+import { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 
-export default createMiddleware(routing)
+const intlMiddleware = createMiddleware(routing)
 
-// see https://next-intl-docs.vercel.app/docs/routing/middleware
+export default function proxy(request: NextRequest) {
+  return intlMiddleware(request)
+}
+
 export const config = {
   matcher: [
     // Match all pathnames except for

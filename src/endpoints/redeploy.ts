@@ -109,7 +109,7 @@ const redeployHandler: PayloadHandler = async (req: PayloadRequest): Promise<Res
     const error = err as Error
     const aborted = error?.name === 'AbortError'
 
-    req.payload.logger.error('Error triggering redeploy', error)
+    req.payload.logger.error(error, 'Error triggering redeploy')
 
     return json(500, {
       message: aborted
