@@ -7,7 +7,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   DROP TYPE "public"."enum_footer_columns_links_link_type";`)
 }
 
-export async function down({ db}: MigrateDownArgs): Promise<void> {
+export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`
    CREATE TYPE "public"."enum_footer_columns_links_link_type" AS ENUM('reference', 'custom');
   CREATE TABLE "footer_columns_links" (

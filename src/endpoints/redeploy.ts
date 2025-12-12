@@ -47,17 +47,14 @@ const redeployHandler: PayloadHandler = async (req: PayloadRequest): Promise<Res
   }
 
   const { reason, timeoutMs } = body
-  const effectiveTimeout =
-    typeof timeoutMs === 'number' && timeoutMs > 0 ? timeoutMs : 10_000
+  const effectiveTimeout = typeof timeoutMs === 'number' && timeoutMs > 0 ? timeoutMs : 10_000
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), effectiveTimeout)
 
   try {
     req.payload.logger.info(
-      `Redeploy requested by user ${req.user.id}${
-        reason ? ` (reason: ${reason})` : ''
-      }`,
+      `Redeploy requested by user ${req.user.id}${reason ? ` (reason: ${reason})` : ''}`,
     )
 
     const response = await fetch(REDEPLOY_URL, {
@@ -85,10 +82,7 @@ const redeployHandler: PayloadHandler = async (req: PayloadRequest): Promise<Res
     }
 
     if (!response.ok) {
-      req.payload.logger.error(
-        { status: response.status, body: text },
-        'Redeploy request failed',
-      )
+      req.payload.logger.error({ status: response.status, body: text }, 'Redeploy request failed')
 
       return json(502, {
         message: 'Redeploy request failed.',
@@ -112,9 +106,7 @@ const redeployHandler: PayloadHandler = async (req: PayloadRequest): Promise<Res
     req.payload.logger.error(error, 'Error triggering redeploy')
 
     return json(500, {
-      message: aborted
-        ? 'Redeploy request timed out.'
-        : 'Error triggering redeploy.',
+      message: aborted ? 'Redeploy request timed out.' : 'Error triggering redeploy.',
       error: error.message ?? String(error),
       aborted,
     })

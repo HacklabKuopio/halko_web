@@ -46,7 +46,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-3 flex items-center gap-3">
         <Link href="/" className="flex items-center shrink-0">
           {header?.logo ? (
-            <Media resource={header.logo as any} imgClassName="h-8 w-auto object-contain" pictureClassName="block" />
+            <Media
+              resource={header.logo as any}
+              imgClassName="h-8 w-auto object-contain"
+              pictureClassName="block"
+            />
           ) : (
             <Logo />
           )}
@@ -57,7 +61,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
 
         {/* Right side controls */}
         <div className="ms-auto flex items-center gap-3">
-
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-4">
             <HeaderNav header={header} className="flex-row" />
@@ -88,7 +91,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
         className={`sm:hidden transition-[max-height] duration-300 ease-in-out overflow-hidden ${open ? 'max-h-[500px]' : 'max-h-0'}`}
       >
         <div className="px-4 pb-4 flex flex-col gap-4 border-t bg-background">
-          <HeaderNav header={header} className="items-start text-left" onNavigateAction={() => setOpen(false)} />
+          <HeaderNav
+            header={header}
+            className="items-start text-left"
+            onNavigateAction={() => setOpen(false)}
+          />
           {/* Removed mobile LocaleSwitcher here (moved next to logo) */}
         </div>
       </div>

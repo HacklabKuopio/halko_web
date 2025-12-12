@@ -15,20 +15,22 @@ const BeforeDashboard: React.FC = () => {
 
       <div className={`${baseClass}__instructions`}>
         <p>
-          Manage your content (Pages, Posts, Projects, etc.) using the collections below.
-          Since the website runs inside Payload, changes to content are usually immediate.
+          Manage your content (Pages, Posts, Projects, etc.) using the collections below. Since the
+          website runs inside Payload, changes to content are usually immediate.
         </p>
 
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          marginTop: '1.5rem',
-          padding: '1.5rem',
-          backgroundColor: 'var(--theme-elevation-50)',
-          border: '1px solid var(--theme-elevation-100)',
-          borderRadius: '4px'
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+            marginTop: '1.5rem',
+            padding: '1.5rem',
+            backgroundColor: 'var(--theme-elevation-50)',
+            border: '1px solid var(--theme-elevation-100)',
+            borderRadius: '4px',
+          }}
+        >
           <strong>Quick Actions</strong>
 
           <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
@@ -36,7 +38,9 @@ const BeforeDashboard: React.FC = () => {
               <a href="/" target="_blank" rel="noreferrer">
                 <strong>View Live Website &rarr;</strong>
               </a>
-              <div style={{ fontSize: '0.9em', color: 'var(--theme-elevation-400)', marginTop: '5px' }}>
+              <div
+                style={{ fontSize: '0.9em', color: 'var(--theme-elevation-400)', marginTop: '5px' }}
+              >
                 Open the homepage in a new tab to preview your changes.
               </div>
             </li>
@@ -46,7 +50,9 @@ const BeforeDashboard: React.FC = () => {
                 <span>Trigger a new build:</span>
                 <RedeployButton />
               </div>
-              <div style={{ fontSize: '0.9em', color: 'var(--theme-elevation-400)', marginTop: '5px' }}>
+              <div
+                style={{ fontSize: '0.9em', color: 'var(--theme-elevation-400)', marginTop: '5px' }}
+              >
                 Use this if you have modified code or site configuration that requires a rebuild.
               </div>
             </li>

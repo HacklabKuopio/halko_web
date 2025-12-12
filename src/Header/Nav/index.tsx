@@ -17,7 +17,12 @@ export const HeaderNav: React.FC<{
   const navItems = header?.navItems || []
 
   return (
-    <nav className={clsx('flex w-full flex-col items-end text-right gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-4', className)}>
+    <nav
+      className={clsx(
+        'flex w-full flex-col items-end text-right gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-4',
+        className,
+      )}
+    >
       {navItems.map((item, i) => {
         const children = item.children || []
         const hasChildren = children.length > 0
@@ -43,7 +48,11 @@ export const HeaderNav: React.FC<{
                   <ul className="py-2">
                     {children.map(({ link }, j) => (
                       <li key={j}>
-                        <CMSLink {...link} className="block px-3 py-2 text-sm hover:bg-accent text-right" onClick={onNavigateAction} />
+                        <CMSLink
+                          {...link}
+                          className="block px-3 py-2 text-sm hover:bg-accent text-right"
+                          onClick={onNavigateAction}
+                        />
                       </li>
                     ))}
                   </ul>
@@ -55,7 +64,11 @@ export const HeaderNav: React.FC<{
               <ul className="sm:hidden pr-3 mt-1 border-r w-full">
                 {children.map(({ link }, j) => (
                   <li key={j} className="w-full">
-                    <CMSLink {...link} className="block w-full py-1 text-sm text-right justify-end" onClick={onNavigateAction} />
+                    <CMSLink
+                      {...link}
+                      className="block w-full py-1 text-sm text-right justify-end"
+                      onClick={onNavigateAction}
+                    />
                   </li>
                 ))}
               </ul>

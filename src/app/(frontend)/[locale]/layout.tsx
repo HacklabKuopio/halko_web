@@ -61,8 +61,8 @@ export default async function RootLayout({ children, params }: Args) {
         {/* Plausible Analytics */}
         <Script async src={process.env.PLAUSIBLE_INIT}></Script>
         <Script>
-          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}`};
-          plausible.init()
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}`}
+          ; plausible.init()
         </Script>
       </head>
       <body>
@@ -75,7 +75,9 @@ export default async function RootLayout({ children, params }: Args) {
           <NextIntlClientProvider messages={messages}>
             <LivePreviewListener />
             <Header locale={locale as TypedLocale} />
-            <noscript>For the best experience, please enable JavaScript in your browser settings.</noscript>
+            <noscript>
+              For the best experience, please enable JavaScript in your browser settings.
+            </noscript>
             {children}
             <Footer locale={locale as TypedLocale} />
           </NextIntlClientProvider>

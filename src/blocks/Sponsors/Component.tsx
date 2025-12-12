@@ -109,7 +109,7 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
           <ul
             className={cn(
               // Mobiilissa grid, isommilla ruuduilla flex kuten ennen
-              'grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 md:flex md:flex-wrap md:justify-center'
+              'grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 md:flex md:flex-wrap md:justify-center',
             )}
           >
             {sponsors.map((sponsor: Sponsor) => {

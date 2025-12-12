@@ -2,7 +2,11 @@ import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
-import { FixedToolbarFeature, InlineToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import {
+  FixedToolbarFeature,
+  InlineToolbarFeature,
+  lexicalEditor,
+} from '@payloadcms/richtext-lexical'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
@@ -31,11 +35,7 @@ export const Footer: GlobalConfig = {
       localized: true,
       editor: lexicalEditor({
         features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
+          return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
     },
@@ -74,9 +74,7 @@ export const Footer: GlobalConfig = {
           label: 'Links',
           minRows: 0,
           maxRows: 12,
-          fields: [
-            link({ appearances: false }),
-          ],
+          fields: [link({ appearances: false })],
         },
       ],
     },

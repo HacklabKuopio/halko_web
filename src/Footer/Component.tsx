@@ -112,7 +112,12 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
               )}
             </Link>
             {footer?.about && hasRichTextContent(footer.about) && (
-              <RichText data={footer.about as any} enableGutter={false} enableProse={false} className="text-muted-foreground" />
+              <RichText
+                data={footer.about as any}
+                enableGutter={false}
+                enableProse={false}
+                className="text-muted-foreground"
+              />
             )}
             {/* Theme selector on desktop near brand */}
             <div className="hidden md:block">
@@ -138,7 +143,6 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
                 </ul>
               </div>
             ))}
-
           </div>
         </div>
 
