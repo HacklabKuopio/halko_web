@@ -1,5 +1,6 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { en } from '@payloadcms/translations/languages/en'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -31,7 +32,7 @@ export default buildConfig({
       // Feel free to delete this at any time. Simply remove the line below.
       beforeLogin: ['@/components/BeforeLogin'],
       beforeDashboard: ['@/components/BeforeDashboard'],
-      afterDashboard: ['@/components/PlausibleAnalytics']
+      afterDashboard: ['@/components/PlausibleAnalytics'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -59,6 +60,9 @@ export default buildConfig({
         },
       ],
     },
+  },
+  i18n: {
+    supportedLanguages: { en },
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,

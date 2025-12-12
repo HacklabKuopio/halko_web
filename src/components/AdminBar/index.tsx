@@ -4,7 +4,7 @@ import type { PayloadAdminBarProps, PayloadMeUser } from '@payloadcms/admin-bar'
 import { PayloadAdminBar } from '@payloadcms/admin-bar'
 
 import { cn } from '@/utilities/ui'
-import { useRouter, useSelectedLayoutSegments } from 'next/navigation'
+import { useParams, useRouter, useSelectedLayoutSegments } from 'next/navigation'
 import React, { useState } from 'react'
 
 import './index.scss'
@@ -15,16 +15,34 @@ const baseClass = 'admin-bar'
 
 const collectionLabels = {
   pages: {
-    plural: 'Pages',
-    singular: 'Page',
+    en: {
+      plural: 'Pages',
+      singular: 'Page',
+    },
+    fi: {
+      plural: 'Sivut',
+      singular: 'Sivu',
+    },
   },
   posts: {
-    plural: 'Posts',
-    singular: 'Post',
+    en: {
+      plural: 'Posts',
+      singular: 'Post',
+    },
+    fi: {
+      plural: 'Artikkelit',
+      singular: 'Artikkeli',
+    },
   },
   projects: {
-    plural: 'Projects',
-    singular: 'Project',
+    en: {
+      plural: 'Projects',
+      singular: 'Project',
+    },
+    fi: {
+      plural: 'Projektit',
+      singular: 'Projekti',
+    },
   },
 }
 
@@ -35,10 +53,15 @@ export const AdminBar: React.FC<{
 }> = (props) => {
   const { adminBarProps } = props || {}
   const segments = useSelectedLayoutSegments()
+  const params = useParams()
+  const localeParam = params?.locale as string
+  const locale = localeParam === 'fi' ? 'fi' : 'en'
   const [show, setShow] = useState(false)
-  const collection = (
-    collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'pages'
-  ) as keyof typeof collectionLabels
+  const collection = (collectionLabels[segments?.[1] as keyof typeof collectionLabels]
+    ? segments[1]
+    : collectionLabels[segments?.[0] as keyof typeof collectionLabels]
+      ? segments[0]
+      : 'pages') as keyof typeof collectionLabels
   const router = useRouter()
 
   const onAuthChange = React.useCallback((user: PayloadMeUser) => {
@@ -64,8 +87,8 @@ export const AdminBar: React.FC<{
           cmsURL={getClientSideURL()}
           collectionSlug={collection}
           collectionLabels={{
-            plural: collectionLabels[collection]?.plural || 'Pages',
-            singular: collectionLabels[collection]?.singular || 'Page',
+            plural: collectionLabels[collection]?.[locale]?.plural || 'Pages',
+            singular: collectionLabels[collection]?.[locale]?.singular || 'Page',
           }}
           logo={<Title />}
           onAuthChange={onAuthChange}

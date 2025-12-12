@@ -24,6 +24,16 @@ import {
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
+  labels: {
+    singular: {
+      en: 'Page',
+      fi: 'Sivu',
+    },
+    plural: {
+      en: 'Pages',
+      fi: 'Sivut',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -64,13 +74,20 @@ export const Pages: CollectionConfig<'pages'> = {
       type: 'text',
       required: true,
       localized: true,
+      label: {
+        en: 'Title',
+        fi: 'Otsikko',
+      },
     },
     {
       type: 'tabs',
       tabs: [
         {
           fields: [hero],
-          label: 'Hero',
+          label: {
+            en: 'Hero',
+            fi: 'Hero',
+          },
         },
         {
           fields: [
@@ -82,9 +99,16 @@ export const Pages: CollectionConfig<'pages'> = {
               admin: {
                 initCollapsed: true,
               },
+              label: {
+                en: 'Layout',
+                fi: 'Asettelu',
+              },
             },
           ],
-          label: 'Content',
+          label: {
+            en: 'Content',
+            fi: 'Sisältö',
+          },
         },
         {
           name: 'meta',
@@ -121,8 +145,19 @@ export const Pages: CollectionConfig<'pages'> = {
       admin: {
         position: 'sidebar',
       },
+      label: {
+        en: 'Published At',
+        fi: 'Julkaistu',
+      },
     },
-    ...slugField(),
+    ...slugField('title', {
+      slugOverrides: {
+        label: {
+          en: 'Slug',
+          fi: 'Polkutunnus',
+        },
+      },
+    }),
   ],
   hooks: {
     afterChange: [revalidatePage],

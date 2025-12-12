@@ -29,6 +29,16 @@ import { slugField } from '@/fields/slug'
 
 export const Projects: CollectionConfig<'projects'> = {
   slug: 'projects',
+  labels: {
+    singular: {
+      en: 'Project',
+      fi: 'Projekti',
+    },
+    plural: {
+      en: 'Projects',
+      fi: 'Projektit',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -71,6 +81,10 @@ export const Projects: CollectionConfig<'projects'> = {
       name: 'title',
       type: 'text',
       required: true,
+      label: {
+        en: 'Title',
+        fi: 'Otsikko',
+      },
     },
     {
       type: 'tabs',
@@ -81,6 +95,10 @@ export const Projects: CollectionConfig<'projects'> = {
               name: 'heroImage',
               type: 'upload',
               relationTo: 'media',
+              label: {
+                en: 'Hero Image',
+                fi: 'Projektikuva',
+              },
             },
             {
               name: 'content',
@@ -102,7 +120,10 @@ export const Projects: CollectionConfig<'projects'> = {
               required: false,
             },
           ],
-          label: 'Content',
+          label: {
+            en: 'Content',
+            fi: 'Sisältö',
+          },
         },
         {
           fields: [
@@ -121,6 +142,10 @@ export const Projects: CollectionConfig<'projects'> = {
               },
               hasMany: true,
               relationTo: 'projects',
+              label: {
+                en: 'Related Projects',
+                fi: 'Liittyvät projektit',
+              },
             },
             {
               name: 'categories',
@@ -130,9 +155,16 @@ export const Projects: CollectionConfig<'projects'> = {
               },
               hasMany: true,
               relationTo: 'categories',
+              label: {
+                en: 'Categories',
+                fi: 'Kategoriat',
+              },
             },
           ],
-          label: 'Meta',
+          label: {
+            en: 'Meta',
+            fi: 'Meta',
+          },
         },
         {
           name: 'meta',
@@ -182,6 +214,10 @@ export const Projects: CollectionConfig<'projects'> = {
           },
         ],
       },
+      label: {
+        en: 'Published At',
+        fi: 'Julkaistu',
+      },
     },
     {
       name: 'authors',
@@ -191,6 +227,10 @@ export const Projects: CollectionConfig<'projects'> = {
       },
       hasMany: true,
       relationTo: 'users',
+      label: {
+        en: 'Authors',
+        fi: 'Kirjoittajat',
+      },
     },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy
@@ -216,7 +256,14 @@ export const Projects: CollectionConfig<'projects'> = {
         },
       ],
     },
-    ...slugField(),
+    ...slugField('title', {
+      slugOverrides: {
+        label: {
+          en: 'Slug',
+          fi: 'Polkutunnus',
+        },
+      },
+    }),
   ],
   hooks: {
     afterChange: [revalidatePost],

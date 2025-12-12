@@ -18,6 +18,16 @@ import { EMPTY_EDITOR_STATE, normalizeRichTextValue } from '@/utilities/lexical'
 
 export const Sponsors: CollectionConfig<'sponsors'> = {
   slug: 'sponsors',
+  labels: {
+    singular: {
+      en: 'Sponsor',
+      fi: 'Sponsori',
+    },
+    plural: {
+      en: 'Sponsors',
+      fi: 'Sponsorit',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -51,27 +61,44 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
   },
 
   fields: [
-    { name: 'name', type: 'text', required: true },
+    {
+      name: 'name',
+      type: 'text',
+      required: true,
+      label: {
+        en: 'Name',
+        fi: 'Nimi',
+      },
+    },
 
     {
       type: 'tabs',
       tabs: [
         {
-          label: 'Content',
+          label: {
+            en: 'Content',
+            fi: 'Sisältö',
+          },
           fields: [
             {
               type: 'row',
               fields: [
                 {
                   name: 'lightLogo',
-                  label: 'Logo (Light theme)',
+                  label: {
+                    en: 'Logo (Light theme)',
+                    fi: 'Logo (Vaalea teema)',
+                  },
                   type: 'upload',
                   relationTo: 'media',
                   required: true,
                 },
                 {
                   name: 'darkLogo',
-                  label: 'Logo (Dark theme)',
+                  label: {
+                    en: 'Logo (Dark theme)',
+                    fi: 'Logo (Tumma teema)',
+                  },
                   type: 'upload',
                   relationTo: 'media',
                 },
@@ -79,7 +106,10 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
             },
             {
               name: 'about',
-              label: 'About / Info',
+              label: {
+                en: 'About / Info',
+                fi: 'Tietoa',
+              },
               type: 'richText',
               editor: lexicalEditor({
                 features: ({ rootFeatures }) => [
@@ -100,11 +130,17 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
         },
 
         {
-          label: 'Meta',
+          label: {
+            en: 'Meta',
+            fi: 'Meta',
+          },
           fields: [
             {
               name: 'website',
-              label: 'Website URL',
+              label: {
+                en: 'Website URL',
+                fi: 'Verkkosivun osoite',
+              },
               type: 'text',
               admin: {
                 position: 'sidebar',
@@ -125,30 +161,93 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
             },
             {
               name: 'tier',
-              label: 'Tier',
+              label: {
+                en: 'Tier',
+                fi: 'Taso',
+              },
               type: 'select',
               required: true,
               defaultValue: 'community',
               options: [
-                { label: 'Platinum', value: 'platinum' },
-                { label: 'Gold', value: 'gold' },
-                { label: 'Silver', value: 'silver' },
-                { label: 'Bronze', value: 'bronze' },
-                { label: 'Community / Partner', value: 'community' },
+                {
+                  label: {
+                    en: 'Platinum',
+                    fi: 'Platina',
+                  },
+                  value: 'platinum',
+                },
+                {
+                  label: {
+                    en: 'Gold',
+                    fi: 'Kulta',
+                  },
+                  value: 'gold',
+                },
+                {
+                  label: {
+                    en: 'Silver',
+                    fi: 'Hopea',
+                  },
+                  value: 'silver',
+                },
+                {
+                  label: {
+                    en: 'Bronze',
+                    fi: 'Pronssi',
+                  },
+                  value: 'bronze',
+                },
+                {
+                  label: {
+                    en: 'Community / Partner',
+                    fi: 'Yhteisö / Kumppani',
+                  },
+                  value: 'community',
+                },
               ],
             },
             {
               type: 'row',
               fields: [
-                { name: 'isFeatured', label: 'Featured', type: 'checkbox', defaultValue: false },
-                { name: 'order', label: 'Sort Order', type: 'number', defaultValue: 0 },
+                {
+                  name: 'isFeatured',
+                  label: {
+                    en: 'Featured',
+                    fi: 'Nosto',
+                  },
+                  type: 'checkbox',
+                  defaultValue: false,
+                },
+                {
+                  name: 'order',
+                  label: {
+                    en: 'Sort Order',
+                    fi: 'Järjestys',
+                  },
+                  type: 'number',
+                  defaultValue: 0,
+                },
               ],
             },
             {
               type: 'row',
               fields: [
-                { name: 'startDate', label: 'Start date', type: 'date' },
-                { name: 'endDate', label: 'End date', type: 'date' },
+                {
+                  name: 'startDate',
+                  label: {
+                    en: 'Start date',
+                    fi: 'Aloituspäivä',
+                  },
+                  type: 'date',
+                },
+                {
+                  name: 'endDate',
+                  label: {
+                    en: 'End date',
+                    fi: 'Lopetuspäivä',
+                  },
+                  type: 'date',
+                },
               ],
             },
           ],
@@ -162,6 +261,10 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
       admin: {
         date: { pickerAppearance: 'dayAndTime' },
         position: 'sidebar',
+      },
+      label: {
+        en: 'Published At',
+        fi: 'Julkaistu',
       },
       hooks: {
         beforeChange: [

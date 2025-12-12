@@ -6,6 +6,16 @@ import { slugField } from '@/fields/slug'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
+  labels: {
+    singular: {
+      en: 'Category',
+      fi: 'Kategoria',
+    },
+    plural: {
+      en: 'Categories',
+      fi: 'Kategoriat',
+    },
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -20,7 +30,18 @@ export const Categories: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      label: {
+        en: 'Title',
+        fi: 'Otsikko',
+      },
     },
-    ...slugField(),
+    ...slugField('title', {
+      slugOverrides: {
+        label: {
+          en: 'Slug',
+          fi: 'Polkutunnus',
+        },
+      },
+    }),
   ],
 }
