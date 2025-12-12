@@ -43,7 +43,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
       className="sticky top-0 inset-x-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="mx-auto max-w-screen-xl px-4 py-3 flex items-center gap-3">
+      <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-3 flex items-center gap-3">
         <Link href="/" className="flex items-center shrink-0">
           {header?.logo ? (
             <Media resource={header.logo as any} imgClassName="h-8 w-auto object-contain" pictureClassName="block" />

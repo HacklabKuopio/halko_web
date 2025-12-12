@@ -13,6 +13,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { bunnyStorage } from '@/plugins/storage-bunny/src'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Hacklab Kuopio ry` : 'Hacklab Kuopio ry'
@@ -91,4 +92,14 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
+  bunnyStorage({
+    apiKey: process.env.BUNNY_API_KEY || '',
+    storageZone: process.env.BUNNY_STORAGE_ZONE_NAME || '',
+    region: process.env.BUNNY_REGION,
+    collections: {
+      media: true,
+    },
+    disableLocalStorage: true,
+    enabled: true,
+  }),
 ]

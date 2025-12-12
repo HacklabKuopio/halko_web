@@ -59,7 +59,7 @@ export default async function Post({ params: paramsPromise }: Args) {
         <div className="container">
           {post.content && (
             <RichText
-              className="max-w-[48rem] mx-auto"
+              className="max-w-3xl mx-auto"
               // post.content matches the shape but is optional; narrow via conditional
               data={post.content as any}
               enableGutter={false}
@@ -67,7 +67,7 @@ export default async function Post({ params: paramsPromise }: Args) {
           )}
           {post.relatedPosts && post.relatedPosts.length > 0 && (
             <RelatedPosts
-              className="mt-12 max-w-[52rem] lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
+              className="mt-12 max-w-208 lg:grid lg:grid-cols-subgrid col-start-1 col-span-3 grid-rows-[2fr]"
               docs={post.relatedPosts.filter((p): p is Project | Post => typeof p === 'object')}
               relationTo="projects"
             />

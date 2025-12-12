@@ -44,6 +44,8 @@ export default async function RootLayout({ children, params }: Args) {
   const { isEnabled } = await draftMode()
   const messages = await getMessages()
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable)}
@@ -57,16 +59,11 @@ export default async function RootLayout({ children, params }: Args) {
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <title>Hacklab Kuopio ry</title>
         {/* Plausible Analytics */}
-        <Script
-          id="plausible-inline"
-          strategy="beforeInteractive"
-        >{`window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }`}</Script>
-        <Script
-          id="plausible-script"
-          strategy="afterInteractive"
-          data-domain="halko.fi"
-          src="https://analytics.bittive.com/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
-        />
+        <Script async src={process.env.PLAUSIBLE_INIT}></Script>
+        <Script>
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}`};
+          plausible.init()
+        </Script>
       </head>
       <body>
         <Providers>
@@ -93,7 +90,7 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@jeb4',
   },
 }
 
