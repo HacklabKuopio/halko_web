@@ -32,11 +32,11 @@ const RedeployButton: React.FC = () => {
   }, [])
 
   return (
-    <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 4 }}>
-      <Button buttonStyle="primary" size="small" onClick={handleClick} disabled={isLoading}>
-        {isLoading ? 'Sending redeploy…' : 'Trigger redeploy'}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+      <Button buttonStyle="secondary" size="small" onClick={handleClick} disabled={isLoading}>
+        {isLoading ? 'Building...' : 'Trigger Build'}
       </Button>
-      {message && <div style={{ fontSize: '0.75rem' }}>{message}</div>}
+      {message && <div style={{ fontSize: '0.75rem', color: 'var(--theme-success-500)' }}>{message}</div>}
     </div>
   )
 }
