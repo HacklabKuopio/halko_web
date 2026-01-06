@@ -11,7 +11,6 @@ import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
-import { Projects } from './collections/Projects'
 import { Users } from './collections/Users'
 import { Sponsors } from './collections/Sponsors'
 import { Footer } from './Footer/config'
@@ -21,6 +20,7 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import localization from './i18n/localization'
 import { redeployEndpoint } from './endpoints/redeploy'
+import { email } from './email'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -64,6 +64,7 @@ export default buildConfig({
   i18n: {
     supportedLanguages: { en },
   },
+  email,
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: postgresAdapter({
@@ -71,7 +72,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Projects, Sponsors],
+  collections: [Pages, Posts, Media, Categories, Users, Sponsors],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   endpoints: [redeployEndpoint],

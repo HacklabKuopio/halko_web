@@ -349,7 +349,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                         format: 0,
                         mode: 'normal',
                         style: '',
-                        text: 'Custom page builder allows you to create unique page, post, and project layouts for any type of content.',
+                        text: 'Custom page builder allows you to create unique page and post layouts for any type of content.',
                         version: 1,
                       },
                     ],

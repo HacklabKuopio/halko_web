@@ -34,16 +34,6 @@ const collectionLabels = {
       singular: 'Artikkeli',
     },
   },
-  projects: {
-    en: {
-      plural: 'Projects',
-      singular: 'Project',
-    },
-    fi: {
-      plural: 'Projektit',
-      singular: 'Projekti',
-    },
-  },
 }
 
 const Title: React.FC = () => <span>Dashboard</span>
