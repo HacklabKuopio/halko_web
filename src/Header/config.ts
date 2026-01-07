@@ -19,6 +19,16 @@ export const Header: GlobalConfig = {
       },
     },
     {
+      name: 'enableKokStatus',
+      type: 'checkbox',
+      label: 'Enable Kok Status Indicator',
+      defaultValue: false,
+      admin: {
+        description: 'Show the Kok status indicator (green/gray circle) for this site.',
+        condition: () => process.env.HOSTNAME === 'halko.fi',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [

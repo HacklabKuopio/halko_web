@@ -8,6 +8,7 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SponsorsBlock } from '@/blocks/Sponsors/Component'
+import { CustomerSpecificBlock } from '@/blocks/CustomerSpecific/Component'
 import { TypedLocale } from 'payload'
 
 const blockComponents = {
@@ -17,6 +18,7 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   sponsors: SponsorsBlock,
+  customerSpecific: CustomerSpecificBlock,
 }
 
 export const RenderBlocks: React.FC<{

@@ -40,6 +40,9 @@ const nextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
+  env: {
+    HOSTNAME: process.env.HOSTNAME,
+  },
   redirects,
 }
 

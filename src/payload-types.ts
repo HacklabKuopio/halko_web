@@ -1686,6 +1686,10 @@ export interface Header {
    */
   logo?: (number | null) | Media;
   /**
+   * Show the Kok status indicator (green/gray circle) for this site.
+   */
+  enableKokStatus?: boolean | null;
+  /**
    * Add optional dropdown links under each item
    */
   navItems?:
@@ -1817,6 +1821,7 @@ export interface Footer {
  */
 export interface HeaderSelect<T extends boolean = true> {
   logo?: T;
+  enableKokStatus?: T;
   navItems?:
     | T
     | {

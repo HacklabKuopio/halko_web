@@ -13,6 +13,7 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { Sponsors } from '../../blocks/Sponsors/config'
+import { CustomerSpecific } from '../../blocks/CustomerSpecific/config'
 
 import {
   MetaDescriptionField,
@@ -94,7 +95,16 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Sponsors],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                Sponsors,
+                /* Example: Only available for halko.fi */
+                ...(process.env.HOSTNAME === 'halko.fi' ? [CustomerSpecific] : []),
+              ],
               required: true,
               admin: {
                 initCollapsed: true,

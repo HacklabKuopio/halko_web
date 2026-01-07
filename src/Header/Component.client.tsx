@@ -64,12 +64,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
           {/* Desktop nav */}
           <div className="hidden sm:flex items-center gap-4">
             <HeaderNav header={header} className="flex-row" />
-            <KokStatusIndicator />
+            {header.enableKokStatus && <KokStatusIndicator />}
             <LocaleSwitcher className="ms-2" />
           </div>
 
           <div className="block sm:hidden">
-            <KokStatusIndicator />
+            {header.enableKokStatus && <KokStatusIndicator />}
           </div>
 
           {/* Mobile hamburger */}
