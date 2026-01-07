@@ -87,6 +87,6 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Hacklab Kuopio ry Search`,
+    title: `${process.env.WEBSITE_NAME} Search`,
   }
 }

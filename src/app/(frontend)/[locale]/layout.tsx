@@ -57,7 +57,7 @@ export default async function RootLayout({ children, params }: Args) {
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-        <title>Hacklab Kuopio ry</title>
+        <title>${process.env.WEBSITE_NAME}</title>
         {/* Plausible Analytics */}
         <Script async src={process.env.PLAUSIBLE_INIT}></Script>
         <Script>

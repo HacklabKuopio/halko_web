@@ -4,7 +4,7 @@ import { EmailAdapter } from 'payload'
 export const email: Promise<EmailAdapter> | undefined = process.env.SMTP_HOST
   ? nodemailerAdapter({
       defaultFromAddress: process.env.SMTP_USER || 'info@bittive.com',
-      defaultFromName: process.env.SERVICE_NAME || 'PayloadCMS',
+      defaultFromName: process.env.WEBSITE_NAME || 'PayloadCMS',
       transportOptions: {
         host: process.env.SMTP_HOST,
         port: Number(process.env.SMTP_PORT) || 587,

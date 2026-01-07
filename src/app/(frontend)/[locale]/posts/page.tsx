@@ -63,6 +63,6 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Hacklab Kuopio ry Posts`,
+    title: `${process.env.WEBSITE_NAME} Posts`,
   }
 }

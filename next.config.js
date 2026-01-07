@@ -23,7 +23,7 @@ const nextConfig = {
       }),
       {
         protocol: 'https',
-        hostname: 'halko.fi',
+        hostname: process.env.HOSTNAME,
         port: '',
         pathname: '/api/media/**',
       },

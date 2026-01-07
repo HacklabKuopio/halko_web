@@ -16,7 +16,7 @@ import { getServerSideURL } from '@/utilities/getURL'
 import { bunnyStorage } from '@/plugins/storage-bunny/src'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Hacklab Kuopio ry` : 'Hacklab Kuopio ry'
+  return doc?.title ? `${doc.title} | ${process.env.WEBSITE_NAME}` : 'My Website'
 }
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {

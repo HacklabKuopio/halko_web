@@ -9,8 +9,8 @@ const defaultOpenGraph: Metadata['openGraph'] = {
       url: `${getServerSideURL()}/website-template-OG.webp`,
     },
   ],
-  siteName: 'Hacklab Kuopio ry',
-  title: 'Hacklab Kuopio ry',
+  siteName: process.env.WEBSITE_NAME,
+  title: process.env.WEBSITE_NAME,
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

@@ -26,7 +26,7 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title ? doc?.meta?.title + ' | Hacklab Kuopio ry' : 'Hacklab Kuopio ry'
+  const title = doc?.meta?.title ? doc?.meta?.title + ' | ${process.env.WEBSITE_NAME}' : 'My Website'
 
   return {
     description: doc?.meta?.description,
