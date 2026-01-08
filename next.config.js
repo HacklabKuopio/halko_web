@@ -23,9 +23,19 @@ const nextConfig = {
       }),
       {
         protocol: 'https',
-        hostname: process.env.HOSTNAME,
+        hostname: process.env.HOSTNAME || 'localhost',
         port: '',
         pathname: '/api/media/**',
+      },
+    ],
+    localPatterns: [
+      {
+        pathname: '/**',
+        search: '',
+      },
+      {
+        pathname: '/**',
+        search: '?**',
       },
     ],
     unoptimized: false,

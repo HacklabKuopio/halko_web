@@ -15,6 +15,7 @@ import { Users } from './collections/Users'
 import { Sponsors } from './collections/Sponsors'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { Brand } from './Brand/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -74,7 +75,7 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, Sponsors],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, Brand],
   endpoints: [redeployEndpoint],
   plugins: [
     ...plugins,

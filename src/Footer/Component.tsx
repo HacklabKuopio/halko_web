@@ -94,7 +94,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
   const bottomText = (footer as any)?.bottomText
 
   return (
-    <footer className="border-t border-border bg-black dark:bg-card text-white">
+    <footer className="border-t border-border bg-card text-card-foreground">
       <div className="container py-10">
         {/* Top section: brand/about + link columns */}
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
@@ -104,7 +104,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
               {footer?.logo ? (
                 <Media
                   resource={footer.logo as any}
-                  imgClassName="h-24 w-auto object-contain invert-0"
+                  imgClassName="h-24 w-auto object-contain"
                   pictureClassName="block"
                 />
               ) : (
@@ -130,14 +130,14 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
             {columns.map((col: any, idx: number) => (
               <div key={idx}>
                 {!col.hideTitle && col.title && (
-                  <h3 className="mb-4 text-sm font-semibold tracking-wide text-gray-200 uppercase">
+                  <h3 className="mb-4 text-sm font-semibold tracking-wide text-foreground uppercase">
                     {col.title}
                   </h3>
                 )}
                 <ul className="space-y-3">
                   {(col.links || []).map(({ link }: any, i: number) => (
                     <li key={i}>
-                      <CMSLink className="text-gray-300 hover:text-white" {...link} />
+                      <CMSLink className="text-muted-foreground hover:text-foreground transition-colors" {...link} />
                     </li>
                   ))}
                 </ul>
@@ -147,7 +147,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
         </div>
 
         {/* Divider */}
-        <div className="mt-8 border-t border-white/10 pt-6 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <div className="mt-8 border-t border-border pt-6 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           {/* Bottom left text */}
           <p className="text-sm text-gray-400">
             {bottomText || `© ${new Date().getFullYear()} All rights reserved.`}

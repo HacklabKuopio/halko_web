@@ -108,10 +108,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    brand: Brand;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    brand: BrandSelect<false> | BrandSelect<true>;
   };
   locale: 'en' | 'fi';
   user: User & {
@@ -1817,6 +1819,87 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brand".
+ */
+export interface Brand {
+  id: number;
+  /**
+   * Select a base color theme. Custom colors below will override these presets.
+   */
+  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet') | null;
+  background?: string | null;
+  foreground?: string | null;
+  card?: string | null;
+  cardForeground?: string | null;
+  popover?: string | null;
+  popoverForeground?: string | null;
+  primary?: string | null;
+  primaryForeground?: string | null;
+  secondary?: string | null;
+  secondaryForeground?: string | null;
+  muted?: string | null;
+  mutedForeground?: string | null;
+  accent?: string | null;
+  accentForeground?: string | null;
+  destructive?: string | null;
+  destructiveForeground?: string | null;
+  border?: string | null;
+  input?: string | null;
+  ring?: string | null;
+  dark_background?: string | null;
+  dark_foreground?: string | null;
+  dark_card?: string | null;
+  dark_cardForeground?: string | null;
+  dark_popover?: string | null;
+  dark_popoverForeground?: string | null;
+  dark_primary?: string | null;
+  dark_primaryForeground?: string | null;
+  dark_secondary?: string | null;
+  dark_secondaryForeground?: string | null;
+  dark_muted?: string | null;
+  dark_mutedForeground?: string | null;
+  dark_accent?: string | null;
+  dark_accentForeground?: string | null;
+  dark_destructive?: string | null;
+  dark_destructiveForeground?: string | null;
+  dark_border?: string | null;
+  dark_input?: string | null;
+  dark_ring?: string | null;
+  /**
+   * Select the primary font family for the website.
+   */
+  font?: ('geist' | 'inter' | 'roboto') | null;
+  /**
+   * Paste the Google Fonts embed URL (href) here (e.g., https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap). This overrides the font selection above.
+   */
+  googleFontsCode?: string | null;
+  /**
+   * If using Google Fonts, enter the CSS font-family name here (e.g., "Open Sans").
+   */
+  customFontFamily?: string | null;
+  radius?: ('0px' | '0.3rem' | '0.5rem' | '0.75rem' | '9999px') | null;
+  /**
+   * Add custom CSS here. This will be injected globally. Use with caution.
+   */
+  rawCss?: string | null;
+  favicon?: (number | null) | Media;
+  /**
+   * Default image for social sharing.
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * Code to inject into the <head> section (e.g., Google Analytics, Meta Pixel).
+   */
+  headCode?: string | null;
+  /**
+   * Code to inject before the closing </body> tag.
+   */
+  footerCode?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1898,6 +1981,63 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   bottomText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brand_select".
+ */
+export interface BrandSelect<T extends boolean = true> {
+  theme?: T;
+  background?: T;
+  foreground?: T;
+  card?: T;
+  cardForeground?: T;
+  popover?: T;
+  popoverForeground?: T;
+  primary?: T;
+  primaryForeground?: T;
+  secondary?: T;
+  secondaryForeground?: T;
+  muted?: T;
+  mutedForeground?: T;
+  accent?: T;
+  accentForeground?: T;
+  destructive?: T;
+  destructiveForeground?: T;
+  border?: T;
+  input?: T;
+  ring?: T;
+  dark_background?: T;
+  dark_foreground?: T;
+  dark_card?: T;
+  dark_cardForeground?: T;
+  dark_popover?: T;
+  dark_popoverForeground?: T;
+  dark_primary?: T;
+  dark_primaryForeground?: T;
+  dark_secondary?: T;
+  dark_secondaryForeground?: T;
+  dark_muted?: T;
+  dark_mutedForeground?: T;
+  dark_accent?: T;
+  dark_accentForeground?: T;
+  dark_destructive?: T;
+  dark_destructiveForeground?: T;
+  dark_border?: T;
+  dark_input?: T;
+  dark_ring?: T;
+  font?: T;
+  googleFontsCode?: T;
+  customFontFamily?: T;
+  radius?: T;
+  rawCss?: T;
+  favicon?: T;
+  ogImage?: T;
+  headCode?: T;
+  footerCode?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

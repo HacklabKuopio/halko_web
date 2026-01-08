@@ -1,4 +1,4 @@
-import { getClientSideURL } from '@/utilities/getURL'
+
 
 /**
  * Processes media resource URL to ensure proper formatting
@@ -9,16 +9,12 @@ import { getClientSideURL } from '@/utilities/getURL'
 export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | null): string => {
   if (!url) return ''
 
-  if (cacheTag && cacheTag !== '') {
-    cacheTag = encodeURIComponent(cacheTag)
-  }
 
   // Check if URL already has http/https protocol
   if (url.startsWith('http://') || url.startsWith('https://')) {
     return cacheTag ? `${url}?${cacheTag}` : url
   }
 
-  // Otherwise prepend client-side URL
-  const baseUrl = getClientSideURL()
-  return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`
+  // Otherwise return relative URL (for Next.js image optimization to work locally without "private ip" error)
+  return cacheTag ? `${url}?${cacheTag}` : url
 }

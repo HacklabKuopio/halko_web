@@ -7,6 +7,7 @@ node_modules
 .vercel
 .idea
 .vscode
+.playwright-mcp
 
 # Payload default media upload directory
 public/media/
