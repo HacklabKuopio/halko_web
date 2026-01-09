@@ -40,9 +40,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
 
   return (
     <header
+      id="site-header"
       className="sticky top-0 inset-x-0 z-40 border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       {...(theme ? { 'data-theme': theme } : {})}
     >
+      {header.customCss && (
+        <style dangerouslySetInnerHTML={{ __html: header.customCss.replace(/&/g, '#site-header') }} />
+      )}
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-3 flex items-center gap-3">
         <Link href="/" className="flex items-center shrink-0">
           {header?.logo ? (
@@ -123,18 +127,23 @@ export function LocaleSwitcher({ className }: { className?: string }) {
 
   const locales = localization.locales.slice().sort((a, b) => a.label.localeCompare(b.label))
   const activeIndex = locales.findIndex((l) => l.code === locale)
+  const count = locales.length
 
   return (
     <div className={className || ''}>
       <div
         role="group"
         aria-label="Language selector"
-        className="relative inline-flex items-center rounded-md border border-muted-foreground/20 bg-muted/40 backdrop-blur-sm px-0.5 py-0.5 text-xs"
+        className="relative inline-flex items-center rounded-md border border-muted-foreground/20 bg-muted/40 backdrop-blur-sm p-1 text-xs"
       >
         <span
           aria-hidden
-          className="absolute inset-y-0 left-0 w-1/2 rounded-[4px] bg-background shadow transition-transform duration-200 ease-out"
-          style={{ transform: `translateX(${activeIndex * 100}%)` }}
+          className="absolute inset-y-1 rounded-sm bg-background shadow transition-transform duration-200 ease-out"
+          style={{
+            left: '4px',
+            width: `calc((100% - 8px) / ${count})`,
+            transform: `translateX(${activeIndex * 100}%)`,
+          }}
         />
         {locales.map((loc, i) => {
           const isActive = i === activeIndex
@@ -147,7 +156,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
               aria-current={isActive ? 'true' : undefined}
               title={loc.label}
               onClick={() => onSelectChange(loc.code as TypedLocale)}
-              className="relative z-10 px-2.5 py-1 leading-none font-medium tracking-wide uppercase text-[11px] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50"
+              className="relative z-10 min-w-[32px] px-2 py-1 flex-1 inline-flex justify-center leading-none font-medium tracking-wide uppercase text-[11px] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50"
             >
               <span className={isActive ? 'text-foreground' : 'text-muted-foreground'}>{code}</span>
             </button>

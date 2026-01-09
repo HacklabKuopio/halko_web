@@ -11,6 +11,12 @@ import { SponsorsBlock } from '@/blocks/Sponsors/Component'
 import { CustomerSpecificBlock } from '@/blocks/CustomerSpecific/Component'
 import { TypedLocale } from 'payload'
 
+import AboutSection from '@/blocks/Kuosec/AboutSection'
+import ContactSection from '@/blocks/Kuosec/ContactSection'
+import EventsSection from '@/blocks/Kuosec/EventsSection'
+import HeroSection from '@/blocks/Kuosec/HeroSection'
+import MembershipSection from '@/blocks/Kuosec/MembershipSection'
+
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
@@ -19,6 +25,11 @@ const blockComponents = {
   mediaBlock: MediaBlock,
   sponsors: SponsorsBlock,
   customerSpecific: CustomerSpecificBlock,
+  aboutSection: process.env.HOSTNAME === 'kuosec.fi' ? AboutSection : null,
+  contactSection: process.env.HOSTNAME === 'kuosec.fi' ? ContactSection : null,
+  eventsSection: process.env.HOSTNAME === 'kuosec.fi' ? EventsSection : null,
+  heroSection: process.env.HOSTNAME === 'kuosec.fi' ? HeroSection : null,
+  membershipSection: process.env.HOSTNAME === 'kuosec.fi' ? MembershipSection : null,
 }
 
 export const RenderBlocks: React.FC<{
@@ -40,7 +51,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div className="my-16" key={index}>
+                <div className="render-block my-16" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer locale={locale} />
                 </div>

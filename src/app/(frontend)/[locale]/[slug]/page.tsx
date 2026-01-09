@@ -11,6 +11,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
+import GridBackground from '@/blocks/Kuosec/GridBackground'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -56,12 +57,14 @@ export default async function Page({ params: paramsPromise }: Args) {
     return <PayloadRedirects url={url} />
   }
 
-  const { hero, layout } = page
+  const { hero, layout, backgroundComponent } = page
 
   return (
     <article className="pt-16 pb-24">
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
+
+      {backgroundComponent === 'grid' && <GridBackground />}
 
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} locale={locale} />

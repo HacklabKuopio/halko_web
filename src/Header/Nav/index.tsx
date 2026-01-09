@@ -29,7 +29,12 @@ export const HeaderNav: React.FC<{
         return (
           <div key={i} className="relative group w-full sm:w-auto">
             {hasChildren ? (
-              <span className="text-sm inline-flex items-center gap-1 px-2 py-1 w-full justify-end text-right sm:w-auto">
+              <span
+                className={clsx(
+                  'text-sm inline-flex items-center gap-1 px-2 py-1 w-full justify-end text-right sm:w-auto',
+                  item.customClass,
+                )}
+              >
                 {item.link?.label}
                 <ChevronDown className="hidden sm:inline-block h-3.5 w-3.5 opacity-70 group-hover:opacity-100 transition" />
               </span>
@@ -38,7 +43,10 @@ export const HeaderNav: React.FC<{
                 {...item.link}
                 appearance="link"
                 onClick={onNavigateAction}
-                className="text-sm inline-flex items-center gap-1 px-2 py-1 w-full justify-end text-right sm:w-auto"
+                className={clsx(
+                  'text-sm inline-flex items-center gap-1 px-2 py-1 w-full justify-end text-right sm:w-auto',
+                  item.customClass,
+                )}
               />
             )}
             {/* Desktop dropdown: use top-full + pt-2 so there's no hover gap */}

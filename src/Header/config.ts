@@ -36,6 +36,14 @@ export const Header: GlobalConfig = {
           appearances: false,
         }),
         {
+          name: 'customClass',
+          type: 'text',
+          label: 'Custom CSS Class',
+          admin: {
+            description: 'Optional custom class for this item (e.g. "cta-btn" for button styling).',
+          }
+        },
+        {
           name: 'children',
           type: 'array',
           label: 'Dropdown links (optional)',
@@ -51,6 +59,15 @@ export const Header: GlobalConfig = {
         },
         description: 'Add optional dropdown links under each item',
       },
+    },
+    {
+      name: 'customCss',
+      type: 'code',
+      label: 'Custom CSS',
+      admin: {
+        language: 'css',
+        description: 'Custom CSS for the header. Use & to reference the header element.',
+      }
     },
   ],
   hooks: {

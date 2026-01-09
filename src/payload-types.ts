@@ -198,7 +198,19 @@ export interface Page {
       | null;
     media?: (number | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock | SponsorsBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | SponsorsBlock
+    | AboutSectionBlock
+    | ContactSectionBlock
+    | EventsSectionBlock
+    | HeroSectionBlock
+    | MembershipSectionBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -208,6 +220,7 @@ export interface Page {
     description?: string | null;
   };
   publishedAt?: string | null;
+  backgroundComponent?: ('none' | 'grid') | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -772,6 +785,226 @@ export interface SponsorsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSectionBlock".
+ */
+export interface AboutSectionBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  description?: string | null;
+  features?:
+    | {
+        icon?: ('Shield' | 'Users' | 'Calendar' | 'Terminal') | null;
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  cfpTitle?: string | null;
+  cfpDescription?: string | null;
+  cfpLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactSectionBlock".
+ */
+export interface ContactSectionBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  links?:
+    | {
+        icon?: ('MessageSquare' | 'Mail' | 'Linkedin') | null;
+        label?: string | null;
+        value?: string | null;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  sponsorsSubtitle?: string | null;
+  sponsorsTitle?: string | null;
+  sponsorsText?: string | null;
+  sponsorLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsSectionBlock".
+ */
+export interface EventsSectionBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  eventTitle?: string | null;
+  eventDate?: string | null;
+  eventTime?: string | null;
+  eventLocation?: string | null;
+  schedule?:
+    | {
+        time?: string | null;
+        event?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventsSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSectionBlock".
+ */
+export interface HeroSectionBlock {
+  title?: string | null;
+  highlight?: string | null;
+  subtitle?: string | null;
+  tagline?: string | null;
+  logo?: (number | null) | Media;
+  primaryLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  contactLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MembershipSectionBlock".
+ */
+export interface MembershipSectionBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  description?: string | null;
+  membershipTypes?:
+    | {
+        title?: string | null;
+        price?: string | null;
+        period?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  paymentRecipient?: string | null;
+  paymentAccount?: string | null;
+  paymentReference?: string | null;
+  paymentInstruction?: string | null;
+  joinLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  infoLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'membershipSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sponsors".
  */
 export interface Sponsor {
@@ -1114,6 +1347,11 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         sponsors?: T | SponsorsBlockSelect<T>;
+        aboutSection?: T | AboutSectionBlockSelect<T>;
+        contactSection?: T | ContactSectionBlockSelect<T>;
+        eventsSection?: T | EventsSectionBlockSelect<T>;
+        heroSection?: T | HeroSectionBlockSelect<T>;
+        membershipSection?: T | MembershipSectionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1123,6 +1361,7 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  backgroundComponent?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -1224,6 +1463,167 @@ export interface SponsorsBlockSelect<T extends boolean = true> {
   onlyFeatured?: T;
   onlyCurrentlyActive?: T;
   limit?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSectionBlock_select".
+ */
+export interface AboutSectionBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  description?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  cfpTitle?: T;
+  cfpDescription?: T;
+  cfpLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactSectionBlock_select".
+ */
+export interface ContactSectionBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  links?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        value?: T;
+        href?: T;
+        id?: T;
+      };
+  sponsorsSubtitle?: T;
+  sponsorsTitle?: T;
+  sponsorsText?: T;
+  sponsorLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsSectionBlock_select".
+ */
+export interface EventsSectionBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  eventTitle?: T;
+  eventDate?: T;
+  eventTime?: T;
+  eventLocation?: T;
+  schedule?:
+    | T
+    | {
+        time?: T;
+        event?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSectionBlock_select".
+ */
+export interface HeroSectionBlockSelect<T extends boolean = true> {
+  title?: T;
+  highlight?: T;
+  subtitle?: T;
+  tagline?: T;
+  logo?: T;
+  primaryLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  contactLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MembershipSectionBlock_select".
+ */
+export interface MembershipSectionBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  description?: T;
+  membershipTypes?:
+    | T
+    | {
+        title?: T;
+        price?: T;
+        period?: T;
+        description?: T;
+        id?: T;
+      };
+  paymentRecipient?: T;
+  paymentAccount?: T;
+  paymentReference?: T;
+  paymentInstruction?: T;
+  joinLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  infoLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1711,6 +2111,10 @@ export interface Header {
           url?: string | null;
           label: string;
         };
+        /**
+         * Optional custom class for this item (e.g. "cta-btn" for button styling).
+         */
+        customClass?: string | null;
         children?:
           | {
               link: {
@@ -1734,6 +2138,10 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Custom CSS for the header. Use & to reference the header element.
+   */
+  customCss?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1826,7 +2234,7 @@ export interface Brand {
   /**
    * Select a base color theme. Custom colors below will override these presets.
    */
-  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet') | null;
+  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet' | 'kuosec') | null;
   background?: string | null;
   foreground?: string | null;
   card?: string | null;
@@ -1917,6 +2325,7 @@ export interface HeaderSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        customClass?: T;
         children?:
           | T
           | {
@@ -1933,6 +2342,7 @@ export interface HeaderSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  customCss?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

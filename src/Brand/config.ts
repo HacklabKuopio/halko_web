@@ -1,21 +1,57 @@
 import type { GlobalConfig, Field } from 'payload'
 import { revalidateBrand } from './hooks/revalidateBrand'
+import { themes } from './themes'
 
-const colorField = (name: string, label: string): Field => ({
-  name,
-  type: 'text',
-  label,
-  admin: {
-    components: {
-      Field: '@/components/ColorPicker/Component.client#ColorPicker',
+function hslToHex(h: number, s: number, l: number) {
+  l /= 100
+  const a = (s * Math.min(l, 1 - l)) / 100
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0')
+  }
+  return `#${f(0)}${f(8)}${f(4)}`.toUpperCase()
+}
+
+function parseHslString(hsl: string): string {
+  const parts = hsl.trim().split(' ')
+  if (parts.length !== 3) return ''
+
+  const h = parseFloat(parts[0])
+  const s = parseFloat(parts[1].replace('%', ''))
+  const l = parseFloat(parts[2].replace('%', ''))
+
+  return hslToHex(h, s, l)
+}
+
+const colorField = (name: string, label: string): Field => {
+  const isDark = name.startsWith('dark_')
+  const mode = isDark ? 'dark' : 'light'
+  const baseName = name.replace(/^dark_/, '')
+  const token = '--' + baseName.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase())
+  // @ts-ignore
+  const hsl = themes.slate[mode][token]
+  const defaultValue = hsl ? parseHslString(hsl) : undefined
+
+  return {
+    name,
+    type: 'text',
+    label,
+    defaultValue,
+    admin: {
+      components: {
+        Field: '@/components/ColorPicker/Component.client#ColorPicker',
+      },
     },
-  },
-  validate: (val: string | null | undefined) => {
-    if (!val) return true
-    if (/^#[0-9A-F]{6}$/i.test(val)) return true
-    return 'Please enter a valid hex color (e.g. #3B82F6)'
-  },
-})
+    validate: (val: string | null | undefined) => {
+      if (!val) return true
+      if (/^#[0-9A-F]{6}$/i.test(val)) return true
+      return 'Please enter a valid hex color (e.g. #3B82F6)'
+    },
+  }
+}
 
 const createColorFields = (prefix: string = ''): Field[] => [
   {
@@ -106,6 +142,7 @@ export const Brand: GlobalConfig = {
                 { label: 'Rose (Pink)', value: 'rose' },
                 { label: 'Amber (Orange)', value: 'amber' },
                 { label: 'Violet (Purple)', value: 'violet' },
+                { label: 'KuoSec (Cyberpunk)', value: 'kuosec' },
               ],
               defaultValue: 'slate',
               admin: {

@@ -14,6 +14,7 @@ import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { Sponsors } from '../../blocks/Sponsors/config'
 import { CustomerSpecific } from '../../blocks/CustomerSpecific/config'
+import { AboutSectionBlock, ContactSectionBlock, EventsSectionBlock, HeroSectionBlock, MembershipSectionBlock } from '../../blocks/Kuosec/config'
 
 import {
   MetaDescriptionField,
@@ -102,6 +103,15 @@ export const Pages: CollectionConfig<'pages'> = {
                 Archive,
                 FormBlock,
                 Sponsors,
+                ...(process.env.HOSTNAME === 'kuosec.fi'
+                  ? [
+                      AboutSectionBlock,
+                      ContactSectionBlock,
+                      EventsSectionBlock,
+                      HeroSectionBlock,
+                      MembershipSectionBlock,
+                    ]
+                  : []),
                 /* Example: Only available for halko.fi */
                 ...(process.env.HOSTNAME === 'halko.fi' ? [CustomerSpecific] : []),
               ],
@@ -159,6 +169,21 @@ export const Pages: CollectionConfig<'pages'> = {
         en: 'Published At',
         fi: 'Julkaistu',
       },
+    },
+    {
+      name: 'backgroundComponent',
+      type: 'select',
+      admin: {
+        position: 'sidebar',
+      },
+      options: [
+        { label: 'None', value: 'none' },
+        ...(process.env.HOSTNAME === 'kuosec.fi'
+          ? [{ label: 'Grid Background (Kuosec)', value: 'grid' }]
+          : []),
+      ],
+      defaultValue: 'none',
+      label: 'Background Component',
     },
     ...slugField('title', {
       slugOverrides: {
