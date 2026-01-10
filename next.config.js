@@ -43,7 +43,7 @@ const nextConfig = {
         search: '?**',
       },
     ],
-    unoptimized: false,
+    unoptimized: true,
   },
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
