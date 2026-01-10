@@ -1,6 +1,47 @@
 import { ChevronDown, Mail } from 'lucide-react';
-import { HeroSectionBlock } from '@/payload-types';
 import { CMSLink } from '@/components/Link';
+import { Media } from '@/payload-types';
+
+export interface HeroSectionBlock {
+  blockType: 'heroSection'
+  title?: string | null
+  highlight?: string | null
+  subtitle?: string | null
+  tagline?: string | null
+  logo?: number | Media | null
+  primaryLink?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'inline' | 'button') | null
+  }
+  contactLink?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'inline' | 'button') | null
+  }
+}
 
 const HeroSection = (props: HeroSectionBlock) => {
   const { title, highlight, subtitle, tagline, logo, primaryLink, contactLink } = props;

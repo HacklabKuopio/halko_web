@@ -64,7 +64,7 @@ export default async function Page({ params: paramsPromise }: Args) {
       <PageClient />
       <PayloadRedirects disableNotFound url={url} />
 
-      {backgroundComponent === 'grid' && <GridBackground />}
+      {(backgroundComponent as string) === 'grid' && <GridBackground />}
 
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} locale={locale} />

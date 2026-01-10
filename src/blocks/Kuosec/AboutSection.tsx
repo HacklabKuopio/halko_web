@@ -1,6 +1,39 @@
 import { Shield, Users, Calendar, Terminal } from 'lucide-react';
 import { CMSLink } from '@/components/Link';
-import { AboutSectionBlock } from '@/payload-types';
+
+// Define the type locally since it's missing from payload-types
+export interface AboutSectionBlock {
+  blockType: 'aboutSection'
+  subtitle?: string | null
+  title?: string | null
+  description?: string | null
+  features?:
+    | {
+        icon?: ('Shield' | 'Users' | 'Calendar' | 'Terminal') | null
+        title?: string | null
+        description?: string | null
+        id?: string | null
+      }[]
+    | null
+  cfpTitle?: string | null
+  cfpDescription?: string | null
+  cfpLink?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'inline' | 'button') | null
+  }
+}
 
 const iconMap = {
   Shield,

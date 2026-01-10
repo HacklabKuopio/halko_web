@@ -1,6 +1,57 @@
 import { Users, CreditCard, Mail } from 'lucide-react';
-import { MembershipSectionBlock } from '@/payload-types';
 import { CMSLink } from '@/components/Link';
+
+export interface MembershipSectionBlock {
+  blockType: 'membershipSection'
+  subtitle?: string | null
+  title?: string | null
+  description?: string | null
+  membershipTypes?:
+    | {
+        title?: string | null
+        price?: string | null
+        period?: string | null
+        description?: string | null
+        id?: string | null
+      }[]
+    | null
+  paymentRecipient?: string | null
+  paymentAccount?: string | null
+  paymentReference?: string | null
+  paymentInstruction?: string | null
+  joinLink?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'inline' | 'button') | null
+  }
+  infoLink?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'inline' | 'button') | null
+  }
+}
 
 const MembershipSection = (props: MembershipSectionBlock) => {
   const { subtitle, title, description, membershipTypes, paymentRecipient, paymentAccount, paymentReference, paymentInstruction, joinLink, infoLink } = props;

@@ -8,7 +8,6 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SponsorsBlock } from '@/blocks/Sponsors/Component'
-import { CustomerSpecificBlock } from '@/blocks/CustomerSpecific/Component'
 import { TypedLocale } from 'payload'
 
 import AboutSection from '@/blocks/Kuosec/AboutSection'
@@ -23,8 +22,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
-  sponsors: SponsorsBlock,
-  customerSpecific: CustomerSpecificBlock,
+  sponsors: process.env.HOSTNAME === 'halko.fi' ? SponsorsBlock : null,
   aboutSection: process.env.HOSTNAME === 'kuosec.fi' ? AboutSection : null,
   contactSection: process.env.HOSTNAME === 'kuosec.fi' ? ContactSection : null,
   eventsSection: process.env.HOSTNAME === 'kuosec.fi' ? EventsSection : null,

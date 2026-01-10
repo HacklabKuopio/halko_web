@@ -204,12 +204,12 @@ export interface Page {
     | MediaBlock
     | ArchiveBlock
     | FormBlock
-    | SponsorsBlock
     | AboutSectionBlock
     | ContactSectionBlock
     | EventsSectionBlock
     | HeroSectionBlock
     | MembershipSectionBlock
+    | SponsorsBlock
   )[];
   meta?: {
     title?: string | null;
@@ -756,35 +756,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SponsorsBlock".
- */
-export interface SponsorsBlock {
-  heading?: string | null;
-  introContent?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  tiers?: ('platinum' | 'gold' | 'silver' | 'bronze' | 'community')[] | null;
-  onlyFeatured?: boolean | null;
-  onlyCurrentlyActive?: boolean | null;
-  limit?: number | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'sponsors';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "AboutSectionBlock".
  */
 export interface AboutSectionBlock {
@@ -1002,6 +973,35 @@ export interface MembershipSectionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'membershipSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorsBlock".
+ */
+export interface SponsorsBlock {
+  heading?: string | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  tiers?: ('platinum' | 'gold' | 'silver' | 'bronze' | 'community')[] | null;
+  onlyFeatured?: boolean | null;
+  onlyCurrentlyActive?: boolean | null;
+  limit?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'sponsors';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1346,12 +1346,12 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
-        sponsors?: T | SponsorsBlockSelect<T>;
         aboutSection?: T | AboutSectionBlockSelect<T>;
         contactSection?: T | ContactSectionBlockSelect<T>;
         eventsSection?: T | EventsSectionBlockSelect<T>;
         heroSection?: T | HeroSectionBlockSelect<T>;
         membershipSection?: T | MembershipSectionBlockSelect<T>;
+        sponsors?: T | SponsorsBlockSelect<T>;
       };
   meta?:
     | T
@@ -1449,20 +1449,6 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SponsorsBlock_select".
- */
-export interface SponsorsBlockSelect<T extends boolean = true> {
-  heading?: T;
-  introContent?: T;
-  tiers?: T;
-  onlyFeatured?: T;
-  onlyCurrentlyActive?: T;
-  limit?: T;
   id?: T;
   blockName?: T;
 }
@@ -1624,6 +1610,20 @@ export interface MembershipSectionBlockSelect<T extends boolean = true> {
         label?: T;
         appearance?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SponsorsBlock_select".
+ */
+export interface SponsorsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  introContent?: T;
+  tiers?: T;
+  onlyFeatured?: T;
+  onlyCurrentlyActive?: T;
+  limit?: T;
   id?: T;
   blockName?: T;
 }

@@ -1,5 +1,21 @@
 import { MapPin, Clock, CalendarDays } from 'lucide-react';
-import { EventsSectionBlock } from '@/payload-types';
+
+export interface EventsSectionBlock {
+  blockType: 'eventsSection'
+  subtitle?: string | null
+  title?: string | null
+  eventTitle?: string | null
+  eventDate?: string | null
+  eventTime?: string | null
+  eventLocation?: string | null
+  schedule?:
+    | {
+        time?: string | null
+        event?: string | null
+        id?: string | null
+      }[]
+    | null
+}
 
 const EventsSection = (props: EventsSectionBlock) => {
   const { subtitle, title, eventTitle, eventDate, eventTime, eventLocation, schedule } = props;

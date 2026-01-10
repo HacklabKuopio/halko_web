@@ -13,8 +13,13 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
 import { Sponsors } from '../../blocks/Sponsors/config'
-import { CustomerSpecific } from '../../blocks/CustomerSpecific/config'
-import { AboutSectionBlock, ContactSectionBlock, EventsSectionBlock, HeroSectionBlock, MembershipSectionBlock } from '../../blocks/Kuosec/config'
+import {
+  AboutSectionBlock,
+  ContactSectionBlock,
+  EventsSectionBlock,
+  HeroSectionBlock,
+  MembershipSectionBlock,
+} from '../../blocks/Kuosec/config'
 
 import {
   MetaDescriptionField,
@@ -102,8 +107,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 MediaBlock,
                 Archive,
                 FormBlock,
-                Sponsors,
-                ...(process.env.HOSTNAME === 'kuosec.fi'
+                ...(process.env.HOSTNAME === 'kuosec.fi' || process.env.IS_DEV
                   ? [
                       AboutSectionBlock,
                       ContactSectionBlock,
@@ -112,8 +116,7 @@ export const Pages: CollectionConfig<'pages'> = {
                       MembershipSectionBlock,
                     ]
                   : []),
-                /* Example: Only available for halko.fi */
-                ...(process.env.HOSTNAME === 'halko.fi' ? [CustomerSpecific] : []),
+                ...(process.env.HOSTNAME === 'halko.fi' || process.env.IS_DEV ? [Sponsors] : []),
               ],
               required: true,
               admin: {
@@ -178,9 +181,7 @@ export const Pages: CollectionConfig<'pages'> = {
       },
       options: [
         { label: 'None', value: 'none' },
-        ...(process.env.HOSTNAME === 'kuosec.fi'
-          ? [{ label: 'Grid Background (Kuosec)', value: 'grid' }]
-          : []),
+        { label: 'Grid Background (Kuosec)', value: 'grid' },
       ],
       defaultValue: 'none',
       label: 'Background Component',

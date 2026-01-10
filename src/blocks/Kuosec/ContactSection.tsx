@@ -1,6 +1,39 @@
 import { Mail, Linkedin, MessageSquare, ExternalLink } from 'lucide-react';
-import { ContactSectionBlock } from '@/payload-types';
 import { CMSLink } from '@/components/Link';
+
+export interface ContactSectionBlock {
+  blockType: 'contactSection'
+  subtitle?: string | null
+  title?: string | null
+  links?:
+    | {
+        icon?: ('MessageSquare' | 'Mail' | 'Linkedin') | null
+        label?: string | null
+        value?: string | null
+        href?: string | null
+        id?: string | null
+      }[]
+    | null
+  sponsorsSubtitle?: string | null
+  sponsorsTitle?: string | null
+  sponsorsText?: string | null
+  sponsorLink?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'inline' | 'button') | null
+  }
+}
 
 const iconMap = {
   Mail,
