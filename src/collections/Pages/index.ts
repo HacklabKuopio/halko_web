@@ -20,6 +20,13 @@ import {
   HeroSectionBlock,
   MembershipSectionBlock,
 } from '../../blocks/Kuosec/config'
+import {
+  SavosecAboutBlock,
+  SavosecHeroBlock,
+  SavosecScheduleBlock,
+  SavosecSpeakersBlock,
+  SavosecSponsorsBlock,
+} from '../../blocks/Savosec/config'
 
 import {
   MetaDescriptionField,
@@ -114,6 +121,15 @@ export const Pages: CollectionConfig<'pages'> = {
                       EventsSectionBlock,
                       HeroSectionBlock,
                       MembershipSectionBlock,
+                    ]
+                  : []),
+                ...(process.env.HOSTNAME === 'savosec.fi' || process.env.IS_DEV
+                  ? [
+                      SavosecAboutBlock,
+                      SavosecHeroBlock,
+                      SavosecScheduleBlock,
+                      SavosecSpeakersBlock,
+                      SavosecSponsorsBlock,
                     ]
                   : []),
                 ...(process.env.HOSTNAME === 'halko.fi' || process.env.IS_DEV ? [Sponsors] : []),

@@ -16,6 +16,12 @@ import EventsSection from '@/blocks/Kuosec/EventsSection'
 import HeroSection from '@/blocks/Kuosec/HeroSection'
 import MembershipSection from '@/blocks/Kuosec/MembershipSection'
 
+import SavosecAbout from '@/blocks/Savosec/About'
+import SavosecHero from '@/blocks/Savosec/Hero'
+import SavosecSchedule from '@/blocks/Savosec/Schedule'
+import SavosecSpeakers from '@/blocks/Savosec/Speakers'
+import SavosecSponsors from '@/blocks/Savosec/Sponsors'
+
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
@@ -28,6 +34,11 @@ const blockComponents = {
   eventsSection: process.env.HOSTNAME === 'kuosec.fi' ? EventsSection : null,
   heroSection: process.env.HOSTNAME === 'kuosec.fi' ? HeroSection : null,
   membershipSection: process.env.HOSTNAME === 'kuosec.fi' ? MembershipSection : null,
+  savosecAbout: process.env.HOSTNAME === 'savosec.fi' ? SavosecAbout : null,
+  savosecHero: process.env.HOSTNAME === 'savosec.fi' ? SavosecHero : null,
+  savosecSchedule: process.env.HOSTNAME === 'savosec.fi' ? SavosecSchedule : null,
+  savosecSpeakers: process.env.HOSTNAME === 'savosec.fi' ? SavosecSpeakers : null,
+  savosecSponsors: process.env.HOSTNAME === 'savosec.fi' ? SavosecSponsors : null,
 }
 
 export const RenderBlocks: React.FC<{

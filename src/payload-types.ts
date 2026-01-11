@@ -209,6 +209,11 @@ export interface Page {
     | EventsSectionBlock
     | HeroSectionBlock
     | MembershipSectionBlock
+    | SavosecAboutBlock
+    | SavosecHeroBlock
+    | SavosecScheduleBlock
+    | SavosecSpeakersBlock
+    | SavosecSponsorsBlock
     | SponsorsBlock
   )[];
   meta?: {
@@ -976,6 +981,162 @@ export interface MembershipSectionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecAboutBlock".
+ */
+export interface SavosecAboutBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  description?: string | null;
+  features?:
+    | {
+        icon?: ('Shield' | 'Users' | 'Wifi' | 'Terminal') | null;
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'savosecAbout';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecHeroBlock".
+ */
+export interface SavosecHeroBlock {
+  title?: string | null;
+  subtitle?: string | null;
+  description?: string | null;
+  date?: string | null;
+  time?: string | null;
+  location?: string | null;
+  freeEventText?: string | null;
+  registerLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  scheduleLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'savosecHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecScheduleBlock".
+ */
+export interface SavosecScheduleBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  schedule?:
+    | {
+        time?: string | null;
+        title?: string | null;
+        speaker?: string | null;
+        description?: string | null;
+        type?: ('talk' | 'break' | 'networking') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'savosecSchedule';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecSpeakersBlock".
+ */
+export interface SavosecSpeakersBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  speakers?:
+    | {
+        name?: string | null;
+        title?: string | null;
+        company?: string | null;
+        bio?: string | null;
+        initials?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'savosecSpeakers';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecSponsorsBlock".
+ */
+export interface SavosecSponsorsBlock {
+  subtitle?: string | null;
+  title?: string | null;
+  backgroundTitle?: string | null;
+  sponsors?:
+    | {
+        name?: string | null;
+        url?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  becomeSponsorText?: string | null;
+  contactLink: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'savosecSponsors';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SponsorsBlock".
  */
 export interface SponsorsBlock {
@@ -1351,6 +1512,11 @@ export interface PagesSelect<T extends boolean = true> {
         eventsSection?: T | EventsSectionBlockSelect<T>;
         heroSection?: T | HeroSectionBlockSelect<T>;
         membershipSection?: T | MembershipSectionBlockSelect<T>;
+        savosecAbout?: T | SavosecAboutBlockSelect<T>;
+        savosecHero?: T | SavosecHeroBlockSelect<T>;
+        savosecSchedule?: T | SavosecScheduleBlockSelect<T>;
+        savosecSpeakers?: T | SavosecSpeakersBlockSelect<T>;
+        savosecSponsors?: T | SavosecSponsorsBlockSelect<T>;
         sponsors?: T | SponsorsBlockSelect<T>;
       };
   meta?:
@@ -1601,6 +1767,130 @@ export interface MembershipSectionBlockSelect<T extends boolean = true> {
         appearance?: T;
       };
   infoLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecAboutBlock_select".
+ */
+export interface SavosecAboutBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  description?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecHeroBlock_select".
+ */
+export interface SavosecHeroBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  date?: T;
+  time?: T;
+  location?: T;
+  freeEventText?: T;
+  registerLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  scheduleLink?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecScheduleBlock_select".
+ */
+export interface SavosecScheduleBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  schedule?:
+    | T
+    | {
+        time?: T;
+        title?: T;
+        speaker?: T;
+        description?: T;
+        type?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecSpeakersBlock_select".
+ */
+export interface SavosecSpeakersBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  speakers?:
+    | T
+    | {
+        name?: T;
+        title?: T;
+        company?: T;
+        bio?: T;
+        initials?: T;
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SavosecSponsorsBlock_select".
+ */
+export interface SavosecSponsorsBlockSelect<T extends boolean = true> {
+  subtitle?: T;
+  title?: T;
+  backgroundTitle?: T;
+  sponsors?:
+    | T
+    | {
+        name?: T;
+        url?: T;
+        id?: T;
+      };
+  becomeSponsorText?: T;
+  contactLink?:
     | T
     | {
         type?: T;
@@ -2234,7 +2524,7 @@ export interface Brand {
   /**
    * Select a base color theme. Custom colors below will override these presets.
    */
-  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet' | 'kuosec') | null;
+  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet' | 'kuosec' | 'savosec') | null;
   background?: string | null;
   foreground?: string | null;
   card?: string | null;
