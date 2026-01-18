@@ -144,6 +144,7 @@ export const Brand: GlobalConfig = {
                 { label: 'Violet (Purple)', value: 'violet' },
                 { label: 'KuoSec (Cyberpunk)', value: 'kuosec' },
                 { label: 'Terminal Green (SavoSec)', value: 'savosec' },
+                { label: 'Yellow', value: 'hacklab' },
               ],
               defaultValue: 'slate',
               admin: {
