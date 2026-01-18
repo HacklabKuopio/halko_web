@@ -2524,7 +2524,7 @@ export interface Brand {
   /**
    * Select a base color theme. Custom colors below will override these presets.
    */
-  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet' | 'kuosec' | 'savosec') | null;
+  theme?: ('slate' | 'ocean' | 'forest' | 'rose' | 'amber' | 'violet' | 'kuosec' | 'savosec' | 'hacklab') | null;
   background?: string | null;
   foreground?: string | null;
   card?: string | null;
@@ -2580,6 +2580,10 @@ export interface Brand {
    * Add custom CSS here. This will be injected globally. Use with caution.
    */
   rawCss?: string | null;
+  /**
+   * The name of the website, used in the title and other places.
+   */
+  name?: string | null;
   favicon?: (number | null) | Media;
   /**
    * Default image for social sharing.
@@ -2734,6 +2738,7 @@ export interface BrandSelect<T extends boolean = true> {
   customFontFamily?: T;
   radius?: T;
   rawCss?: T;
+  name?: T;
   favicon?: T;
   ogImage?: T;
   headCode?: T;

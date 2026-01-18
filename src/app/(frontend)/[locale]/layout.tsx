@@ -75,7 +75,7 @@ export default async function RootLayout({ children, params }: Args) {
         {brand?.googleFontsCode && (
            <link href={brand.googleFontsCode} rel="stylesheet" />
         )}
-        <title>{process.env.WEBSITE_NAME}</title>
+        <title>{brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'}</title>
 
         {/* Brand Head Code */}
         {brand?.headCode && (

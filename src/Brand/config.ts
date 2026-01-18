@@ -227,6 +227,14 @@ export const Brand: GlobalConfig = {
           label: 'Assets & SEO',
           fields: [
             {
+              name: 'name',
+              type: 'text',
+              label: 'Website Name',
+              admin: {
+                description: 'The name of the website, used in the title and other places.',
+              },
+            },
+            {
               name: 'favicon',
               type: 'upload',
               relationTo: 'media',
