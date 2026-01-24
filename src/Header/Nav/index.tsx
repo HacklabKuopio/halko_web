@@ -85,7 +85,7 @@ export const HeaderNav: React.FC<{
         )
       })}
       {/* Mobile language switcher: right-aligned, below links */}
-      <LocaleSwitcher className="sm:hidden mt-1" />
+      <LocaleSwitcher className="sm:hidden mt-1 self-end" />
     </nav>
   )
 }
