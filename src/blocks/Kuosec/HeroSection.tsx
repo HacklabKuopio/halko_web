@@ -117,7 +117,7 @@ const HeroSection = (props: HeroSectionBlock) => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce z-10">
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 animate-bounce z-10">
         <ChevronDown className="text-primary" size={32} />
       </div>
     </section>
