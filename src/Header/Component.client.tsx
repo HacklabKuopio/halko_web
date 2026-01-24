@@ -94,7 +94,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
       <div
         className={`sm:hidden transition-[max-height] duration-300 ease-in-out overflow-hidden ${open ? 'max-h-[500px]' : 'max-h-0'}`}
       >
-        <div className="px-4 pb-4 flex flex-col gap-4 border-t bg-background">
+        <div className="px-4 pb-4 pt-3 flex flex-col gap-4 border-t bg-background">
           <HeaderNav
             header={header}
             className="items-start text-left"
