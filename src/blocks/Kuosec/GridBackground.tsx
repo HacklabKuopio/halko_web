@@ -13,8 +13,12 @@ const GridBackground = () => {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); // keep grid sharp on HiDPI
     };
     resize();
     window.addEventListener('resize', resize);
@@ -32,6 +36,7 @@ const GridBackground = () => {
     }
 
     const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
