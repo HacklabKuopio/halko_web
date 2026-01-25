@@ -8,16 +8,19 @@ export const AboutSectionBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
       defaultValue: '// ABOUT US',
     },
     {
       name: 'title',
       type: 'text',
+      localized: true,
       defaultValue: 'Who We Are',
     },
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
       defaultValue: 'KuoSec is an infosec community located at Kuopio, Finland. Our purpose is to organize meetups and get-togethers focused on training and networking.',
     },
     {
@@ -37,21 +40,25 @@ export const AboutSectionBlock: Block = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
       ],
     },
     {
       name: 'cfpTitle',
       type: 'text',
+      localized: true,
       defaultValue: 'KuoSec Meetups - Call for Papers',
     },
     {
       name: 'cfpDescription',
       type: 'textarea',
+      localized: true,
       defaultValue: 'You can now apply as a speaker for the KuoSec meetups starting from September 2025 meetup!',
     },
     link({
@@ -69,11 +76,13 @@ export const ContactSectionBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
       defaultValue: '// CONTACT',
     },
     {
       name: 'title',
       type: 'text',
+      localized: true,
       defaultValue: 'Get in Touch',
     },
     {
@@ -92,31 +101,37 @@ export const ContactSectionBlock: Block = {
         {
           name: 'label',
           type: 'text',
+          localized: true,
         },
         {
           name: 'value',
           type: 'text',
+          localized: true,
         },
         {
           name: 'href',
           type: 'text',
+          localized: true,
         },
       ],
     },
     {
       name: 'sponsorsSubtitle',
       type: 'text',
+      localized: true,
       defaultValue: '// SPONSORS',
     },
     {
       name: 'sponsorsTitle',
       type: 'text',
+      localized: true,
       defaultValue: 'Sponsors',
     },
     {
       name: 'sponsorsText',
       type: 'textarea',
-      defaultValue: 'Interested in sponsoring our meetups? We\'re always looking for partners who share our passion for cybersecurity.',
+      localized: true,
+      defaultValue: "Interested in sponsoring our meetups? We're always looking for partners who share our passion for cybersecurity.",
     },
     link({
       overrides: {
@@ -133,31 +148,37 @@ export const EventsSectionBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
       defaultValue: '// EVENTS',
     },
     {
       name: 'title',
       type: 'text',
+      localized: true,
       defaultValue: 'Upcoming Events',
     },
     {
       name: 'eventTitle',
       type: 'text',
+      localized: true,
       defaultValue: 'KuoSec December Meetup',
     },
     {
       name: 'eventDate',
       type: 'text',
+      localized: true,
       defaultValue: '3.12.2025',
     },
     {
       name: 'eventTime',
       type: 'text',
+      localized: true,
       defaultValue: '18:00 - 02:00',
     },
     {
       name: 'eventLocation',
       type: 'text',
+      localized: true,
       defaultValue: 'Teerenpeli, Kauppakatu 41, 70100 Kuopio',
     },
     {
@@ -167,13 +188,24 @@ export const EventsSectionBlock: Block = {
         {
           name: 'time',
           type: 'text',
+          localized: true,
         },
         {
           name: 'event',
           type: 'text',
+          localized: true,
         },
       ],
     },
+    link({
+      overrides: {
+        name: 'all_events',
+        label: {
+          en: 'All Events',
+          fi: 'Kaikki tapahtumat',
+        }
+      }
+    })
   ],
 }
 
@@ -184,16 +216,19 @@ export const MembershipSectionBlock: Block = {
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
       defaultValue: '// MEMBERSHIP',
     },
     {
       name: 'title',
       type: 'text',
+      localized: true,
       defaultValue: 'Liity jäseneksi',
     },
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
       defaultValue: 'KuoSec ry on tietoturvayhteisö Kuopiossa. Jäseneksi liittymällä tuet yhdistyksen toimintaa ja pääset osaksi aktiivista tietoturvayhteisöä.',
     },
     {
@@ -203,39 +238,47 @@ export const MembershipSectionBlock: Block = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
         },
         {
           name: 'price',
           type: 'text',
+          localized: true,
         },
         {
           name: 'period',
           type: 'text',
+          localized: true,
         },
         {
           name: 'description',
           type: 'textarea',
+          localized: true,
         },
       ],
     },
     {
       name: 'paymentRecipient',
       type: 'text',
+      localized: true,
       defaultValue: 'KuoSec ry',
     },
     {
       name: 'paymentAccount',
       type: 'text',
+      localized: true,
       defaultValue: 'FI51 7140 1420 0025 79',
     },
     {
       name: 'paymentReference',
       type: 'text',
+      localized: true,
       defaultValue: '4242',
     },
     {
         name: 'paymentInstruction',
         type: 'textarea',
+        localized: true,
         defaultValue: 'Jäseneksi liitytään maksamalla jäsenmaksu yllä olevalle tilille. Muista käyttää viitettä maksaessasi!',
     },
     link({
@@ -247,15 +290,6 @@ export const MembershipSectionBlock: Block = {
             }
         }
     }),
-    link({
-        overrides: {
-            name: 'infoLink',
-            label: {
-                en: 'Info Link',
-                fi: 'Lisätietolinkki',
-            }
-        }
-    })
   ],
 }
 
@@ -266,22 +300,26 @@ export const HeroSectionBlock: Block = {
       {
           name: 'title',
           type: 'text',
+          localized: true,
           defaultValue: 'KuoSec',
       },
       {
           name: 'highlight',
           type: 'text',
+          localized: true,
           defaultValue: 'ry',
       },
       {
           name: 'subtitle',
           type: 'text',
+          localized: true,
           defaultValue: 'Infosec Community',
       },
       {
           name: 'tagline',
           type: 'textarea',
-          defaultValue: 'Kuopio\'s premier cybersecurity community. Meetups, training, and networking for everyone interested in information security.',
+          localized: true,
+          defaultValue: "Kuopio's premier cybersecurity community. Meetups, training, and networking for everyone interested in information security.",
       },
       {
           name: 'logo',
