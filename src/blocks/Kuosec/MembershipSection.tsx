@@ -1,4 +1,4 @@
-import { Users, CreditCard, Mail } from 'lucide-react';
+import { Users, CreditCard } from 'lucide-react';
 import { CMSLink } from '@/components/Link';
 
 export interface MembershipSectionBlock {
@@ -62,14 +62,6 @@ const MembershipSection = (props: MembershipSectionBlock) => {
     url: 'https://forms.office.com/pages/responsepage.aspx?id=ZrCpN1oyvE2aMsyhFsFtgMc00WDfrFtDgsFyAFzgoalUQVpZRTdUMkdVS1laQTdZNDNBSkswS1VVMyQlQCN0PWcu&route=shorturl',
     label: 'Täytä jäsenhakemus',
     newTab: true,
-    appearance: 'default'
-  };
-
-  const hasInfoLink = infoLink && (infoLink.url || infoLink.reference);
-  const infoLinkProps = hasInfoLink ? infoLink : {
-    type: 'custom',
-    url: 'mailto:info@kuosec.fi',
-    label: 'Lisätietoja',
     appearance: 'default'
   };
 
@@ -141,13 +133,6 @@ const MembershipSection = (props: MembershipSectionBlock) => {
               className="flex-1 inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:glow transition-all"
             >
               <Users size={18} />
-            </CMSLink>
-            <CMSLink
-              {...infoLinkProps as any}
-              appearance="inline"
-              className="flex-1 inline-flex items-center justify-center gap-2 border border-primary text-primary px-6 py-3 rounded-md font-semibold hover:bg-primary/10 transition-all"
-            >
-              <Mail size={18} />
             </CMSLink>
           </div>
         </div>
