@@ -130,7 +130,6 @@ const EventsSection = (props: EventsSectionBlock) => {
                   appearance="inline"
                   className="inline-flex items-center gap-2 border border-primary text-primary px-6 py-3 rounded-md font-semibold hover:bg-primary/10 transition-all"
                 >
-                  <span className="font-mono text-sm">// ALL EVENTS</span>
                 </CMSLink>
               </div>
             )}
