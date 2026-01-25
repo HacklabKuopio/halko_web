@@ -975,25 +975,6 @@ export interface MembershipSectionBlock {
      */
     appearance?: ('default' | 'outline') | null;
   };
-  infoLink: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'outline') | null;
-  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'membershipSection';
@@ -1786,16 +1767,6 @@ export interface MembershipSectionBlockSelect<T extends boolean = true> {
   paymentReference?: T;
   paymentInstruction?: T;
   joinLink?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-        appearance?: T;
-      };
-  infoLink?:
     | T
     | {
         type?: T;

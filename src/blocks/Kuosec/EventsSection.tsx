@@ -1,4 +1,5 @@
 import { MapPin, Clock, CalendarDays } from 'lucide-react';
+import { CMSLink } from '@/components/Link';
 
 export interface EventsSectionBlock {
   blockType: 'eventsSection'
@@ -8,6 +9,22 @@ export interface EventsSectionBlock {
   eventDate?: string | null
   eventTime?: string | null
   eventLocation?: string | null
+  all_events?: {
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label: string
+    appearance?: ('default' | 'outline') | null
+  }
   schedule?:
     | {
         time?: string | null
@@ -18,7 +35,10 @@ export interface EventsSectionBlock {
 }
 
 const EventsSection = (props: EventsSectionBlock) => {
-  const { subtitle, title, eventTitle, eventDate, eventTime, eventLocation, schedule } = props;
+  const { subtitle, title, eventTitle, eventDate, eventTime, eventLocation, schedule, all_events } = props;
+
+  const hasAllEventsLink = all_events && (all_events.url || all_events.reference);
+  const allEventsLinkProps = hasAllEventsLink ? all_events : null;
 
   return (
     <section id="events" className="py-24 relative">
@@ -90,6 +110,17 @@ const EventsSection = (props: EventsSectionBlock) => {
                 </table>
               </div>
             </div>
+            {allEventsLinkProps && (
+              <div className="p-6 border-t border-border bg-card/60">
+                <CMSLink
+                  {...(allEventsLinkProps as any)}
+                  appearance="inline"
+                  className="inline-flex items-center gap-2 border border-primary text-primary px-6 py-3 rounded-md font-semibold hover:bg-primary/10 transition-all"
+                >
+                  <span className="font-mono text-sm">// ALL EVENTS</span>
+                </CMSLink>
+              </div>
+            )}
           </div>
         </div>
       </div>
