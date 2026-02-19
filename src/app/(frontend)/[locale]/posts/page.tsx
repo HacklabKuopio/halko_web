@@ -8,6 +8,9 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 
+import { getServerSideURL } from '@/utilities/getURL'
+import localization from '@/i18n/localization'
+
 export const dynamic = 'force-static'
 export const revalidate = 600
 
@@ -61,8 +64,20 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: `${process.env.WEBSITE_NAME} Posts`,
-  }
+export function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  return params.then(({ locale = 'en' }) => {
+    const serverUrl = getServerSideURL()
+    const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'
+    const canonicalUrl = `${serverUrl}/${locale}/posts`
+    const languages: Record<string, string> = {}
+    for (const loc of localization.locales) {
+      languages[loc.code] = `${serverUrl}/${loc.code}/posts`
+    }
+    return {
+      title: `${websiteName} Posts`,
+      alternates: { canonical: canonicalUrl, languages },
+      robots: { index: true, follow: true },
+      publisher: websiteName,
+    }
+  })
 }

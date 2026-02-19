@@ -125,6 +125,8 @@ export async function generateMetadata(): Promise<Metadata> {
       if (ogMedia.url) ogImageUrl = ogMedia.url
   }
 
+  const websiteName = brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'
+
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://payloadcms.com'),
     openGraph: mergeOpenGraph(ogImageUrl ? { images: [{ url: ogImageUrl }] } : {}),
@@ -132,6 +134,11 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       creator: '@jeb4',
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
+    publisher: websiteName,
   }
 }
 

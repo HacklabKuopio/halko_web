@@ -235,6 +235,22 @@ export const Brand: GlobalConfig = {
               },
             },
             {
+              name: 'publisher',
+              type: 'text',
+              label: 'Publisher',
+              admin: {
+                description: 'Publisher name for SEO meta tags (e.g. organisation name).',
+              },
+            },
+            {
+              name: 'defaultKeywords',
+              type: 'text',
+              label: 'Default Keywords',
+              admin: {
+                description: 'Comma-separated default keywords for SEO (used when a page has no keywords set).',
+              },
+            },
+            {
               name: 'favicon',
               type: 'upload',
               relationTo: 'media',

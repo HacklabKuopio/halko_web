@@ -58,6 +58,28 @@ const nextConfig = {
     includePaths: [path.join(dirname, 'node_modules')],
   },
   reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        source: '/((?!admin).*)',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'index, follow',
+          },
+        ],
+      },
+      {
+        source: '/admin/:path*',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+    ]
+  },
   env: {
     HOSTNAME: process.env.HOSTNAME,
   },

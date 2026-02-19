@@ -7,6 +7,8 @@ import React from 'react'
 import { Search } from '@/search/Component'
 import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
+import { getServerSideURL } from '@/utilities/getURL'
+import localization from '@/i18n/localization'
 
 type Args = {
   searchParams: Promise<{
@@ -85,8 +87,20 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   )
 }
 
-export function generateMetadata(): Metadata {
-  return {
-    title: `${process.env.WEBSITE_NAME} Search`,
-  }
+export function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  return params.then(({ locale = 'en' }) => {
+    const serverUrl = getServerSideURL()
+    const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'
+    const canonicalUrl = `${serverUrl}/${locale}/search`
+    const languages: Record<string, string> = {}
+    for (const loc of localization.locales) {
+      languages[loc.code] = `${serverUrl}/${loc.code}/search`
+    }
+    return {
+      title: `${websiteName} Search`,
+      alternates: { canonical: canonicalUrl, languages },
+      robots: { index: false, follow: true },
+      publisher: websiteName,
+    }
+  })
 }
