@@ -52,6 +52,11 @@ const nextConfig = {
       '.mjs': ['.mts', '.mjs'],
     }
 
+    // Suppress verbose Webpack cache warnings (like next-intl's dynamic imports)
+    webpackConfig.infrastructureLogging = {
+      level: 'error',
+    }
+
     return webpackConfig
   },
   sassOptions: {
