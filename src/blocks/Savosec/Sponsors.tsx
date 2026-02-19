@@ -1,34 +1,34 @@
-import { CMSLink } from "@/components/Link";
-import type { Page } from "@/payload-types";
-import React from 'react';
+import { CMSLink } from '@/components/Link'
+import type { Page } from '@/payload-types'
+import React from 'react'
 
 interface Sponsor {
-  name: string;
-  url: string;
-  id?: string | null;
+  name: string
+  url: string
+  id?: string | null
 }
 
 type Props = {
-  subtitle: string;
-  title: string;
-  backgroundTitle?: string;
-  sponsors: Sponsor[];
-  becomeSponsorText: string;
+  subtitle: string
+  title: string
+  backgroundTitle?: string
+  sponsors: Sponsor[]
+  becomeSponsorText: string
   contactLink: {
-     type?: ('reference' | 'custom') | null
-     newTab?: boolean | null
-     reference?:
-       | ({
-       relationTo: 'pages'
-       value: number | string | Page
-     } | null)
-       | ({
-       relationTo: 'posts'
-       value: number | string
-     } | null)
-     url?: string | null
-     label?: string | null
-   }
+    type?: ('reference' | 'custom') | null
+    newTab?: boolean | null
+    reference?:
+      | ({
+          relationTo: 'pages'
+          value: number | string | Page
+        } | null)
+      | ({
+          relationTo: 'posts'
+          value: number | string
+        } | null)
+    url?: string | null
+    label?: string | null
+  }
 }
 
 const Sponsors: React.FC<Props> = ({
@@ -36,7 +36,7 @@ const Sponsors: React.FC<Props> = ({
   title,
   sponsors,
   becomeSponsorText,
-  contactLink
+  contactLink,
 }) => {
   return (
     <section id="sponsors" className="py-24 bg-secondary/30 relative">
@@ -47,7 +47,15 @@ const Sponsors: React.FC<Props> = ({
             {subtitle}
           </span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold mt-4">
-             <span dangerouslySetInnerHTML={{ __html: title?.replace('mahdollistajat', '<span class="text-primary">mahdollistajat</span>') || '' }} />
+            <span
+              dangerouslySetInnerHTML={{
+                __html:
+                  title?.replace(
+                    'mahdollistajat',
+                    '<span class="text-primary">mahdollistajat</span>',
+                  ) || '',
+              }}
+            />
           </h2>
         </div>
 
@@ -70,15 +78,13 @@ const Sponsors: React.FC<Props> = ({
 
         {/* Become sponsor CTA */}
         <div className="text-center mt-16">
-          <p className="text-muted-foreground mb-4">
-            {becomeSponsorText}
-          </p>
+          <p className="text-muted-foreground mb-4">{becomeSponsorText}</p>
           <CMSLink
             {...contactLink}
             label={null}
             className="inline-flex items-center gap-2 font-mono text-primary hover:text-primary/80 transition-colors"
           >
-             {/* CMSLink handles children/label, but if we want arrow we might need to handle it.
+            {/* CMSLink handles children/label, but if we want arrow we might need to handle it.
                  Wrapper can't pass children easily if label is used from props.
                  But CMSLink renders label if children is null?
                  Actually CMSLink implementation:
@@ -86,13 +92,12 @@ const Sponsors: React.FC<Props> = ({
                  return <Link ...>{children || label || ...}</Link>
                  So passing children overrides label.
               */}
-              {contactLink?.label} →
+            {contactLink?.label} →
           </CMSLink>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-
-export default Sponsors;
+export default Sponsors

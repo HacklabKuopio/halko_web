@@ -21,7 +21,8 @@ export const AboutSectionBlock: Block = {
       name: 'description',
       type: 'textarea',
       localized: true,
-      defaultValue: 'KuoSec is an infosec community located at Kuopio, Finland. Our purpose is to organize meetups and get-togethers focused on training and networking.',
+      defaultValue:
+        'KuoSec is an infosec community located at Kuopio, Finland. Our purpose is to organize meetups and get-togethers focused on training and networking.',
     },
     {
       name: 'features',
@@ -59,7 +60,8 @@ export const AboutSectionBlock: Block = {
       name: 'cfpDescription',
       type: 'textarea',
       localized: true,
-      defaultValue: 'You can now apply as a speaker for the KuoSec meetups starting from September 2025 meetup!',
+      defaultValue:
+        'You can now apply as a speaker for the KuoSec meetups starting from September 2025 meetup!',
     },
     link({
       overrides: {
@@ -131,7 +133,8 @@ export const ContactSectionBlock: Block = {
       name: 'sponsorsText',
       type: 'textarea',
       localized: true,
-      defaultValue: "Interested in sponsoring our meetups? We're always looking for partners who share our passion for cybersecurity.",
+      defaultValue:
+        "Interested in sponsoring our meetups? We're always looking for partners who share our passion for cybersecurity.",
     },
     link({
       overrides: {
@@ -203,9 +206,9 @@ export const EventsSectionBlock: Block = {
         label: {
           en: 'All Events',
           fi: 'Kaikki tapahtumat',
-        }
-      }
-    })
+        },
+      },
+    }),
   ],
 }
 
@@ -229,7 +232,8 @@ export const MembershipSectionBlock: Block = {
       name: 'description',
       type: 'textarea',
       localized: true,
-      defaultValue: 'KuoSec ry on tietoturvayhteisö Kuopiossa. Jäseneksi liittymällä tuet yhdistyksen toimintaa ja pääset osaksi aktiivista tietoturvayhteisöä.',
+      defaultValue:
+        'KuoSec ry on tietoturvayhteisö Kuopiossa. Jäseneksi liittymällä tuet yhdistyksen toimintaa ja pääset osaksi aktiivista tietoturvayhteisöä.',
     },
     {
       name: 'membershipTypes',
@@ -276,19 +280,20 @@ export const MembershipSectionBlock: Block = {
       defaultValue: '4242',
     },
     {
-        name: 'paymentInstruction',
-        type: 'textarea',
-        localized: true,
-        defaultValue: 'Jäseneksi liitytään maksamalla jäsenmaksu yllä olevalle tilille. Muista käyttää viitettä maksaessasi!',
+      name: 'paymentInstruction',
+      type: 'textarea',
+      localized: true,
+      defaultValue:
+        'Jäseneksi liitytään maksamalla jäsenmaksu yllä olevalle tilille. Muista käyttää viitettä maksaessasi!',
     },
     link({
-        overrides: {
-            name: 'joinLink',
-            label: {
-                en: 'Join Link',
-                fi: 'Liittymislinkki',
-            }
-        }
+      overrides: {
+        name: 'joinLink',
+        label: {
+          en: 'Join Link',
+          fi: 'Liittymislinkki',
+        },
+      },
     }),
   ],
 }
@@ -297,44 +302,45 @@ export const HeroSectionBlock: Block = {
   slug: 'heroSection',
   interfaceName: 'HeroSectionBlock',
   fields: [
-      {
-          name: 'title',
-          type: 'text',
-          localized: true,
-          defaultValue: 'KuoSec',
+    {
+      name: 'title',
+      type: 'text',
+      localized: true,
+      defaultValue: 'KuoSec',
+    },
+    {
+      name: 'highlight',
+      type: 'text',
+      localized: true,
+      defaultValue: 'ry',
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      localized: true,
+      defaultValue: 'Infosec Community',
+    },
+    {
+      name: 'tagline',
+      type: 'textarea',
+      localized: true,
+      defaultValue:
+        "Kuopio's premier cybersecurity community. Meetups, training, and networking for everyone interested in information security.",
+    },
+    {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    link({
+      overrides: {
+        name: 'primaryLink',
       },
-      {
-          name: 'highlight',
-          type: 'text',
-          localized: true,
-          defaultValue: 'ry',
+    }),
+    link({
+      overrides: {
+        name: 'contactLink',
       },
-      {
-          name: 'subtitle',
-          type: 'text',
-          localized: true,
-          defaultValue: 'Infosec Community',
-      },
-      {
-          name: 'tagline',
-          type: 'textarea',
-          localized: true,
-          defaultValue: "Kuopio's premier cybersecurity community. Meetups, training, and networking for everyone interested in information security.",
-      },
-      {
-          name: 'logo',
-          type: 'upload',
-          relationTo: 'media',
-      },
-      link({
-          overrides: {
-              name: 'primaryLink',
-          }
-      }),
-       link({
-          overrides: {
-              name: 'contactLink',
-          }
-      }),
-  ]
+    }),
+  ],
 }

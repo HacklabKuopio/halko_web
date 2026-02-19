@@ -137,7 +137,10 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
                 <ul className="space-y-3">
                   {(col.links || []).map(({ link }: any, i: number) => (
                     <li key={i}>
-                      <CMSLink className="text-muted-foreground hover:text-foreground transition-colors" {...link} />
+                      <CMSLink
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        {...link}
+                      />
                     </li>
                   ))}
                 </ul>

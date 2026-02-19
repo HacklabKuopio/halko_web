@@ -148,10 +148,11 @@ export const Brand: GlobalConfig = {
               ],
               defaultValue: 'slate',
               admin: {
-                description: 'Select a base color theme. Custom colors below will override these presets.',
+                description:
+                  'Select a base color theme. Custom colors below will override these presets.',
                 components: {
                   Field: '@/components/ThemeSelector/Component.client#ThemeSelector',
-                }
+                },
               },
             },
             ...createColorFields(), // Base fields (e.g. 'background')
@@ -174,15 +175,16 @@ export const Brand: GlobalConfig = {
               ],
               defaultValue: 'geist',
               admin: {
-                 description: 'Select the primary font family for the website.'
-              }
+                description: 'Select the primary font family for the website.',
+              },
             },
             {
               name: 'googleFontsCode',
               type: 'text',
               label: 'Google Fonts Link (Optional)',
               admin: {
-                description: 'Paste the Google Fonts embed URL (href) here (e.g., https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap). This overrides the font selection above.',
+                description:
+                  'Paste the Google Fonts embed URL (href) here (e.g., https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap). This overrides the font selection above.',
               },
             },
             {
@@ -190,7 +192,8 @@ export const Brand: GlobalConfig = {
               type: 'text',
               label: 'Custom Font Family Name',
               admin: {
-                description: 'If using Google Fonts, enter the CSS font-family name here (e.g., "Open Sans").',
+                description:
+                  'If using Google Fonts, enter the CSS font-family name here (e.g., "Open Sans").',
                 condition: (_, siblingData) => !!siblingData?.googleFontsCode,
               },
             },
@@ -206,8 +209,8 @@ export const Brand: GlobalConfig = {
                 { label: 'Large (0.75rem)', value: '0.75rem' },
                 { label: 'Full', value: '9999px' },
               ],
-            }
-          ]
+            },
+          ],
         },
         {
           label: 'Custom CSS',
@@ -218,10 +221,11 @@ export const Brand: GlobalConfig = {
               label: 'Raw CSS',
               admin: {
                 language: 'css',
-                description: 'Add custom CSS here. This will be injected globally. Use with caution.',
-              }
-            }
-          ]
+                description:
+                  'Add custom CSS here. This will be injected globally. Use with caution.',
+              },
+            },
+          ],
         },
         {
           label: 'Assets & SEO',
@@ -247,7 +251,8 @@ export const Brand: GlobalConfig = {
               type: 'text',
               label: 'Default Keywords',
               admin: {
-                description: 'Comma-separated default keywords for SEO (used when a page has no keywords set).',
+                description:
+                  'Comma-separated default keywords for SEO (used when a page has no keywords set).',
               },
             },
             {
@@ -265,7 +270,7 @@ export const Brand: GlobalConfig = {
                 description: 'Default image for social sharing.',
               },
             },
-          ]
+          ],
         },
         {
           label: 'Scripts',
@@ -276,8 +281,9 @@ export const Brand: GlobalConfig = {
               label: 'Head Code',
               admin: {
                 language: 'html',
-                description: 'Code to inject into the <head> section (e.g., Google Analytics, Meta Pixel).',
-              }
+                description:
+                  'Code to inject into the <head> section (e.g., Google Analytics, Meta Pixel).',
+              },
             },
             {
               name: 'footerCode',
@@ -286,12 +292,12 @@ export const Brand: GlobalConfig = {
               admin: {
                 language: 'html',
                 description: 'Code to inject before the closing </body> tag.',
-              }
-            }
-          ]
-        }
-      ]
-    }
+              },
+            },
+          ],
+        },
+      ],
+    },
   ],
   hooks: {
     afterChange: [revalidateBrand],

@@ -41,7 +41,7 @@ export const Header: GlobalConfig = {
           label: 'Custom CSS Class',
           admin: {
             description: 'Optional custom class for this item (e.g. "cta-btn" for button styling).',
-          }
+          },
         },
         {
           name: 'children',
@@ -67,7 +67,7 @@ export const Header: GlobalConfig = {
       admin: {
         language: 'css',
         description: 'Custom CSS for the header. Use & to reference the header element.',
-      }
+      },
     },
   ],
   hooks: {

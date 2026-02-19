@@ -1,27 +1,27 @@
-import { Calendar, MapPin, Clock } from "lucide-react";
-import { CMSLink } from "@/components/Link";
-import type { Page } from "@/payload-types";
+import { Calendar, MapPin, Clock } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
+import type { Page } from '@/payload-types'
 
 type Props = {
-  title: string;
-  subtitle: string;
-  description: string;
-  date: string;
-  time: string;
-  location: string;
-  freeEventText: string;
+  title: string
+  subtitle: string
+  description: string
+  date: string
+  time: string
+  location: string
+  freeEventText: string
   registerLink: {
     type?: ('reference' | 'custom') | null
     newTab?: boolean | null
     reference?:
       | ({
-      relationTo: 'pages'
-      value: number | string | Page
-    } | null)
+          relationTo: 'pages'
+          value: number | string | Page
+        } | null)
       | ({
-      relationTo: 'posts'
-      value: number | string
-    } | null)
+          relationTo: 'posts'
+          value: number | string
+        } | null)
     url?: string | null
     label?: string | null
   }
@@ -30,13 +30,13 @@ type Props = {
     newTab?: boolean | null
     reference?:
       | ({
-      relationTo: 'pages'
-      value: number | string | Page
-    } | null)
+          relationTo: 'pages'
+          value: number | string | Page
+        } | null)
       | ({
-      relationTo: 'posts'
-      value: number | string
-    } | null)
+          relationTo: 'posts'
+          value: number | string
+        } | null)
     url?: string | null
     label?: string | null
   }
@@ -51,7 +51,7 @@ const Hero: React.FC<Props> = ({
   location,
   freeEventText,
   registerLink,
-  scheduleLink
+  scheduleLink,
 }) => {
   return (
     <section className="relative min-h-[calc(100vh-60px)] flex items-center justify-center overflow-hidden grid-bg">
@@ -66,7 +66,7 @@ const Hero: React.FC<Props> = ({
           {/* Glitch title effect */}
           <div className="mb-6">
             <span className="font-mono text-sm text-primary tracking-[0.3em] uppercase">
-             KuoSec ry presents
+              KuoSec ry presents
             </span>
           </div>
 
@@ -75,16 +75,22 @@ const Hero: React.FC<Props> = ({
                 For now rendering the prop. Ideally we might want separate fields for coloring.
                 Let's try to parse if it matches "SavoSec 2025" pattern or just render the title.
              */}
-             <span dangerouslySetInnerHTML={{__html: title?.replace('Savo', '<span class="text-primary">Savo</span>').replace('Sec', '<span class="text-accent">Sec</span>').replace(/ (\d{4})$/, ' <span class="text-foreground">$1</span>') || '' }} />
+            <span
+              dangerouslySetInnerHTML={{
+                __html:
+                  title
+                    ?.replace('Savo', '<span class="text-primary">Savo</span>')
+                    .replace('Sec', '<span class="text-accent">Sec</span>')
+                    .replace(/ (\d{4})$/, ' <span class="text-foreground">$1</span>') || '',
+              }}
+            />
           </h1>
 
           <p className="font-mono text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             {subtitle}
           </p>
 
-          <p className="text-lg text-foreground/80 mb-12 max-w-xl mx-auto">
-            {description}
-          </p>
+          <p className="text-lg text-foreground/80 mb-12 max-w-xl mx-auto">{description}</p>
 
           {/* Event details cards */}
           <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -132,7 +138,7 @@ const Hero: React.FC<Props> = ({
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

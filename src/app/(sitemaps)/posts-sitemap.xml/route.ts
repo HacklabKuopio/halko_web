@@ -64,4 +64,3 @@ export async function GET() {
   const sitemap = await getPostsSitemap()
   return getServerSideSitemap(sitemap)
 }
-

@@ -41,7 +41,7 @@ export const themes = {
       '--border': '217.2 32.6% 17.5%',
       '--input': '217.2 32.6% 17.5%',
       '--ring': '212.7 26.8% 83.9%',
-    }
+    },
   },
   savosec: {
     light: {
@@ -127,7 +127,7 @@ export const themes = {
       '--primary': '217.2 91.2% 59.8%',
       '--primary-foreground': '222.2 47.4% 11.2%',
       '--ring': '217.2 91.2% 59.8%',
-    }
+    },
   },
   forest: {
     light: {
@@ -139,7 +139,7 @@ export const themes = {
       '--primary': '142.1 70.6% 45.3%',
       '--primary-foreground': '144.9 80.4% 10%',
       '--ring': '142.1 70.6% 45.3%',
-    }
+    },
   },
   rose: {
     light: {
@@ -151,7 +151,7 @@ export const themes = {
       '--primary': '346.8 77.2% 49.8%',
       '--primary-foreground': '355.7 100% 97.3%',
       '--ring': '346.8 77.2% 49.8%',
-    }
+    },
   },
   amber: {
     light: {
@@ -163,7 +163,7 @@ export const themes = {
       '--primary': '20.5 90.2% 48.2%',
       '--primary-foreground': '60 9.1% 97.8%',
       '--ring': '20.5 90.2% 48.2%',
-    }
+    },
   },
   violet: {
     light: {
@@ -175,7 +175,7 @@ export const themes = {
       '--primary': '263.4 70% 50.4%',
       '--primary-foreground': '210 40% 98%',
       '--ring': '263.4 70% 50.4%',
-    }
+    },
   },
   kuosec: {
     light: {
@@ -219,7 +219,7 @@ export const themes = {
       '--border': '43 30% 20%',
       '--input': '0 0% 15%',
       '--ring': '43 80% 50%',
-    }
+    },
   },
   hacklab: {
     light: {
@@ -265,6 +265,6 @@ export const themes = {
       '--input': '0 0% 15%',
       '--ring': '45 93% 53%',
       '--radius': '0.5rem',
-    }
-  }
+    },
+  },
 }

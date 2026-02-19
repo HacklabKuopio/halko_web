@@ -16,7 +16,7 @@
   margin-top: 1px; /* Align with input */
 }
 
-.color-preview input[type="color"] {
+.color-preview input[type='color'] {
   position: absolute;
   top: -50%;
   left: -50%;
@@ -28,4 +28,3 @@
   border: none;
   opacity: 1;
 }
-

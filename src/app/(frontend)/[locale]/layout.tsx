@@ -52,11 +52,11 @@ export default async function RootLayout({ children, params }: Args) {
   let faviconUrl = '/favicon.ico'
   let faviconType = 'image/x-icon'
   if (brand?.favicon && typeof brand.favicon === 'object') {
-     const favMedia = brand.favicon as Media
-     if (favMedia.url) {
-        faviconUrl = favMedia.url
-        faviconType = favMedia.mimeType || 'image/png'
-     }
+    const favMedia = brand.favicon as Media
+    if (favMedia.url) {
+      faviconUrl = favMedia.url
+      faviconType = favMedia.mimeType || 'image/png'
+    }
   }
 
   // @ts-ignore
@@ -72,15 +72,11 @@ export default async function RootLayout({ children, params }: Args) {
         <InitTheme />
         <link href={faviconUrl} rel="icon" type={faviconType} />
         {/* Google Fonts */}
-        {brand?.googleFontsCode && (
-           <link href={brand.googleFontsCode} rel="stylesheet" />
-        )}
+        {brand?.googleFontsCode && <link href={brand.googleFontsCode} rel="stylesheet" />}
         <title>{brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'}</title>
 
         {/* Brand Head Code */}
-        {brand?.headCode && (
-           <div dangerouslySetInnerHTML={{ __html: brand.headCode }} />
-        )}
+        {brand?.headCode && <div dangerouslySetInnerHTML={{ __html: brand.headCode }} />}
 
         {/* Plausible Analytics */}
         <Script async src={process.env.PLAUSIBLE_INIT}></Script>
@@ -108,9 +104,7 @@ export default async function RootLayout({ children, params }: Args) {
           </NextIntlClientProvider>
         </Providers>
         {/* Brand Footer Code */}
-        {brand?.footerCode && (
-           <div dangerouslySetInnerHTML={{ __html: brand.footerCode }} />
-        )}
+        {brand?.footerCode && <div dangerouslySetInnerHTML={{ __html: brand.footerCode }} />}
       </body>
     </html>
   )
@@ -121,8 +115,8 @@ export async function generateMetadata(): Promise<Metadata> {
   let ogImageUrl = null
 
   if (brand?.ogImage && typeof brand.ogImage === 'object') {
-      const ogMedia = brand.ogImage as Media
-      if (ogMedia.url) ogImageUrl = ogMedia.url
+    const ogMedia = brand.ogImage as Media
+    if (ogMedia.url) ogImageUrl = ogMedia.url
   }
 
   const websiteName = brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'

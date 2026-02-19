@@ -34,12 +34,10 @@ export const generateMeta = async (args: GenerateMetaArgs): Promise<Metadata> =>
   const serverUrl = getServerSideURL()
   const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'
 
-  const title = doc?.meta?.title
-    ? `${doc?.meta?.title} | ${websiteName}`
-    : websiteName
+  const title = doc?.meta?.title ? `${doc?.meta?.title} | ${websiteName}` : websiteName
 
   // Build the canonical path
-  const resolvedPath = path ?? (doc?.slug === 'home' ? '' : (doc?.slug || ''))
+  const resolvedPath = path ?? (doc?.slug === 'home' ? '' : doc?.slug || '')
   const canonicalUrl = `${serverUrl}/${locale}${resolvedPath ? `/${resolvedPath}` : ''}`
 
   // Build hreflang alternates for all locales

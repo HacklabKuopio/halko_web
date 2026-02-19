@@ -11,4 +11,3 @@ export const revalidateBrand: GlobalAfterChangeHook = ({ doc, req: { payload, co
 
   return doc
 }
-

@@ -22,15 +22,14 @@ export const ColorPicker: React.FC<TextFieldClientProps> = ({ field, path, readO
           />
         </div>
         <div style={{ flexGrow: 1 }}>
-            <TextInput
+          <TextInput
             path={path || field.name}
             value={value || ''}
             onChange={setValue}
             readOnly={readOnly}
-            />
+          />
         </div>
       </div>
     </div>
   )
 }
-

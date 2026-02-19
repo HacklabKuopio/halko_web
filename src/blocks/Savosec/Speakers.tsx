@@ -1,27 +1,23 @@
-import React from "react";
-import { Media } from "@/payload-types";
+import React from 'react'
+import { Media } from '@/payload-types'
 
 interface Speaker {
-  name: string;
-  title: string;
-  company: string;
-  bio: string;
-  initials: string;
-  image?: Media | string | null;
-  id?: string | null;
+  name: string
+  title: string
+  company: string
+  bio: string
+  initials: string
+  image?: Media | string | null
+  id?: string | null
 }
 
 type Props = {
-  subtitle: string;
-  title: string;
-  speakers: Speaker[];
+  subtitle: string
+  title: string
+  speakers: Speaker[]
 }
 
-const Speakers: React.FC<Props> = ({
-  subtitle,
-  title,
-  speakers
-}) => {
+const Speakers: React.FC<Props> = ({ subtitle, title, speakers }) => {
   return (
     <section id="speakers" className="py-24 bg-secondary/30 relative">
       <div className="container mx-auto px-4">
@@ -31,7 +27,12 @@ const Speakers: React.FC<Props> = ({
             {subtitle}
           </span>
           <h2 className="font-mono text-3xl md:text-4xl font-bold mt-4">
-             <span dangerouslySetInnerHTML={{ __html: title?.replace('lavalla', '<span class="text-primary">lavalla</span>') || '' }} />
+            <span
+              dangerouslySetInnerHTML={{
+                __html:
+                  title?.replace('lavalla', '<span class="text-primary">lavalla</span>') || '',
+              }}
+            />
           </h2>
         </div>
 
@@ -59,18 +60,10 @@ const Speakers: React.FC<Props> = ({
 
               {/* Speaker info */}
               <div className="text-center">
-                <h3 className="font-mono font-bold text-lg mb-1">
-                  {speaker.name}
-                </h3>
-                <p className="text-primary text-sm font-medium mb-1">
-                  {speaker.title}
-                </p>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {speaker.company}
-                </p>
-                <p className="text-sm text-foreground/70 leading-relaxed">
-                  {speaker.bio}
-                </p>
+                <h3 className="font-mono font-bold text-lg mb-1">{speaker.name}</h3>
+                <p className="text-primary text-sm font-medium mb-1">{speaker.title}</p>
+                <p className="text-muted-foreground text-sm mb-4">{speaker.company}</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">{speaker.bio}</p>
               </div>
 
               {/* Decorative corner */}
@@ -81,8 +74,7 @@ const Speakers: React.FC<Props> = ({
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-
-export default Speakers;
+export default Speakers

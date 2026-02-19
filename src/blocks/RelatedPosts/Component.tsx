@@ -9,7 +9,7 @@ import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 export type RelatedPostsProps = {
   className?: string
-  docs?: (Post)[]
+  docs?: Post[]
   introContent?: DefaultTypedEditorState
   relationTo?: 'posts'
 }

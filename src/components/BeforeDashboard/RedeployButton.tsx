@@ -54,7 +54,9 @@ const RedeployButton: React.FC = () => {
       <Button buttonStyle="secondary" size="small" onClick={handleClick} disabled={isLoading}>
         {isLoading ? t.building : t.triggerBuild}
       </Button>
-      {message && <div style={{ fontSize: '0.75rem', color: 'var(--theme-success-500)' }}>{message}</div>}
+      {message && (
+        <div style={{ fontSize: '0.75rem', color: 'var(--theme-success-500)' }}>{message}</div>
+      )}
     </div>
   )
 }

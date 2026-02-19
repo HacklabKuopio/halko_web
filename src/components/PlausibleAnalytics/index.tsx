@@ -23,4 +23,3 @@ const PlausibleAnalytics = () => {
 }
 
 export default PlausibleAnalytics
-

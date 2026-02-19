@@ -1,5 +1,5 @@
-import { MapPin, Clock, CalendarDays } from 'lucide-react';
-import { CMSLink } from '@/components/Link';
+import { MapPin, Clock, CalendarDays } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
 
 export interface EventsSectionBlock {
   blockType: 'eventsSection'
@@ -36,18 +36,28 @@ export interface EventsSectionBlock {
 }
 
 const EventsSection = (props: EventsSectionBlock) => {
-  const { subtitle, title, eventTitle, eventDate, eventTime, eventLocation, schedule, all_events, locale } = props;
+  const {
+    subtitle,
+    title,
+    eventTitle,
+    eventDate,
+    eventTime,
+    eventLocation,
+    schedule,
+    all_events,
+    locale,
+  } = props
 
   const hasAllEventsLink =
     all_events &&
     (all_events.url || all_events.reference) &&
     typeof all_events.label === 'string' &&
-    all_events.label.trim().length > 0;
-  const allEventsLinkProps = hasAllEventsLink ? all_events : null;
-  const hasSchedule = Array.isArray(schedule) && schedule.length > 0;
+    all_events.label.trim().length > 0
+  const allEventsLinkProps = hasAllEventsLink ? all_events : null
+  const hasSchedule = Array.isArray(schedule) && schedule.length > 0
   const scheduleFallbackText = locale?.startsWith('fi')
     ? 'Aikataulu julkaistaan lähempänä tapahtumaa.'
-    : 'Schedule will be announced closer to the event.';
+    : 'Schedule will be announced closer to the event.'
 
   return (
     <section id="events" className="py-24 relative">
@@ -111,9 +121,7 @@ const EventsSection = (props: EventsSectionBlock) => {
                           <td className="py-3 px-4 font-mono text-primary whitespace-nowrap">
                             {item.time}
                           </td>
-                          <td className="py-3 px-4 text-foreground">
-                            {item.event}
-                          </td>
+                          <td className="py-3 px-4 text-foreground">{item.event}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -129,15 +137,14 @@ const EventsSection = (props: EventsSectionBlock) => {
                   {...(allEventsLinkProps as any)}
                   appearance="inline"
                   className="inline-flex items-center gap-2 border border-primary text-primary px-6 py-3 rounded-md font-semibold hover:bg-primary/10 transition-all"
-                >
-                </CMSLink>
+                ></CMSLink>
               </div>
             )}
           </div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default EventsSection;
+export default EventsSection

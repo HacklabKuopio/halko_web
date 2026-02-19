@@ -144,7 +144,8 @@ export const SavosecAboutBlock: Block = {
       name: 'description',
       type: 'textarea',
       localized: true,
-      defaultValue: 'Tervetuloa KuoSec Ry:n järjestämään vuosittaiseen tietoturvatapahtumaan Savon pääkaupunkiin.',
+      defaultValue:
+        'Tervetuloa KuoSec Ry:n järjestämään vuosittaiseen tietoturvatapahtumaan Savon pääkaupunkiin.',
       label: {
         en: 'Description',
         fi: 'Kuvaus',
@@ -237,51 +238,51 @@ export const SavosecScheduleBlock: Block = {
           name: 'time',
           type: 'text',
           label: {
-           en: 'Time',
-           fi: 'Aika',
+            en: 'Time',
+            fi: 'Aika',
           },
         },
         {
-            name: 'title',
-            type: 'text',
-            localized: true,
-            label: {
-                en: 'Title',
-                fi: 'Otsikko',
-            },
+          name: 'title',
+          type: 'text',
+          localized: true,
+          label: {
+            en: 'Title',
+            fi: 'Otsikko',
+          },
         },
         {
-            name: 'speaker',
-            type: 'text',
-            localized: true,
-            label: {
-                en: 'Speaker',
-                fi: 'Puhuja',
-            },
+          name: 'speaker',
+          type: 'text',
+          localized: true,
+          label: {
+            en: 'Speaker',
+            fi: 'Puhuja',
+          },
         },
         {
-            name: 'description',
-            type: 'textarea',
-            localized: true,
-            label: {
-                en: 'Description',
-                fi: 'Kuvaus',
-            },
+          name: 'description',
+          type: 'textarea',
+          localized: true,
+          label: {
+            en: 'Description',
+            fi: 'Kuvaus',
+          },
         },
         {
-            name: 'type',
-            type: 'select',
-            options: [
-                { label: 'Talk', value: 'talk' },
-                { label: 'Break', value: 'break' },
-                { label: 'Networking', value: 'networking' },
-            ],
-            defaultValue: 'talk',
-            label: {
-                en: 'Type',
-                fi: 'Tyyppi',
-            },
-        }
+          name: 'type',
+          type: 'select',
+          options: [
+            { label: 'Talk', value: 'talk' },
+            { label: 'Break', value: 'break' },
+            { label: 'Networking', value: 'networking' },
+          ],
+          defaultValue: 'talk',
+          label: {
+            en: 'Type',
+            fi: 'Tyyppi',
+          },
+        },
       ],
     },
   ],
@@ -301,179 +302,179 @@ export const SavosecSpeakersBlock: Block = {
     },
   },
   fields: [
-      {
-          name: 'subtitle',
-          type: 'text',
-          localized: true,
-          defaultValue: '// Puhujat',
-            label: {
-                en: 'Subtitle',
-                fi: 'Alaotsikko',
-            },
+    {
+      name: 'subtitle',
+      type: 'text',
+      localized: true,
+      defaultValue: '// Puhujat',
+      label: {
+        en: 'Subtitle',
+        fi: 'Alaotsikko',
       },
-      {
+    },
+    {
+      name: 'title',
+      type: 'text',
+      localized: true,
+      defaultValue: 'Asiantuntijat lavalla',
+      label: {
+        en: 'Title',
+        fi: 'Otsikko',
+      },
+    },
+    {
+      name: 'speakers',
+      type: 'array',
+      label: {
+        en: 'Speakers',
+        fi: 'Puhujat',
+      },
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          label: {
+            en: 'Name',
+            fi: 'Nimi',
+          },
+        },
+        {
           name: 'title',
           type: 'text',
           localized: true,
-          defaultValue: 'Asiantuntijat lavalla',
-            label: {
-                en: 'Title',
-                fi: 'Otsikko',
-            },
-      },
-      {
-          name: 'speakers',
-          type: 'array',
-        label: {
-            en: 'Speakers',
-            fi: 'Puhujat',
+          label: {
+            en: 'Title',
+            fi: 'Titteli',
+          },
         },
-          fields: [
-              {
-                  name: 'name',
-                  type: 'text',
-                    label: {
-                        en: 'Name',
-                        fi: 'Nimi',
-                    },
-              },
-              {
-                  name: 'title',
-                  type: 'text',
-                  localized: true,
-                    label: {
-                        en: 'Title',
-                        fi: 'Titteli',
-                    },
-              },
-              {
-                  name: 'company',
-                  type: 'text',
-                  localized: true,
-                    label: {
-                        en: 'Company',
-                        fi: 'Yritys',
-                    },
-              },
-              {
-                  name: 'bio',
-                  type: 'textarea',
-                  localized: true,
-                    label: {
-                        en: 'Bio',
-                        fi: 'Kuvaus',
-                    },
-              },
-              {
-                  name: 'initials',
-                  type: 'text',
-                    label: {
-                        en: 'Initials',
-                        fi: 'Nimikirjaimet',
-                    },
-              },
-              {
-                  name: 'image',
-                  type: 'upload',
-                  relationTo: 'media',
-                  label: {
-                      en: 'Image',
-                      fi: 'Kuva',
-                  },
-              }
-          ]
-      }
-  ]
+        {
+          name: 'company',
+          type: 'text',
+          localized: true,
+          label: {
+            en: 'Company',
+            fi: 'Yritys',
+          },
+        },
+        {
+          name: 'bio',
+          type: 'textarea',
+          localized: true,
+          label: {
+            en: 'Bio',
+            fi: 'Kuvaus',
+          },
+        },
+        {
+          name: 'initials',
+          type: 'text',
+          label: {
+            en: 'Initials',
+            fi: 'Nimikirjaimet',
+          },
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: {
+            en: 'Image',
+            fi: 'Kuva',
+          },
+        },
+      ],
+    },
+  ],
 }
 
 export const SavosecSponsorsBlock: Block = {
-    slug: 'savosecSponsors',
-    interfaceName: 'SavosecSponsorsBlock',
-    labels: {
-        singular: {
-            en: 'Savosec Sponsors',
-            fi: 'Savosec Yhteistyökumppanit',
-        },
-        plural: {
-            en: 'Savosec Sponsor Sections',
-            fi: 'Savosec Yhteistyökumppaniosiot',
-        },
+  slug: 'savosecSponsors',
+  interfaceName: 'SavosecSponsorsBlock',
+  labels: {
+    singular: {
+      en: 'Savosec Sponsors',
+      fi: 'Savosec Yhteistyökumppanit',
     },
-    fields: [
+    plural: {
+      en: 'Savosec Sponsor Sections',
+      fi: 'Savosec Yhteistyökumppaniosiot',
+    },
+  },
+  fields: [
+    {
+      name: 'subtitle',
+      type: 'text',
+      localized: true,
+      defaultValue: '// Yhteistyökumppanit',
+      label: {
+        en: 'Subtitle',
+        fi: 'Alaotsikko',
+      },
+    },
+    {
+      name: 'title',
+      type: 'text',
+      localized: true,
+      defaultValue: 'Tapahtuman mahdollistajat',
+      label: {
+        en: 'Title',
+        fi: 'Otsikko',
+      },
+    },
+    {
+      name: 'backgroundTitle',
+      type: 'text',
+      localized: true,
+      defaultValue: 'PARTNERS',
+      label: {
+        en: 'Background Title',
+        fi: 'Taustaotsikko',
+      },
+    },
+    {
+      name: 'sponsors',
+      type: 'array',
+      label: {
+        en: 'Sponsors',
+        fi: 'Yhteistyökumppanit',
+      },
+      fields: [
         {
-            name: 'subtitle',
-            type: 'text',
-            localized: true,
-            defaultValue: '// Yhteistyökumppanit',
-            label: {
-                en: 'Subtitle',
-                fi: 'Alaotsikko',
-            },
+          name: 'name',
+          type: 'text',
+          label: {
+            en: 'Name',
+            fi: 'Nimi',
+          },
         },
         {
-            name: 'title',
-            type: 'text',
-            localized: true,
-            defaultValue: 'Tapahtuman mahdollistajat',
-            label: {
-                en: 'Title',
-                fi: 'Otsikko',
-            },
+          name: 'url',
+          type: 'text',
+          label: {
+            en: 'URL',
+            fi: 'Osoite',
+          },
         },
-        {
-            name: 'backgroundTitle',
-            type: 'text',
-            localized: true,
-            defaultValue: 'PARTNERS',
-            label: {
-                en: 'Background Title',
-                fi: 'Taustaotsikko',
-            },
+      ],
+    },
+    {
+      name: 'becomeSponsorText',
+      type: 'textarea',
+      localized: true,
+      defaultValue: 'Kiinnostunut yhteistyöstä?',
+      label: {
+        en: 'Become Sponsor Text',
+        fi: 'Ryhdy kumppaniksi -teksti',
+      },
+    },
+    link({
+      overrides: {
+        name: 'contactLink',
+        label: {
+          en: 'Contact Link',
+          fi: 'Yhteystietolinkki',
         },
-        {
-            name: 'sponsors',
-            type: 'array',
-            label: {
-                en: 'Sponsors',
-                fi: 'Yhteistyökumppanit',
-            },
-            fields: [
-                {
-                    name: 'name',
-                    type: 'text',
-                    label: {
-                        en: 'Name',
-                        fi: 'Nimi',
-                    },
-                },
-                {
-                    name: 'url',
-                    type: 'text',
-                    label: {
-                        en: 'URL',
-                        fi: 'Osoite',
-                    },
-                }
-            ]
-        },
-        {
-            name: 'becomeSponsorText',
-            type: 'textarea',
-            localized: true,
-            defaultValue: 'Kiinnostunut yhteistyöstä?',
-            label: {
-                en: 'Become Sponsor Text',
-                fi: 'Ryhdy kumppaniksi -teksti',
-            },
-        },
-        link({
-            overrides: {
-                name: 'contactLink',
-                label: {
-                    en: 'Contact Link',
-                    fi: 'Yhteystietolinkki',
-                },
-            },
-        }),
-    ]
+      },
+    }),
+  ],
 }

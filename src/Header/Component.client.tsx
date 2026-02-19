@@ -45,7 +45,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
       {...(theme ? { 'data-theme': theme } : {})}
     >
       {header.customCss && (
-        <style dangerouslySetInnerHTML={{ __html: header.customCss.replace(/&/g, '#site-header') }} />
+        <style
+          dangerouslySetInnerHTML={{ __html: header.customCss.replace(/&/g, '#site-header') }}
+        />
       )}
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-3 flex items-center gap-3">
         <Link href="/" className="flex items-center shrink-0">
@@ -72,9 +74,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
             <LocaleSwitcher className="ms-2" />
           </div>
 
-          <div className="block sm:hidden">
-            {header.enableKokStatus && <KokStatusIndicator />}
-          </div>
+          <div className="block sm:hidden">{header.enableKokStatus && <KokStatusIndicator />}</div>
 
           {/* Mobile hamburger */}
           <button

@@ -47,11 +47,13 @@ export const AdminBar: React.FC<{
   const localeParam = params?.locale as string
   const locale = localeParam === 'fi' ? 'fi' : 'en'
   const [show, setShow] = useState(false)
-  const collection = (collectionLabels[segments?.[1] as keyof typeof collectionLabels]
-    ? segments[1]
-    : collectionLabels[segments?.[0] as keyof typeof collectionLabels]
-      ? segments[0]
-      : 'pages') as keyof typeof collectionLabels
+  const collection = (
+    collectionLabels[segments?.[1] as keyof typeof collectionLabels]
+      ? segments[1]
+      : collectionLabels[segments?.[0] as keyof typeof collectionLabels]
+        ? segments[0]
+        : 'pages'
+  ) as keyof typeof collectionLabels
   const router = useRouter()
 
   const onAuthChange = React.useCallback((user: PayloadMeUser) => {

@@ -64,7 +64,11 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
   return params.then(({ locale = 'en' }) => {
     const serverUrl = getServerSideURL()
     const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'

@@ -13,27 +13,29 @@ import { themes } from '@/Brand/themes'
 // We need a conversion function HSL -> Hex.
 
 function hslToHex(h: number, s: number, l: number) {
-  l /= 100;
-  const a = s * Math.min(l, 1 - l) / 100;
+  l /= 100
+  const a = (s * Math.min(l, 1 - l)) / 100
   const f = (n: number) => {
-    const k = (n + h / 30) % 12;
-    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    return Math.round(255 * color).toString(16).padStart(2, '0');
-  };
-  return `#${f(0)}${f(8)}${f(4)}`.toUpperCase();
+    const k = (n + h / 30) % 12
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0')
+  }
+  return `#${f(0)}${f(8)}${f(4)}`.toUpperCase()
 }
 
 function parseHslString(hsl: string): string | null {
   // Format is "H S% L%" or "H S L"
   // e.g. "222.2 84% 4.9%"
-  const parts = hsl.trim().split(' ');
-  if (parts.length !== 3) return null;
+  const parts = hsl.trim().split(' ')
+  if (parts.length !== 3) return null
 
-  const h = parseFloat(parts[0]);
-  const s = parseFloat(parts[1].replace('%', ''));
-  const l = parseFloat(parts[2].replace('%', ''));
+  const h = parseFloat(parts[0])
+  const s = parseFloat(parts[1].replace('%', ''))
+  const l = parseFloat(parts[2].replace('%', ''))
 
-  return hslToHex(h, s, l);
+  return hslToHex(h, s, l)
 }
 
 function cssVarToFieldName(cssVar: string): string {
@@ -42,9 +44,9 @@ function cssVarToFieldName(cssVar: string): string {
 }
 
 export const ThemeSelector: React.FC<SelectFieldClientProps> = (props) => {
-  const { path, field } = props;
-  const { value, setValue } = useField<string>({ path: path || field.name });
-  const { dispatchFields } = useForm();
+  const { path, field } = props
+  const { value, setValue } = useField<string>({ path: path || field.name })
+  const { dispatchFields } = useForm()
 
   // Transform options for the Select component
   // payload Select component expects options in specific format

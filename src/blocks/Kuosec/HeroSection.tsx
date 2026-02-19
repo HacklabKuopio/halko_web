@@ -1,6 +1,6 @@
-import { ChevronDown, Mail } from 'lucide-react';
-import { CMSLink } from '@/components/Link';
-import { Media } from '@/payload-types';
+import { ChevronDown, Mail } from 'lucide-react'
+import { CMSLink } from '@/components/Link'
+import { Media } from '@/payload-types'
 
 export interface HeroSectionBlock {
   blockType: 'heroSection'
@@ -44,40 +44,44 @@ export interface HeroSectionBlock {
 }
 
 const HeroSection = (props: HeroSectionBlock) => {
-  const { title, highlight, subtitle, tagline, logo, primaryLink, contactLink } = props;
+  const { title, highlight, subtitle, tagline, logo, primaryLink, contactLink } = props
 
-  const logoObj = (logo && typeof logo === 'object') ? logo : null;
-  const logoUrl = (logoObj?.url || '') as string;
-  const logoAlt = (logoObj?.alt || 'KuoSec Logo') as string;
+  const logoObj = logo && typeof logo === 'object' ? logo : null
+  const logoUrl = (logoObj?.url || '') as string
+  const logoAlt = (logoObj?.alt || 'KuoSec Logo') as string
 
-  const hasPrimary = primaryLink && (primaryLink.url || primaryLink.reference);
-  const primaryLinkProps = hasPrimary ? primaryLink : {
-    type: 'custom',
-    url: '#events',
-    label: 'Upcoming Events',
-    appearance: 'default'
-  };
+  const hasPrimary = primaryLink && (primaryLink.url || primaryLink.reference)
+  const primaryLinkProps = hasPrimary
+    ? primaryLink
+    : {
+        type: 'custom',
+        url: '#events',
+        label: 'Upcoming Events',
+        appearance: 'default',
+      }
 
-  const hasContact = contactLink && (contactLink.url || contactLink.reference);
-  const contactLinkProps = hasContact ? contactLink : {
-    type: 'custom',
-    url: 'mailto:info@kuosec.fi',
-    label: 'Contact Us',
-    appearance: 'default'
-  };
+  const hasContact = contactLink && (contactLink.url || contactLink.reference)
+  const contactLinkProps = hasContact
+    ? contactLink
+    : {
+        type: 'custom',
+        url: 'mailto:info@kuosec.fi',
+        label: 'Contact Us',
+        appearance: 'default',
+      }
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center pb-16">
       <div className="container mx-auto px-4 text-center relative z-10">
         {/* Logo */}
         {logoUrl && (
-        <div className="mb-8 animate-float">
-          <img
-            src={logoUrl}
-            alt={logoAlt}
-            className="w-40 h-40 md:w-56 md:h-56 mx-auto glow rounded-full"
-          />
-        </div>
+          <div className="mb-8 animate-float">
+            <img
+              src={logoUrl}
+              alt={logoAlt}
+              className="w-40 h-40 md:w-56 md:h-56 mx-auto glow rounded-full"
+            />
+          </div>
         )}
 
         {/* Title */}
@@ -100,18 +104,18 @@ const HeroSection = (props: HeroSectionBlock) => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <CMSLink
-            {...primaryLinkProps as any}
+            {...(primaryLinkProps as any)}
             appearance="inline"
             className="group flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-md font-semibold hover:glow transition-all"
           >
-             <ChevronDown className="group-hover:translate-y-1 transition-transform" size={18} />
+            <ChevronDown className="group-hover:translate-y-1 transition-transform" size={18} />
           </CMSLink>
           <CMSLink
-            {...contactLinkProps as any}
+            {...(contactLinkProps as any)}
             appearance="inline"
             className="flex items-center gap-2 border border-primary text-primary px-8 py-3 rounded-md font-semibold hover:bg-primary/10 transition-all"
           >
-             <Mail size={18} />
+            <Mail size={18} />
           </CMSLink>
         </div>
       </div>
@@ -121,7 +125,7 @@ const HeroSection = (props: HeroSectionBlock) => {
         <ChevronDown className="text-primary" size={32} />
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default HeroSection;
+export default HeroSection

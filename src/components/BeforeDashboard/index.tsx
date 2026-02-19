@@ -36,9 +36,7 @@ const BeforeDashboard: React.FC = () => {
     <div className={baseClass}>
       <div className={`${baseClass}__header`}>
         <h2 className={`${baseClass}__title`}>{t.title}</h2>
-        <p className={`${baseClass}__subtitle`}>
-          {t.subtitle}
-        </p>
+        <p className={`${baseClass}__subtitle`}>{t.subtitle}</p>
       </div>
 
       <div className={`${baseClass}__grid`}>
