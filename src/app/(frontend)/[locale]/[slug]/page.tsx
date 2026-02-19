@@ -4,6 +4,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload, TypedLocale } from 'payload'
 import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
 import React, { cache } from 'react'
 import type { Page as PageType } from '@/payload-types'
 
@@ -54,7 +55,8 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   if (!page) {
-    return <PayloadRedirects url={url} />
+    await PayloadRedirects({ url, disableNotFound: true })
+    notFound()
   }
 
   const { hero, layout, backgroundComponent } = page
