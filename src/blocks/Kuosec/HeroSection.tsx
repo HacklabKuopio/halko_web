@@ -82,7 +82,7 @@ const HeroSection = (props: HeroSectionBlock) => {
               alt={logoAlt}
               width={224}
               height={224}
-              className="w-40 h-40 md:w-56 md:h-56 mx-auto glow rounded-full"
+              className="w-40 h-40 md:w-56 md:h-56 mx-auto glow rounded-full object-contain"
               priority
             />
           </div>

@@ -100,7 +100,7 @@ export default async function RootLayout({ children, params }: Args) {
             <noscript>
               For the best experience, please enable JavaScript in your browser settings.
             </noscript>
-            {children}
+            <main className="grow">{children}</main>
             <Footer locale={locale as TypedLocale} />
           </NextIntlClientProvider>
         </Providers>

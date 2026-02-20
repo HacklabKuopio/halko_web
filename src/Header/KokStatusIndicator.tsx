@@ -12,8 +12,6 @@ interface KokStatusIndicatorProps {
   className?: string
 }
 
-// Polls the kok status every 30 seconds and renders a small colored circle.
-// Green = True, Gray = False/unknown.
 export const KokStatusIndicator: React.FC<KokStatusIndicatorProps> = ({ className }) => {
   const [isOn, setIsOn] = useState<boolean | null>(null)
   const [lastChanged, setLastChanged] = useState<string | null>(null)
@@ -26,6 +24,7 @@ export const KokStatusIndicator: React.FC<KokStatusIndicatorProps> = ({ classNam
     const fetchStatus = async () => {
       abortController?.abort()
       abortController = new AbortController()
+
       try {
         setError(null)
         const res = await fetch('https://kok.halko.fi/status', {
@@ -33,19 +32,29 @@ export const KokStatusIndicator: React.FC<KokStatusIndicatorProps> = ({ classNam
           cache: 'no-store',
           signal: abortController.signal,
         })
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+
+        if (!res.ok) {
+          setError(`HTTP ${res.status}`)
+          setIsOn((prev) => (prev === null ? false : prev))
+          return
+        }
+
         const data: KokStatusResponse = await res.json()
         setIsOn(data.kok_state === 'True')
         setLastChanged(data.last_changed_utc)
       } catch (e: any) {
-        // Keep previous state, but mark error
+        if (e && e.name === 'AbortError') return
+
         setError(e.message || 'Fetch error')
-        if (isOn === null) setIsOn(false) // initial failure -> treat as off
+        setIsOn((prev) => (prev === null ? false : prev))
       }
     }
 
-    fetchStatus()
-    timeoutId = setInterval(fetchStatus, 30_000)
+    void fetchStatus()
+
+    timeoutId = setInterval(() => {
+      void fetchStatus()
+    }, 30_000)
 
     return () => {
       if (timeoutId) clearInterval(timeoutId)
@@ -67,6 +76,7 @@ export const KokStatusIndicator: React.FC<KokStatusIndicatorProps> = ({ classNam
   return (
     <div className={clsx('inline-flex items-center', className)}>
       <span
+        role="status"
         aria-label={label}
         title={lastChanged ? `${label}\nLast change: ${lastChanged}` : label}
         className={clsx(

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import type { Config, Media, Page, Post } from '../payload-types'
+import type { Config, Media, Page, Post } from '@/payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
@@ -36,15 +36,18 @@ export const generateMeta = async (args: GenerateMetaArgs): Promise<Metadata> =>
 
   const title = doc?.meta?.title ? `${doc?.meta?.title} | ${websiteName}` : websiteName
 
-  // Build the canonical path
-  const resolvedPath = path ?? (doc?.slug === 'home' ? '' : doc?.slug || '')
-  const canonicalUrl = `${serverUrl}/${locale}${resolvedPath ? `/${resolvedPath}` : ''}`
+  // Build the canonical path — always includes the active locale prefix
+  const resolvedPath = path ?? (doc?.slug === 'home' ? '' : (doc?.slug ?? ''))
+  const pathSuffix = resolvedPath ? `/${resolvedPath}` : ''
+  const canonicalUrl = `${serverUrl}/${locale}${pathSuffix}`
 
-  // Build hreflang alternates for all locales
+  // Build hreflang alternates for every supported locale plus x-default
   const languages: Record<string, string> = {}
   for (const loc of localization.locales) {
-    languages[loc.code] = `${serverUrl}/${loc.code}${resolvedPath ? `/${resolvedPath}` : ''}`
+    languages[loc.code] = `${serverUrl}/${loc.code}${pathSuffix}`
   }
+  // x-default points to the default locale so it never duplicates the canonical
+  languages['x-default'] = `${serverUrl}/${localization.defaultLocale}${pathSuffix}`
 
   return {
     title,

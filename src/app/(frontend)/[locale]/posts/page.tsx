@@ -8,8 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import PageClient from './page.client'
 
-import { getServerSideURL } from '@/utilities/getURL'
-import localization from '@/i18n/localization'
+import { generateMeta } from '@/utilities/generateMeta'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -64,24 +63,14 @@ export default async function Page() {
   )
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  return params.then(({ locale = 'en' }) => {
-    const serverUrl = getServerSideURL()
-    const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'
-    const canonicalUrl = `${serverUrl}/${locale}/posts`
-    const languages: Record<string, string> = {}
-    for (const loc of localization.locales) {
-      languages[loc.code] = `${serverUrl}/${loc.code}/posts`
-    }
-    return {
-      title: `${websiteName} Posts`,
-      alternates: { canonical: canonicalUrl, languages },
-      robots: { index: true, follow: true },
-      publisher: websiteName,
-    }
-  })
+  const { locale = 'en' } = await params
+
+  // Use the shared generateMeta utility so canonical and hreflang alternates
+  // are generated consistently (includes x-default and locale prefix).
+  return generateMeta({ doc: null, locale, path: 'posts' })
 }
