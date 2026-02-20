@@ -20,7 +20,7 @@ const cspHeader = `
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL};
-  connect-src 'self' https://analytics.bittive.com;
+  connect-src 'self' https://analytics.bittive.com https://kok.halko.fi;
   frame-ancestors 'self';
   base-uri 'self';
   form-action 'self';
