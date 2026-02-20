@@ -16,12 +16,15 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://analytics.bittive.com;
+  script-src 'self' https://analytics.bittive.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
-  img-src 'self' blob: data: https:;
+  img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL};
   connect-src 'self' https://analytics.bittive.com;
   frame-ancestors 'self';
+  base-uri 'self';
+  form-action 'self';
+  upgrade-insecure-requests;
 `
   .replace(/\s{2,}/g, ' ')
   .trim()
@@ -89,6 +92,22 @@ const nextConfig = {
           {
             key: 'Cross-Origin-Embedder-Policy',
             value: 'credentialless',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
           },
         ],
       },
