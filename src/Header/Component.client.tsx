@@ -50,13 +50,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ header }) => {
         />
       )}
       <div className="mx-auto max-w-(--breakpoint-xl) px-4 py-3 flex items-center gap-3">
-        <Link href="/" className="flex items-center shrink-0 h-8 max-w-60">
+        <Link href="/" className="flex items-center shrink-0">
           {header?.logo ? (
             <Media
               resource={header.logo as any}
-              className="h-12! w-auto"
-              imgClassName="h-12 w-auto object-contain"
-              pictureClassName="flex items-center h-8"
+              htmlElement={null}
+              pictureClassName="flex h-[34px] max-w-[240px]"
+              imgClassName="!h-[34px] !w-auto object-contain"
             />
           ) : (
             <Logo />
