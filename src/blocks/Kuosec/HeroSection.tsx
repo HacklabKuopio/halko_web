@@ -1,6 +1,7 @@
 import { ChevronDown, Mail } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/payload-types'
+import NextImage from 'next/image'
 
 export interface HeroSectionBlock {
   blockType: 'heroSection'
@@ -75,11 +76,14 @@ const HeroSection = (props: HeroSectionBlock) => {
       <div className="container mx-auto px-4 text-center relative z-10">
         {/* Logo */}
         {logoUrl && (
-          <div className="mb-8 animate-float">
-            <img
+          <div className="mb-8 md:animate-float">
+            <NextImage
               src={logoUrl}
               alt={logoAlt}
+              width={224}
+              height={224}
               className="w-40 h-40 md:w-56 md:h-56 mx-auto glow rounded-full"
+              priority
             />
           </div>
         )}

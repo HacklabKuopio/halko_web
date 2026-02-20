@@ -1,4 +1,5 @@
 import React from 'react'
+import Script from 'next/script'
 
 const PlausibleAnalytics = () => {
   const src = process.env.PLAUSIBLE_ANALYTICS_DASHBOARD
@@ -17,7 +18,7 @@ const PlausibleAnalytics = () => {
         loading="lazy"
         style={{ width: '1px', minWidth: '100%', height: '1600px', colorScheme: 'auto' }}
       />
-      <script async src="https://analytics.bittive.com/js/embed.host.js" />
+      <Script strategy="lazyOnload" src="https://analytics.bittive.com/js/embed.host.js" />
     </div>
   )
 }

@@ -71,18 +71,19 @@ export default async function RootLayout({ children, params }: Args) {
       <head>
         <InitTheme />
         <link href={faviconUrl} rel="icon" type={faviconType} />
-        {/* Google Fonts */}
+        {/* Google Fonts — preconnect to reduce render-blocking delay */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {brand?.googleFontsCode && <link href={brand.googleFontsCode} rel="stylesheet" />}
         <title>{brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'}</title>
 
         {/* Brand Head Code */}
         {brand?.headCode && <div dangerouslySetInnerHTML={{ __html: brand.headCode }} />}
 
-        {/* Plausible Analytics */}
-        <Script async src={process.env.PLAUSIBLE_INIT}></Script>
-        <Script>
-          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}}`}
-          ; plausible.init()
+        {/* Plausible Analytics — deferred to avoid blocking FCP/TBT */}
+        <Script strategy="lazyOnload" src={process.env.PLAUSIBLE_INIT} />
+        <Script strategy="lazyOnload" id="plausible-init">
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)};plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
         </Script>
       </head>
       <body>
