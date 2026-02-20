@@ -70,7 +70,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         sizes={sizes}
         src={src}
         width={!fill ? width : undefined}
-        style={!fill ? { width: '100%', height: 'auto' } : undefined}
+        style={!fill ? { maxWidth: '100%', height: 'auto' } : undefined}
       />
     </picture>
   )
