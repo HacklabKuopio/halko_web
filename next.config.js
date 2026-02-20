@@ -19,8 +19,9 @@ const cspHeader = `
   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
-  img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL};
+  img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL} https://www.gravatar.com;
   connect-src 'self' https://analytics.bittive.com https://kok.halko.fi;
+  frame-src 'self' https://analytics.bittive.com;
   frame-ancestors 'self';
   base-uri 'self';
   form-action 'self';
