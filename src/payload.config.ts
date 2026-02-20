@@ -31,7 +31,7 @@ export default buildConfig({
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeLogin: ['@/components/BeforeLogin'],
+      // beforeLogin: ['@/components/BeforeLogin'],
       beforeDashboard: ['@/components/BeforeDashboard'],
       afterDashboard: ['@/components/PlausibleAnalytics'],
     },
@@ -75,6 +75,10 @@ export default buildConfig({
   }),
   collections: [Pages, Posts, Media, Categories, Users, Sponsors],
   cors: [getServerSideURL()].filter(Boolean),
+  csrf: [getServerSideURL()].filter(Boolean),
+  graphQL: {
+    disablePlaygroundInProduction: true,
+  },
   globals: [Header, Footer, Brand],
   endpoints: [redeployEndpoint],
   plugins: [
