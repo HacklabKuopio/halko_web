@@ -14,7 +14,24 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
   : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
-const cspHeader = `
+// Public CSP (Allows analytics scripts and data sending, NO iframe, NO gravatar)
+const publicCspHeader = `
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL};
+  connect-src 'self' https://analytics.bittive.com https://kok.halko.fi;
+  frame-ancestors 'self';
+  base-uri 'self';
+  form-action 'self';
+  upgrade-insecure-requests;
+`
+  .replace(/\s{2,}/g, ' ')
+  .trim()
+
+// Admin CSP (Adds Gravatar images and Analytics iframe)
+const adminCspHeader = `
   default-src 'self';
   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
@@ -76,11 +93,12 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // 1. Strict rules and Public CSP applied to ALL routes
         source: '/(.*)',
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: cspHeader,
+            value: publicCspHeader,
           },
           {
             key: 'Cross-Origin-Opener-Policy',
@@ -113,20 +131,34 @@ const nextConfig = {
         ],
       },
       {
+        // 2. Override specifically for ADMIN routes
+        source: '/hallintapaneeli-d064b4f4/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: adminCspHeader,
+          },
+          {
+            key: 'Cross-Origin-Embedder-Policy',
+            value: 'unsafe-none', // Required for the iframe to load
+          },
+          {
+            key: 'Cross-Origin-Resource-Policy',
+            value: 'cross-origin', // Required for external images like Gravatar
+          },
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+      {
+        // 3. SEO for NON-ADMIN routes
         source: '/((?!hallintapaneeli-d064b4f4).*)',
         headers: [
           {
             key: 'X-Robots-Tag',
             value: 'index, follow',
-          },
-        ],
-      },
-      {
-        source: '/hallintapaneeli-d064b4f4/:path*',
-        headers: [
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
           },
         ],
       },
