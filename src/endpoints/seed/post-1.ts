@@ -86,7 +86,7 @@ export const post1: (args: PostArgs) => RequiredDataFromCollectionSlug<'posts'> 
                           fields: {
                             linkType: 'custom',
                             newTab: true,
-                            url: '/admin',
+                            url: '/hallintapaneeli-d064b4f4',
                           },
                           format: '',
                           indent: 0,

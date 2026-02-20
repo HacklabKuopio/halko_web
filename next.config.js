@@ -112,7 +112,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/((?!admin).*)',
+        source: '/((?!hallintapaneeli-d064b4f4).*)',
         headers: [
           {
             key: 'X-Robots-Tag',
@@ -121,7 +121,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/admin/:path*',
+        source: '/hallintapaneeli-d064b4f4/:path*',
         headers: [
           {
             key: 'X-Robots-Tag',

@@ -114,7 +114,7 @@ const redeployHandler: PayloadHandler = async (req: PayloadRequest): Promise<Res
 }
 
 export const redeployEndpoint: Endpoint = {
-  path: '/admin/redeploy',
+  path: '/hallintapaneeli-d064b4f4/redeploy',
   method: 'post',
   handler: redeployHandler,
 }

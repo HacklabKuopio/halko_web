@@ -46,7 +46,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   if (!href) return null
 
   const finalHref = href || url || ''
-  const Link = finalHref.startsWith('/admin') ? NextLink : i18nLink
+  const Link = finalHref.startsWith('/hallintapaneeli-d064b4f4') ? NextLink : i18nLink
 
   const size = appearance === 'link' ? 'clear' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}

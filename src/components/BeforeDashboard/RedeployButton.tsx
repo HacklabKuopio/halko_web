@@ -29,7 +29,7 @@ const RedeployButton: React.FC = () => {
     setMessage(null)
 
     try {
-      const res = await fetch('/api/admin/redeploy', {
+      const res = await fetch('/api/hallintapaneeli-d064b4f4/redeploy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

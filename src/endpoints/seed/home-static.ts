@@ -49,7 +49,7 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
                 fields: {
                   linkType: 'custom',
                   newTab: false,
-                  url: '/admin',
+                  url: '/hallintapaneeli-d064b4f4',
                 },
                 format: '',
                 indent: 0,
