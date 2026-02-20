@@ -16,7 +16,7 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 const cspHeader = `
   default-src 'self';
-  script-src 'self' https://analytics.bittive.com;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL};
