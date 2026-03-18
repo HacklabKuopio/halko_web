@@ -149,44 +149,98 @@ export const EventsSectionBlock: Block = {
   interfaceName: 'EventsSectionBlock',
   fields: [
     {
+      name: 'sourceMode',
+      type: 'radio',
+      defaultValue: 'inline',
+      options: [
+        {
+          label: {
+            en: 'Inline fields',
+            fi: 'Sisaiset kentat',
+          },
+          value: 'inline',
+        },
+        {
+          label: {
+            en: 'Reusable event section',
+            fi: 'Uudelleenkaytettava tapahtumaosio',
+          },
+          value: 'reusable',
+        },
+      ],
+    },
+    {
+      name: 'eventSectionRef',
+      type: 'relationship',
+      relationTo: 'eventSections',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode === 'reusable',
+      },
+      label: {
+        en: 'Event section reference',
+        fi: 'Tapahtumaosion viite',
+      },
+    },
+    {
       name: 'subtitle',
       type: 'text',
       localized: true,
       defaultValue: '// EVENTS',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
     },
     {
       name: 'title',
       type: 'text',
       localized: true,
       defaultValue: 'Upcoming Events',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
     },
     {
       name: 'eventTitle',
       type: 'text',
       localized: true,
       defaultValue: 'KuoSec December Meetup',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
     },
     {
       name: 'eventDate',
       type: 'text',
       localized: true,
       defaultValue: '3.12.2025',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
     },
     {
       name: 'eventTime',
       type: 'text',
       localized: true,
       defaultValue: '18:00 - 02:00',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
     },
     {
       name: 'eventLocation',
       type: 'text',
       localized: true,
       defaultValue: 'Teerenpeli, Kauppakatu 41, 70100 Kuopio',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
     },
     {
       name: 'schedule',
       type: 'array',
+      admin: {
+        condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+      },
       fields: [
         {
           name: 'time',
@@ -203,6 +257,9 @@ export const EventsSectionBlock: Block = {
     link({
       overrides: {
         name: 'all_events',
+        admin: {
+          condition: (_, siblingData) => siblingData?.sourceMode !== 'reusable',
+        },
         label: {
           en: 'All Events',
           fi: 'Kaikki tapahtumat',

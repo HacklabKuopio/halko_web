@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     sponsors: Sponsor;
+    eventSections: EventSection;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -91,6 +92,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
+    eventSections: EventSectionsSelect<false> | EventSectionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -116,9 +118,10 @@ export interface Config {
     brand: BrandSelect<false> | BrandSelect<true>;
   };
   locale: 'en' | 'fi';
-  user: User & {
-    collection: 'users';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: User;
   jobs: {
     tasks: {
       schedulePublish: TaskSchedulePublish;
@@ -416,6 +419,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -847,6 +851,51 @@ export interface ContactSectionBlock {
  * via the `definition` "EventsSectionBlock".
  */
 export interface EventsSectionBlock {
+  sourceMode?: ('inline' | 'reusable') | null;
+  eventSectionRef?: (number | null) | EventSection;
+  subtitle?: string | null;
+  title?: string | null;
+  eventTitle?: string | null;
+  eventDate?: string | null;
+  eventTime?: string | null;
+  eventLocation?: string | null;
+  schedule?:
+    | {
+        time?: string | null;
+        event?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  all_events?: {
+    type?: ('reference' | 'custom') | null;
+    newTab?: boolean | null;
+    reference?:
+      | ({
+          relationTo: 'pages';
+          value: number | Page;
+        } | null)
+      | ({
+          relationTo: 'posts';
+          value: number | Post;
+        } | null);
+    url?: string | null;
+    label: string;
+    /**
+     * Choose how the link should be rendered.
+     */
+    appearance?: ('default' | 'outline') | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventsSection';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventSections".
+ */
+export interface EventSection {
+  id: number;
+  name: string;
   subtitle?: string | null;
   title?: string | null;
   eventTitle?: string | null;
@@ -879,9 +928,8 @@ export interface EventsSectionBlock {
      */
     appearance?: ('default' | 'outline') | null;
   };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'eventsSection';
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1414,6 +1462,10 @@ export interface PayloadLockedDocument {
         value: number | Sponsor;
       } | null)
     | ({
+        relationTo: 'eventSections';
+        value: number | EventSection;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -1686,6 +1738,8 @@ export interface ContactSectionBlockSelect<T extends boolean = true> {
  * via the `definition` "EventsSectionBlock_select".
  */
 export interface EventsSectionBlockSelect<T extends boolean = true> {
+  sourceMode?: T;
+  eventSectionRef?: T;
   subtitle?: T;
   title?: T;
   eventTitle?: T;
@@ -2103,6 +2157,38 @@ export interface SponsorsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventSections_select".
+ */
+export interface EventSectionsSelect<T extends boolean = true> {
+  name?: T;
+  subtitle?: T;
+  title?: T;
+  eventTitle?: T;
+  eventDate?: T;
+  eventTime?: T;
+  eventLocation?: T;
+  schedule?:
+    | T
+    | {
+        time?: T;
+        event?: T;
+        id?: T;
+      };
+  all_events?:
+    | T
+    | {
+        type?: T;
+        newTab?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        appearance?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2584,6 +2670,14 @@ export interface Brand {
    * The name of the website, used in the title and other places.
    */
   name?: string | null;
+  /**
+   * Publisher name for SEO meta tags (e.g. organisation name).
+   */
+  publisher?: string | null;
+  /**
+   * Comma-separated default keywords for SEO (used when a page has no keywords set).
+   */
+  defaultKeywords?: string | null;
   favicon?: (number | null) | Media;
   /**
    * Default image for social sharing.
@@ -2739,6 +2833,8 @@ export interface BrandSelect<T extends boolean = true> {
   radius?: T;
   rawCss?: T;
   name?: T;
+  publisher?: T;
+  defaultKeywords?: T;
   favicon?: T;
   ogImage?: T;
   headCode?: T;
@@ -2746,6 +2842,16 @@ export interface BrandSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

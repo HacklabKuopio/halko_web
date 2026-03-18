@@ -1,42 +1,77 @@
 import { MapPin, Clock, CalendarDays } from 'lucide-react'
-import { CMSLink } from '@/components/Link'
+import { CMSLink, type CMSLinkType } from '@/components/Link'
+import type { EventSection } from '@/payload-types'
 
-export interface EventsSectionBlock {
-  blockType: 'eventsSection'
+type ScheduleItem = {
+  time?: string | null
+  event?: string | null
+  id?: string | null
+}
+
+type EventsLinkData = {
+  type?: ('reference' | 'custom') | null
+  newTab?: boolean | null
+  reference?: CMSLinkType['reference']
+  url?: string | null
+  label?: string | null
+
+  appearance?: ('default' | 'outline') | null
+}
+
+type EventsSectionContent = {
   subtitle?: string | null
   title?: string | null
   eventTitle?: string | null
   eventDate?: string | null
   eventTime?: string | null
   eventLocation?: string | null
-  all_events?: {
-    type?: ('reference' | 'custom') | null
-    newTab?: boolean | null
-    reference?:
-      | ({
-          relationTo: 'pages'
-          value: number | string
-        } | null)
-      | ({
-          relationTo: 'posts'
-          value: number | string
-        } | null)
-    url?: string | null
-    label: string
-    appearance?: ('default' | 'outline') | null
-  }
-  schedule?:
-    | {
-        time?: string | null
-        event?: string | null
-        id?: string | null
-      }[]
-    | null
+  all_events?: EventsLinkData | null
+  schedule?: ScheduleItem[] | null
+}
+
+export interface EventsSectionBlock {
+  blockType: 'eventsSection'
+  sourceMode?: 'inline' | 'reusable' | null
+  eventSectionRef?: number | string | EventSection | null
+  subtitle?: string | null
+  title?: string | null
+  eventTitle?: string | null
+  eventDate?: string | null
+  eventTime?: string | null
+  eventLocation?: string | null
+  all_events?: EventsLinkData | null
+  schedule?: ScheduleItem[] | null
   locale?: string
+}
+
+const isEventSectionDocument = (
+  value: EventsSectionBlock['eventSectionRef'],
+): value is EventSection => {
+  return typeof value === 'object' && value !== null
+}
+
+const toCMSLinkProps = (value: EventsLinkData | null | undefined): CMSLinkType | null => {
+  if (!value) return null
+
+  const hasTarget = Boolean(value.url) || Boolean(value.reference)
+  const hasLabel = typeof value.label === 'string' && value.label.trim().length > 0
+
+  if (!hasTarget || !hasLabel) return null
+
+  return {
+    type: value.type,
+    newTab: value.newTab,
+    reference: value.reference,
+    url: value.url,
+    label: value.label,
+    appearance: 'inline',
+  }
 }
 
 const EventsSection = (props: EventsSectionBlock) => {
   const {
+    sourceMode,
+    eventSectionRef,
     subtitle,
     title,
     eventTitle,
@@ -48,13 +83,34 @@ const EventsSection = (props: EventsSectionBlock) => {
     locale,
   } = props
 
-  const hasAllEventsLink =
-    all_events &&
-    (all_events.url || all_events.reference) &&
-    typeof all_events.label === 'string' &&
-    all_events.label.trim().length > 0
-  const allEventsLinkProps = hasAllEventsLink ? all_events : null
-  const hasSchedule = Array.isArray(schedule) && schedule.length > 0
+  const inlineContent: EventsSectionContent = {
+    subtitle,
+    title,
+    eventTitle,
+    eventDate,
+    eventTime,
+    eventLocation,
+    all_events,
+    schedule,
+  }
+
+  const reusableContent: EventsSectionContent | null =
+    sourceMode === 'reusable' && isEventSectionDocument(eventSectionRef)
+      ? {
+          subtitle: eventSectionRef.subtitle,
+          title: eventSectionRef.title,
+          eventTitle: eventSectionRef.eventTitle,
+          eventDate: eventSectionRef.eventDate,
+          eventTime: eventSectionRef.eventTime,
+          eventLocation: eventSectionRef.eventLocation,
+          all_events: eventSectionRef.all_events,
+          schedule: eventSectionRef.schedule,
+        }
+      : null
+
+  const content = reusableContent ?? inlineContent
+  const allEventsLinkProps = toCMSLinkProps(content.all_events)
+  const hasSchedule = Array.isArray(content.schedule) && content.schedule.length > 0
   const scheduleFallbackText = locale?.startsWith('fi')
     ? 'Aikataulu julkaistaan lähempänä tapahtumaa.'
     : 'Schedule will be announced closer to the event.'
@@ -64,9 +120,9 @@ const EventsSection = (props: EventsSectionBlock) => {
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-16">
-          <span className="text-primary font-mono text-sm">{subtitle}</span>
+          <span className="text-primary font-mono text-sm">{content.subtitle}</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mt-2 mb-4">
-            {title}
+            {content.title}
           </h2>
         </div>
 
@@ -76,21 +132,21 @@ const EventsSection = (props: EventsSectionBlock) => {
             {/* Event header */}
             <div className="bg-gradient-to-r from-primary/20 to-primary/5 p-6 border-b border-border">
               <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
-                {eventTitle}
+                {content.eventTitle}
               </h3>
 
               <div className="flex flex-wrap gap-6 text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <CalendarDays className="text-primary" size={18} />
-                  <span>{eventDate}</span>
+                  <span>{content.eventDate}</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Clock className="text-primary" size={18} />
-                  <span>{eventTime}</span>
+                  <span>{content.eventTime}</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <MapPin className="text-primary" size={18} />
-                  <span>{eventLocation}</span>
+                  <span>{content.eventLocation}</span>
                 </div>
               </div>
             </div>
@@ -113,9 +169,9 @@ const EventsSection = (props: EventsSectionBlock) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {schedule?.map((item, index) => (
+                      {content.schedule?.map((item, index) => (
                         <tr
-                          key={index}
+                          key={item.id ?? `${item.time ?? 'time'}-${index}`}
                           className="border-b border-border/50 hover:bg-primary/5 transition-colors"
                         >
                           <td className="py-3 px-4 font-mono text-primary whitespace-nowrap">
@@ -134,8 +190,7 @@ const EventsSection = (props: EventsSectionBlock) => {
             {allEventsLinkProps && (
               <div className="p-6 border-t border-border bg-card/60">
                 <CMSLink
-                  {...(allEventsLinkProps as any)}
-                  appearance="inline"
+                  {...allEventsLinkProps}
                   className="inline-flex items-center gap-2 border border-primary text-primary px-6 py-3 rounded-md font-semibold hover:bg-primary/10 transition-all"
                 ></CMSLink>
               </div>
