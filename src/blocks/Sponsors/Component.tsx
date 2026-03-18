@@ -60,8 +60,8 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
   if (onlyFeatured) and.push({ isFeatured: { equals: true } })
   if (onlyCurrentlyActive) {
     const now = new Date().toISOString()
-    and.push({ or: [{ startDate: { lte: now } }, { startDate: { exists: false } }] })
-    and.push({ or: [{ endDate: { gte: now } }, { endDate: { exists: false } }] })
+    and.push({ or: [{ startDate: { less_than_equal: now } }, { startDate: { exists: false } }] })
+    and.push({ or: [{ endDate: { greater_than_equal: now } }, { endDate: { exists: false } }] })
   }
 
   const limitValue = (limit ?? 50) as number
