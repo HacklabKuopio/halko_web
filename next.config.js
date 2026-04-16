@@ -30,10 +30,10 @@ const publicCspHeader = `
   .replace(/\s{2,}/g, ' ')
   .trim()
 
-// Admin CSP (Adds Gravatar images and Analytics iframe)
+// Admin CSP (Adds Gravatar images, Analytics iframe, and jsDelivr Monaco loader)
 const adminCspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com https://cdn.jsdelivr.net;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL} https://www.gravatar.com;
