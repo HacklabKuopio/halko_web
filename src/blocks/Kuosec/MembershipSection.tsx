@@ -1,8 +1,18 @@
 import { Users, CreditCard } from 'lucide-react'
-import { CMSLink } from '@/components/Link'
+import { CMSLink, type CMSLinkType } from '@/components/Link'
+
+type MembershipSectionLinkProps = {
+  type?: CMSLinkType['type']
+  newTab?: CMSLinkType['newTab']
+  reference?: CMSLinkType['reference']
+  url?: CMSLinkType['url']
+  label: CMSLinkType['label']
+  appearance?: 'default' | 'inline' | 'button' | null
+}
 
 export interface MembershipSectionBlock {
   blockType: 'membershipSection'
+  locale?: string
   subtitle?: string | null
   title?: string | null
   description?: string | null
@@ -55,6 +65,7 @@ export interface MembershipSectionBlock {
 
 const MembershipSection = (props: MembershipSectionBlock) => {
   const {
+    locale,
     subtitle,
     title,
     description,
@@ -64,19 +75,30 @@ const MembershipSection = (props: MembershipSectionBlock) => {
     paymentReference,
     paymentInstruction,
     joinLink,
-    infoLink,
   } = props
 
+  const isFi = locale?.startsWith('fi')
+
+  const t = {
+    paymentInfo: isFi ? 'Maksutiedot' : 'Payment details',
+    recipient: isFi ? 'Saaja:' : 'Recipient:',
+    account: isFi ? 'Tilinumero:' : 'Account number:',
+    reference: isFi ? 'Viite:' : 'Reference:',
+    joinLabel: isFi ? 'Täytä jäsenhakemus' : 'Fill in membership application',
+  }
+
   const hasJoinLink = joinLink && (joinLink.url || joinLink.reference)
-  const joinLinkProps = hasJoinLink
+  const joinLinkProps: MembershipSectionLinkProps = hasJoinLink
     ? joinLink
     : {
         type: 'custom',
         url: 'https://forms.office.com/pages/responsepage.aspx?id=ZrCpN1oyvE2aMsyhFsFtgMc00WDfrFtDgsFyAFzgoalUQVpZRTdUMkdVS1laQTdZNDNBSkswS1VVMyQlQCN0PWcu&route=shorturl',
-        label: 'Täytä jäsenhakemus',
+        label: t.joinLabel,
         newTab: true,
         appearance: 'default',
       }
+
+  const { appearance: _joinLinkAppearance, ...joinLinkCmsProps } = joinLinkProps
 
   return (
     <section id="membership" className="py-24 relative">
@@ -109,20 +131,20 @@ const MembershipSection = (props: MembershipSectionBlock) => {
         <div className="bg-card border border-border p-8 rounded-lg max-w-2xl mx-auto">
           <div className="flex items-center gap-3 mb-6">
             <CreditCard className="text-primary" size={24} />
-            <h3 className="font-display text-xl font-bold text-foreground">Maksutiedot</h3>
+            <h3 className="font-display text-xl font-bold text-foreground">{t.paymentInfo}</h3>
           </div>
 
           <div className="space-y-3 font-mono text-sm">
             <div className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Saaja:</span>
+              <span className="text-muted-foreground">{t.recipient}</span>
               <span className="text-foreground">{paymentRecipient}</span>
             </div>
             <div className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Tilinumero:</span>
+              <span className="text-muted-foreground">{t.account}</span>
               <span className="text-foreground">{paymentAccount}</span>
             </div>
             <div className="flex justify-between border-b border-border pb-2">
-              <span className="text-muted-foreground">Viite:</span>
+              <span className="text-muted-foreground">{t.reference}</span>
               <span className="text-primary font-bold">{paymentReference}</span>
             </div>
           </div>
@@ -131,7 +153,7 @@ const MembershipSection = (props: MembershipSectionBlock) => {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <CMSLink
-              {...(joinLinkProps as any)}
+              {...joinLinkCmsProps}
               appearance="inline"
               className="flex-1 inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-md font-semibold hover:glow transition-all"
             >
