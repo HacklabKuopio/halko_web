@@ -24,7 +24,7 @@ const EventsSection = async (props: EventsSectionBlock) => {
 
   const isFi = locale?.startsWith('fi')
   const t = {
-    subtitle: '// EVENTS',
+    subtitle: isFi ? 'TAPAHTUMAT' : '// EVENTS',
     title: isFi ? 'Tulevat tapahtumat' : 'Upcoming Events',
     scheduleHeader: '// SCHEDULE',
     scheduleAnnounced: isFi
