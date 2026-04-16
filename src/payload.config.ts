@@ -13,7 +13,7 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Sponsors } from './collections/Sponsors'
-import { EventSections } from './collections/EventSections'
+import { Events } from './collections/Events'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { Brand } from './Brand/config'
@@ -77,7 +77,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Sponsors, EventSections],
+  collections: [Pages, Posts, Media, Categories, Users, Sponsors, Events],
   cors: [getServerSideURL()].filter(Boolean),
   csrf: [getServerSideURL()].filter(Boolean),
   graphQL: {

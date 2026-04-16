@@ -4,7 +4,7 @@ import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { link } from '@/fields/link'
 
-export const EventSections: CollectionConfig<'eventSections'> = {
+export const EventSections: CollectionConfig = {
   slug: 'eventSections',
   labels: {
     singular: {
@@ -105,4 +105,3 @@ export const EventSections: CollectionConfig<'eventSections'> = {
     }),
   ],
 }
-

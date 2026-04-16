@@ -73,7 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     sponsors: Sponsor;
-    eventSections: EventSection;
+    events: Event;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -92,7 +92,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     sponsors: SponsorsSelect<false> | SponsorsSelect<true>;
-    eventSections: EventSectionsSelect<false> | EventSectionsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -851,57 +851,23 @@ export interface ContactSectionBlock {
  * via the `definition` "EventsSectionBlock".
  */
 export interface EventsSectionBlock {
-  sourceMode?: ('inline' | 'reusable') | null;
-  eventSectionRef?: (number | null) | EventSection;
-  subtitle?: string | null;
-  title?: string | null;
-  eventTitle?: string | null;
-  eventDate?: string | null;
-  eventTime?: string | null;
-  eventLocation?: string | null;
-  schedule?:
-    | {
-        time?: string | null;
-        event?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  all_events?: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'outline') | null;
-  };
+  sourceMode?: ('next' | 'specific') | null;
+  eventRef?: (number | null) | Event;
   id?: string | null;
   blockName?: string | null;
   blockType: 'eventsSection';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "eventSections".
+ * via the `definition` "events".
  */
-export interface EventSection {
+export interface Event {
   id: number;
-  name: string;
-  subtitle?: string | null;
-  title?: string | null;
-  eventTitle?: string | null;
-  eventDate?: string | null;
-  eventTime?: string | null;
-  eventLocation?: string | null;
+  title: string;
+  date: string;
+  time?: string | null;
+  location?: string | null;
+  description?: string | null;
   schedule?:
     | {
         time?: string | null;
@@ -909,27 +875,10 @@ export interface EventSection {
         id?: string | null;
       }[]
     | null;
-  all_events: {
-    type?: ('reference' | 'custom') | null;
-    newTab?: boolean | null;
-    reference?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
-    url?: string | null;
-    label: string;
-    /**
-     * Choose how the link should be rendered.
-     */
-    appearance?: ('default' | 'outline') | null;
-  };
+  publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1462,8 +1411,8 @@ export interface PayloadLockedDocument {
         value: number | Sponsor;
       } | null)
     | ({
-        relationTo: 'eventSections';
-        value: number | EventSection;
+        relationTo: 'events';
+        value: number | Event;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1739,30 +1688,7 @@ export interface ContactSectionBlockSelect<T extends boolean = true> {
  */
 export interface EventsSectionBlockSelect<T extends boolean = true> {
   sourceMode?: T;
-  eventSectionRef?: T;
-  subtitle?: T;
-  title?: T;
-  eventTitle?: T;
-  eventDate?: T;
-  eventTime?: T;
-  eventLocation?: T;
-  schedule?:
-    | T
-    | {
-        time?: T;
-        event?: T;
-        id?: T;
-      };
-  all_events?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-        appearance?: T;
-      };
+  eventRef?: T;
   id?: T;
   blockName?: T;
 }
@@ -2160,16 +2086,14 @@ export interface SponsorsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "eventSections_select".
+ * via the `definition` "events_select".
  */
-export interface EventSectionsSelect<T extends boolean = true> {
-  name?: T;
-  subtitle?: T;
+export interface EventsSelect<T extends boolean = true> {
   title?: T;
-  eventTitle?: T;
-  eventDate?: T;
-  eventTime?: T;
-  eventLocation?: T;
+  date?: T;
+  time?: T;
+  location?: T;
+  description?: T;
   schedule?:
     | T
     | {
@@ -2177,18 +2101,10 @@ export interface EventSectionsSelect<T extends boolean = true> {
         event?: T;
         id?: T;
       };
-  all_events?:
-    | T
-    | {
-        type?: T;
-        newTab?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-        appearance?: T;
-      };
+  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2873,6 +2789,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'sponsors';
           value: number | Sponsor;
+        } | null)
+      | ({
+          relationTo: 'events';
+          value: number | Event;
         } | null);
     global?: string | null;
     user?: (number | null) | User;

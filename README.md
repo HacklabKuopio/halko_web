@@ -19,12 +19,15 @@ cd halko_web
 ```
 
 ### 2. Install dependencies
+
 Verify that node is installed:
+
 ```bash
 pnpm env use --global lts
 ```
 
 Install dependencies
+
 ```bash
 pnpm install
 ```
