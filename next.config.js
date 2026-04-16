@@ -36,7 +36,7 @@ const adminCspHeader = `
   script-src 'self' 'unsafe-inline' 'unsafe-eval' https://analytics.bittive.com https://cdn.jsdelivr.net;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
   style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
-  font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net;
+  font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:;
   img-src 'self' blob: data: ${NEXT_PUBLIC_SERVER_URL} https://www.gravatar.com;
   connect-src 'self' https://analytics.bittive.com https://kok.halko.fi;
   worker-src 'self' blob:;
