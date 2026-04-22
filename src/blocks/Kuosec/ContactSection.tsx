@@ -1,4 +1,4 @@
-import { Mail, Linkedin, MessageSquare, ExternalLink } from 'lucide-react'
+import { Mail, MessageSquare, ExternalLink } from 'lucide-react'
 import { CMSLink } from '@/components/Link'
 
 export interface ContactSectionBlock {
@@ -37,7 +37,6 @@ export interface ContactSectionBlock {
 
 const iconMap = {
   Mail,
-  Linkedin,
   MessageSquare,
 }
 

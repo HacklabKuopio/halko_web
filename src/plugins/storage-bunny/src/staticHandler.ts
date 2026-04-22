@@ -7,6 +7,22 @@ import path from 'path'
 import { getFilePrefix } from '@payloadcms/plugin-cloud-storage/utilities'
 import type { BunnyStorageOptions } from './index'
 
+const normalizeHeaderValue = (value: unknown, fallback: string): string => {
+  if (typeof value === 'string') {
+    return value
+  }
+
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return String(value)
+  }
+
+  if (Array.isArray(value)) {
+    return value.join(', ')
+  }
+
+  return fallback
+}
+
 /**
  * The `staticHandler` for 3.0 must return a `Response`.
  * We no longer use Express's `res`/`next`, so we handle streaming with the new fetch-based APIs.
@@ -24,8 +40,11 @@ export const getHandler = (
 
       // Download from Bunny as arraybuffer so we can wrap it in a Response
       const response = await axios.get(url, { responseType: 'arraybuffer' })
-      const contentType = response.headers['content-type'] || 'application/octet-stream'
-      const contentLength = response.headers['content-length'] || '0'
+      const contentType = normalizeHeaderValue(
+        response.headers['content-type'],
+        'application/octet-stream',
+      )
+      const contentLength = normalizeHeaderValue(response.headers['content-length'], '0')
 
       return new Response(response.data, {
         headers: {
