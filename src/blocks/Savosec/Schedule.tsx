@@ -82,9 +82,7 @@ const Schedule: React.FC<Props> = ({ subtitle, title, schedule }) => {
                   </div>
 
                   {/* Content card */}
-                  <div
-                    className={`flex-1 p-4 rounded-lg border ${getTypeColor(item.type)}`}
-                  >
+                  <div className={`flex-1 p-4 rounded-lg border ${getTypeColor(item.type)}`}>
                     <h3 className="font-mono font-semibold text-foreground mb-1">{item.title}</h3>
                     {item.speaker && (
                       <p className="text-primary text-sm font-medium mb-2">{item.speaker}</p>
