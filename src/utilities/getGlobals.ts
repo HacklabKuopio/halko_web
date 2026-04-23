@@ -1,10 +1,10 @@
-import type { Config } from 'src/payload-types'
+import type { Config } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { unstable_cache } from 'next/cache'
 
-type Global = keyof Config['globals']
+type Global = Extract<keyof Config['globals'], string>
 
 export async function getGlobal(slug: Global, depth = 0, locale: Config['locale'] = 'en') {
   const payload = await getPayload({ config: configPromise })
