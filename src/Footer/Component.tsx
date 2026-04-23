@@ -157,7 +157,7 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
           </p>
 
           {/* Social icons + theme switcher on mobile */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5" data-social-icons>
             <div className="md:hidden">
               <ThemeSelector />
             </div>
