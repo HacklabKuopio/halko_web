@@ -83,7 +83,7 @@ const Schedule: React.FC<Props> = ({ subtitle, title, schedule }) => {
 
                   {/* Content card */}
                   <div
-                    className={`flex-1 p-4 rounded-lg border ${getTypeColor(item.type)} transition-all hover:scale-[1.02]`}
+                    className={`flex-1 p-4 rounded-lg border ${getTypeColor(item.type)}`}
                   >
                     <h3 className="font-mono font-semibold text-foreground mb-1">{item.title}</h3>
                     {item.speaker && (

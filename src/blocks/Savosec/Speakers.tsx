@@ -38,7 +38,7 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
       aria-label={speaker.name}
@@ -50,8 +50,8 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
         aria-hidden="true"
       />
 
-      {/* Modal panel — bottom-sheet on mobile, centered card on sm+ */}
-      <div className="relative w-full sm:max-w-2xl bg-card border border-primary/30 rounded-t-2xl sm:rounded-xl shadow-2xl overflow-hidden max-h-[90dvh] flex flex-col">
+      {/* Modal panel — centered on all screen sizes */}
+      <div className="relative w-full max-w-lg bg-card border border-primary/30 rounded-xl shadow-2xl overflow-hidden max-h-[85dvh] flex flex-col">
         {/* Top accent line */}
         <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
 
