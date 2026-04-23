@@ -1,4 +1,4 @@
-import { Shield, Users, Wifi, Terminal } from 'lucide-react'
+import { Shield, Users, Wifi, Terminal, ExternalLink } from 'lucide-react'
 import React from 'react'
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
     icon: 'Shield' | 'Users' | 'Wifi' | 'Terminal'
     title: string
     description: string
+    url?: string | null
     id?: string | null
   }[]
 }
@@ -31,12 +32,6 @@ const About: React.FC<Props> = ({ subtitle, title, description, features }) => {
               {subtitle}
             </span>
             <h2 className="font-mono text-3xl md:text-4xl font-bold mt-4 mb-6">
-              {/* Splitting logic or just render title.
-                  If user types "Mitä on SavoSec?", we want "SavoSec" colored.
-                  Since we can't easily parse rich text here without a rich text field,
-                  we will just render the title as is or provide simple highlight for "SavoSec".
-                  Let's try to highlight "SavoSec" if present.
-               */}
               <span
                 dangerouslySetInnerHTML={{
                   __html:
@@ -57,21 +52,47 @@ const About: React.FC<Props> = ({ subtitle, title, description, features }) => {
           <div className="grid md:grid-cols-2 gap-6">
             {features?.map((feature, index) => {
               const Icon = feature.icon && iconMap[feature.icon] ? iconMap[feature.icon] : Shield
+              const isLink = !!feature.url
+
+              const inner = (
+                <div className="flex items-start gap-4">
+                  <div
+                    className={[
+                      'p-3 bg-primary/10 rounded-lg shrink-0',
+                      isLink ? 'group-hover:bg-primary/20 transition-colors' : '',
+                    ].join(' ')}
+                  >
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-mono font-semibold text-lg">{feature.title}</h3>
+                      {isLink && (
+                        <ExternalLink className="w-4 h-4 text-primary/50 group-hover:text-primary transition-colors shrink-0" />
+                      )}
+                    </div>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </div>
+                </div>
+              )
+
+              if (isLink) {
+                return (
+                  <a
+                    key={index}
+                    href={feature.url!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group p-6 bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-300 hover:-translate-y-0.5 block"
+                  >
+                    {inner}
+                  </a>
+                )
+              }
 
               return (
-                <div
-                  key={index}
-                  className="group p-6 bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <h3 className="font-mono font-semibold text-lg mb-2">{feature.title}</h3>
-                      <p className="text-muted-foreground">{feature.description}</p>
-                    </div>
-                  </div>
+                <div key={index} className="p-6 bg-card border border-border rounded-lg">
+                  {inner}
                 </div>
               )
             })}

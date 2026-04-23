@@ -187,6 +187,14 @@ export const SavosecAboutBlock: Block = {
             fi: 'Kuvaus',
           },
         },
+        {
+          name: 'url',
+          type: 'text',
+          label: {
+            en: 'URL (optional — makes card a link)',
+            fi: 'URL (valinnainen — tekee kortista linkin)',
+          },
+        },
       ],
     },
   ],
@@ -361,8 +369,17 @@ export const SavosecSpeakersBlock: Block = {
           type: 'textarea',
           localized: true,
           label: {
-            en: 'Bio',
-            fi: 'Kuvaus',
+            en: 'Bio (short, shown on card)',
+            fi: 'Kuvaus (lyhyt, näytetään kortilla)',
+          },
+        },
+        {
+          name: 'richContent',
+          type: 'richText',
+          localized: true,
+          label: {
+            en: 'Rich Content (shown in popup)',
+            fi: 'Lisätiedot (näytetään popupissa)',
           },
         },
         {
@@ -448,11 +465,20 @@ export const SavosecSponsorsBlock: Block = {
           },
         },
         {
+          name: 'logo',
+          type: 'upload',
+          relationTo: 'media',
+          label: {
+            en: 'Logo (optional)',
+            fi: 'Logo (valinnainen)',
+          },
+        },
+        {
           name: 'url',
           type: 'text',
           label: {
-            en: 'URL',
-            fi: 'Osoite',
+            en: 'URL (optional — makes card a link)',
+            fi: 'URL (valinnainen — tekee kortista linkin)',
           },
         },
       ],
