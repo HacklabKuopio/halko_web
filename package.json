@@ -88,7 +88,7 @@
   },
   "engines": {
     "node": ">=22.19.0",
-    "pnpm": "^9 || ^10"
+    "pnpm": "^10"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -99,8 +99,11 @@
       "@swc/core"
     ],
     "overrides": {
-      "esbuild": ">=0.25.0",
-      "nodemailer": ">=7.0.11"
+      "esbuild": ">=0.28.0",
+      "nodemailer": ">=8.0.6",
+      "dompurify": ">=3.4.1",
+      "vite": "^7.3.2",
+      "postcss": ">=8.5.10"
     }
   },
   "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937"
