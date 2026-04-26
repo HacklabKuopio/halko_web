@@ -2,11 +2,16 @@ import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
+import type { LexicalEditorProps } from '@payloadcms/richtext-lexical'
 import {
   FixedToolbarFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
+
+type RichTextEditorFeatureArgs = Parameters<
+  Extract<NonNullable<LexicalEditorProps['features']>, (...args: never[]) => unknown>
+>[0]
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
@@ -34,7 +39,7 @@ export const Footer: GlobalConfig = {
       },
       localized: true,
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
+        features: ({ rootFeatures }: RichTextEditorFeatureArgs) => {
           return [...rootFeatures, FixedToolbarFeature(), InlineToolbarFeature()]
         },
       }),
@@ -96,9 +101,12 @@ export const Footer: GlobalConfig = {
         {
           name: 'alt',
           type: 'text',
-          label: 'Icon alt text',
+          label: 'Icon alt text / visible label',
           required: false,
           localized: true,
+          admin: {
+            description: 'Shown as the visible text if no icon image is selected.',
+          },
         },
         link({ appearances: false, disableLabel: true }),
       ],

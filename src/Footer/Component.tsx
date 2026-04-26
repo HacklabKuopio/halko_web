@@ -10,6 +10,8 @@ import { TypedLocale } from 'payload'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 
+type FooterSocialLink = NonNullable<FooterType['socialLinks']>[number]
+
 function hasRichTextContent(rtf: any): boolean {
   try {
     const children = rtf?.root?.children
@@ -78,6 +80,12 @@ function mergeFooterLocalized(primary: any, fallback: any): any {
   })
 
   return merged
+}
+
+function getSocialLabel(item: FooterSocialLink): string {
+  const label = item.alt?.trim()
+
+  return label && label.length > 0 ? label : 'Social link'
 }
 
 export async function Footer({ locale }: { locale: TypedLocale }) {
@@ -161,20 +169,24 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
             <div className="md:hidden">
               <ThemeSelector />
             </div>
-            {social.map((item: any, i: number) => (
-              <CMSLink key={i} {...(item.link as any)}>
-                {item.icon ? (
-                  <Media
-                    resource={item.icon as any}
-                    imgClassName="h-5 w-5 object-contain"
-                    pictureClassName="block"
-                    alt={(item.alt as any) || ''}
-                  />
-                ) : (
-                  <span className="sr-only">Social link</span>
-                )}
-              </CMSLink>
-            ))}
+            {social.map((item: FooterSocialLink, i: number) => {
+              const socialLabel = getSocialLabel(item)
+
+              return (
+                <CMSLink key={i} {...(item.link as any)}>
+                  {item.icon ? (
+                    <Media
+                      resource={item.icon as any}
+                      imgClassName="h-5 w-5 object-contain"
+                      pictureClassName="block"
+                      alt={socialLabel}
+                    />
+                  ) : (
+                    <span className="text-sm font-medium text-muted-foreground">{socialLabel}</span>
+                  )}
+                </CMSLink>
+              )
+            })}
           </div>
         </div>
       </div>

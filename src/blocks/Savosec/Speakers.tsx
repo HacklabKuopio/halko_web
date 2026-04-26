@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { X, ChevronRight } from 'lucide-react'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import RichText from '@/components/RichText'
@@ -24,7 +25,10 @@ type Props = {
 }
 
 function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => void }) {
+  const [mounted, setMounted] = useState(false)
+
   useEffect(() => {
+    setMounted(true)
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
@@ -36,7 +40,9 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
     }
   }, [onClose])
 
-  return (
+  if (!mounted) return null
+
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       role="dialog"
@@ -51,7 +57,7 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
       />
 
       {/* Modal panel — centered on all screen sizes */}
-      <div className="relative w-full max-w-lg bg-card border border-primary/30 rounded-xl shadow-2xl overflow-hidden max-h-[85dvh] flex flex-col">
+      <div className="relative w-full max-w-lg bg-card border border-primary/30 rounded-xl shadow-2xl overflow-hidden max-h-[85dvh] flex flex-col min-h-0">
         {/* Top accent line */}
         <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
 
@@ -69,13 +75,15 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-mono font-bold text-xl leading-tight">{speaker.name}</h3>
-            <p className="text-primary text-sm font-medium mt-0.5">{speaker.title}</p>
-            <p className="text-muted-foreground text-sm">{speaker.company}</p>
+            <h3 className="font-mono font-bold text-xl leading-tight break-words">
+              {speaker.name}
+            </h3>
+            <p className="text-primary text-sm font-medium mt-0.5 break-words">{speaker.title}</p>
+            <p className="text-muted-foreground text-sm break-words">{speaker.company}</p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+            className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground shrink-0"
             aria-label="Sulje"
           >
             <X className="w-5 h-5" />
@@ -83,7 +91,7 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
         </div>
 
         {/* Body — scrollable */}
-        <div className="overflow-y-auto p-6">
+        <div className="overflow-y-auto overflow-x-hidden p-6 min-h-0 min-w-0 [&_*]:break-words">
           {speaker.richContent ? (
             <RichText
               data={speaker.richContent}
@@ -95,7 +103,8 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
           ) : null}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 
