@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useParams } from 'next/navigation'
 import { X, ChevronRight } from 'lucide-react'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import RichText from '@/components/RichText'
@@ -110,6 +111,7 @@ function SpeakerModal({ speaker, onClose }: { speaker: Speaker; onClose: () => v
 
 const Speakers: React.FC<Props> = ({ subtitle, title, speakers }) => {
   const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null)
+  const { locale } = useParams<{ locale: string }>()
 
   return (
     <section id="speakers" className="py-24 bg-secondary/30 relative">
@@ -188,7 +190,7 @@ const Speakers: React.FC<Props> = ({ subtitle, title, speakers }) => {
                 {/* "Read more" indicator */}
                 {isClickable && (
                   <div className="mt-4 flex items-center justify-center gap-1 text-xs font-mono text-primary/60 group-hover:text-primary transition-colors">
-                    <span>Lue lisää</span>
+                    <span>{locale === 'en' ? 'Read more' : 'Lue lisää'}</span>
                     <ChevronRight className="w-3 h-3" />
                   </div>
                 )}
