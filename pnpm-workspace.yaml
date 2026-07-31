@@ -1,0 +1,14 @@
+onlyBuiltDependencies:
+  - sharp
+  - esbuild
+  - unrs-resolver
+  - '@parcel/watcher'
+  - '@swc/core'
+
+overrides:
+  sharp: ^0.35.3
+  esbuild: '>=0.28.0'
+  nodemailer: '>=8.0.6'
+  dompurify: '>=3.4.1'
+  vite: ^7.3.5
+  postcss: '>=8.5.10'
