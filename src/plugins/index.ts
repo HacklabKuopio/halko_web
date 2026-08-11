@@ -5,7 +5,7 @@ import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
 import { Plugin } from 'payload'
-import { revalidateRedirects } from '@/hooks/revalidateRedirects'
+import { revalidationPlugin } from '@/plugins/revalidation'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
 import { searchFields } from '@/search/fieldOverrides'
@@ -42,9 +42,6 @@ export const plugins: Plugin[] = [
           }
           return field
         })
-      },
-      hooks: {
-        afterChange: [revalidateRedirects],
       },
     },
   }),
@@ -102,4 +99,7 @@ export const plugins: Plugin[] = [
     disableLocalStorage: true,
     enabled: true,
   }),
+  // Must stay last — see the note in ./revalidation.ts. It needs to see the
+  // collections injected by every plugin above (redirects, forms, search).
+  revalidationPlugin,
 ]

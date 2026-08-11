@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
-import { getPayload, TypedLocale } from 'payload'
-import configPromise from '@payload-config'
+import { TypedLocale } from 'payload'
+import { getEventsSplit } from '@/utilities/cachedQueries'
 import { MapPin, Clock, CalendarDays } from 'lucide-react'
 import type { Metadata } from 'next'
 import GridBackground from '@/blocks/Kuosec/GridBackground'
@@ -26,30 +26,7 @@ export default async function EventsPage({ params }: Args) {
   const { locale } = await params
   const isFi = locale?.startsWith('fi')
 
-  const payload = await getPayload({ config: configPromise })
-  const now = new Date().toISOString()
-
-  const [upcomingResult, pastResult] = await Promise.all([
-    payload.find({
-      collection: 'events',
-      where: { date: { greater_than_equal: now } },
-      sort: 'date',
-      limit: 100,
-      locale,
-      overrideAccess: false,
-    }),
-    payload.find({
-      collection: 'events',
-      where: { date: { less_than: now } },
-      sort: '-date',
-      limit: 100,
-      locale,
-      overrideAccess: false,
-    }),
-  ])
-
-  const upcoming = upcomingResult.docs
-  const past = pastResult.docs
+  const { upcoming, past } = await getEventsSplit(locale)
 
   const t = {
     pageTitle: isFi ? 'Tapahtumat' : 'Events',

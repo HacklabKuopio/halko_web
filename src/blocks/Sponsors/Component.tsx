@@ -3,8 +3,7 @@ import type { StaticImageData } from 'next/image'
 import { cn } from '@/utilities/ui'
 import RichText from '@/components/RichText'
 import { Media } from '@/components/Media'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getSponsors } from '@/utilities/cachedQueries'
 import type { Sponsor, SponsorsBlock as SponsorsBlockType } from '@/payload-types'
 
 // Local props to keep the block flexible in the app layer
@@ -52,29 +51,17 @@ export const SponsorsBlock: React.FC<SponsorsBlockProps & BaseProps> = async (pr
     imgClassName,
   } = props
 
-  const payload = await getPayload({ config: configPromise })
-
-  // Build where clause based on provided filters
-  const and: any[] = []
-  if (tiers && tiers.length) and.push({ tier: { in: tiers } })
-  if (onlyFeatured) and.push({ isFeatured: { equals: true } })
-  if (onlyCurrentlyActive) {
-    const now = new Date().toISOString()
-    and.push({ or: [{ startDate: { less_than_equal: now } }, { startDate: { exists: false } }] })
-    and.push({ or: [{ endDate: { greater_than_equal: now } }, { endDate: { exists: false } }] })
-  }
-
   const limitValue = (limit ?? 50) as number
   const normalizedLimit = limitValue > 0 ? Math.min(limitValue, 200) : 50
 
-  const result = await payload.find({
-    collection: 'sponsors',
-    depth: 1,
+  const result = await getSponsors({
+    tiers,
+    onlyFeatured,
+    onlyCurrentlyActive,
     limit: normalizedLimit,
-    where: and.length ? { and } : undefined,
   })
 
-  const sponsors = [...result.docs].sort((a: Sponsor, b: Sponsor) => {
+  const sponsors = [...result].sort((a: Sponsor, b: Sponsor) => {
     // Featured first
     if (a.isFeatured && !b.isFeatured) return -1
     if (!a.isFeatured && b.isFeatured) return 1

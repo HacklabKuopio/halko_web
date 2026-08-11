@@ -1,6 +1,6 @@
 import { MapPin, Clock, CalendarDays } from 'lucide-react'
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
+import { getEventById, getNextEvent } from '@/utilities/cachedQueries'
+import type { TypedLocale } from 'payload'
 import type { Event } from '@/payload-types'
 
 export interface EventsSectionBlock {
@@ -34,34 +34,17 @@ const EventsSection = async (props: EventsSectionBlock) => {
     allEvents: isFi ? 'Kaikki tapahtumat' : 'All Events',
   }
 
-  const payload = await getPayload({ config: configPromise })
-
   let event: Event | null = null
 
   if (sourceMode === 'specific') {
     if (typeof eventRef === 'object' && eventRef !== null) {
       event = eventRef
     } else if (typeof eventRef === 'number') {
-      const result = await payload.findByID({
-        collection: 'events',
-        id: eventRef,
-        locale: locale as any,
-        overrideAccess: false,
-      })
-      event = result ?? null
+      event = await getEventById(eventRef, locale as TypedLocale)
     }
   } else {
     // next: fetch the nearest upcoming event
-    const now = new Date().toISOString()
-    const result = await payload.find({
-      collection: 'events',
-      where: { date: { greater_than_equal: now } },
-      sort: 'date',
-      limit: 1,
-      locale: locale as any,
-      overrideAccess: false,
-    })
-    event = result.docs?.[0] ?? null
+    event = await getNextEvent(locale as TypedLocale)
   }
 
   const hasSchedule = Array.isArray(event?.schedule) && event.schedule.length > 0

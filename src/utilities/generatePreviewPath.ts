@@ -1,6 +1,11 @@
 import { CollectionSlug, PayloadRequest } from 'payload'
 
-const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
+/**
+ * Route prefix for each collection that renders its own page under `/[locale]`.
+ * Shared with `@/utilities/revalidate` so preview paths and revalidation paths
+ * cannot drift apart. A collection absent from this map has no page of its own.
+ */
+export const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
   posts: '/posts',
   pages: '',
 }

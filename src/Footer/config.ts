@@ -1,7 +1,6 @@
 import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
-import { revalidateFooter } from './hooks/revalidateFooter'
 import type { LexicalEditorProps } from '@payloadcms/richtext-lexical'
 import {
   FixedToolbarFeature,
@@ -120,7 +119,4 @@ export const Footer: GlobalConfig = {
       localized: true,
     },
   ],
-  hooks: {
-    afterChange: [revalidateFooter],
-  },
 }

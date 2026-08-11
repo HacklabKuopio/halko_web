@@ -1,5 +1,4 @@
 import type { GlobalConfig, Field } from 'payload'
-import { revalidateBrand } from './hooks/revalidateBrand'
 import { themes } from './themes'
 
 function hslToHex(h: number, s: number, l: number) {
@@ -299,7 +298,4 @@ export const Brand: GlobalConfig = {
       ],
     },
   ],
-  hooks: {
-    afterChange: [revalidateBrand],
-  },
 }
