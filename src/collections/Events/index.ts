@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '@/access/authenticated'
 import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
+import { AUTOSAVE_INTERVAL } from '../autosave'
 
 export const Events: CollectionConfig<'events'> = {
   slug: 'events',
@@ -139,7 +140,7 @@ export const Events: CollectionConfig<'events'> = {
     },
   ],
   versions: {
-    drafts: { autosave: { interval: 100 }, schedulePublish: true },
+    drafts: { autosave: { interval: AUTOSAVE_INTERVAL }, schedulePublish: true },
     maxPerDoc: 50,
   },
 }

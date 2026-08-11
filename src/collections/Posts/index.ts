@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { AUTOSAVE_INTERVAL } from '../autosave'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -272,7 +273,7 @@ export const Posts: CollectionConfig<'posts'> = {
   versions: {
     drafts: {
       autosave: {
-        interval: 100, // We set this interval for optimal live preview
+        interval: AUTOSAVE_INTERVAL,
       },
       schedulePublish: true,
     },

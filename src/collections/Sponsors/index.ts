@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { AUTOSAVE_INTERVAL } from '../autosave'
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -278,7 +279,7 @@ export const Sponsors: CollectionConfig<'sponsors'> = {
   ],
 
   versions: {
-    drafts: { autosave: { interval: 100 }, schedulePublish: true },
+    drafts: { autosave: { interval: AUTOSAVE_INTERVAL }, schedulePublish: true },
     maxPerDoc: 50,
   },
 }
