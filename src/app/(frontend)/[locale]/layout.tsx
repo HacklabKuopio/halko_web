@@ -36,14 +36,17 @@ type Args = {
 
 export default async function RootLayout({ children, params }: Args) {
   const { locale } = await params
-  const currentLocale = localization.locales.find((loc) => loc.code === locale)
-  const direction = currentLocale?.rtl ? 'rtl' : 'ltr'
-  const brand: Brand = await getCachedGlobal('brand', 1, locale as TypedLocale)()
 
+  // Must run before any Payload query: an unknown locale would otherwise be passed
+  // straight to findGlobal, which rejects it and turns an intended 404 into a 500.
   if (!routing.locales.includes(locale)) {
     notFound()
   }
   setRequestLocale(locale)
+
+  const currentLocale = localization.locales.find((loc) => loc.code === locale)
+  const direction = currentLocale?.rtl ? 'rtl' : 'ltr'
+  const brand: Brand = await getCachedGlobal('brand', 1, locale as TypedLocale)()
 
   const { isEnabled } = await draftMode()
   const messages = await getMessages()
@@ -111,8 +114,11 @@ export default async function RootLayout({ children, params }: Args) {
   )
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const brand: Brand = await getCachedGlobal('brand', 1)()
+export async function generateMetadata({ params }: Pick<Args, 'params'>): Promise<Metadata> {
+  const { locale } = await params
+  // Brand has no localized fields today, so this changes no output — it just avoids a
+  // second cache entry per locale, and stays correct if a field is ever localized.
+  const brand: Brand = await getCachedGlobal('brand', 1, locale as TypedLocale)()
   let ogImageUrl = null
 
   if (brand?.ogImage && typeof brand.ogImage === 'object') {

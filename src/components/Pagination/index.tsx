@@ -9,7 +9,9 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination'
 import { cn } from '@/utilities/ui'
-import { useRouter } from 'next/navigation'
+// The next-intl wrapper, not next/navigation — localePrefix is 'always', so a bare
+// push('/posts/page/2') would rely on the NEXT_LOCALE cookie instead of the current URL.
+import { useRouter } from '@/i18n/routing'
 import React from 'react'
 
 export const Pagination: React.FC<{

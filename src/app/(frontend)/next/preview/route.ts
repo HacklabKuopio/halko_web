@@ -29,28 +29,32 @@ export async function GET(req: NextRequest): Promise<Response> {
     return new Response('This endpoint can only be used for relative previews', { status: 500 })
   }
 
-  let user
+  const draft = await draftMode()
 
   try {
-    user = await payload.auth({
+    // payload.auth() resolves to an AuthResult ({ permissions, user }) which is always a
+    // truthy object — the user has to be destructured out of it, otherwise this check never
+    // fires and previewSecret becomes the only gate on reading unpublished content.
+    const { user } = await payload.auth({
       req: req as unknown as PayloadRequest,
       headers: req.headers,
     })
+
+    if (!user) {
+      draft.disable()
+      return new Response('You are not allowed to preview this page', { status: 403 })
+    }
+
+    // You can add additional checks here to see if the user is allowed to preview this page
   } catch (error) {
     payload.logger.error({ err: error }, 'Error verifying token for live preview')
-    return new Response('You are not allowed to preview this page', { status: 403 })
-  }
-
-  const draft = await draftMode()
-
-  if (!user) {
     draft.disable()
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 
-  // You can add additional checks here to see if the user is allowed to preview this page
-
   draft.enable()
 
+  // Must stay outside the try above: redirect() signals by throwing, and the catch
+  // would turn it into a 403.
   redirect(path)
 }

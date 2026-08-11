@@ -64,15 +64,28 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | `pnpm test:e2e` | Run end-to-end tests      |
 | `pnpm format`   | Format code with Prettier |
 
-## Docker
+## Deployment
 
-You can also run the project using Docker:
+Each site is deployed separately from this same codebase, distinguished by the `HOSTNAME`
+environment variable (`halko.fi`, `kuosec.fi`, `savosec.fi`). Coolify builds with Nixpacks
+(`NIXPACKS_NODE_VERSION` in the environment); there is no Dockerfile.
+
+### Required: scheduled jobs cron
+
+**Every site needs a scheduled task calling the Payload job queue, or scheduled publishing
+silently does nothing.** The admin will accept a publish date, queue the job, and show a
+success toast — but without a runner the document never publishes and no error is logged.
+
+Add a Coolify scheduled task per site, running every minute:
 
 ```bash
-docker-compose up
+curl -fsS -H "Authorization: Bearer $CRON_SECRET" https://<site-hostname>/api/payload-jobs/run
 ```
 
-Make sure your `.env` file is configured before starting.
+`CRON_SECRET` must be set in that site's environment; the endpoint's access check lives in
+`src/payload.config.ts`. This has to run over HTTP rather than as an in-process cron: the
+Payload hooks that invalidate the Next.js cache only take effect inside a request, so a job
+run outside one would publish to the database while the site kept serving the stale page.
 
 ## Tech Stack
 
