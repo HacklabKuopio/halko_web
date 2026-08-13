@@ -57,11 +57,7 @@ export default async function Page({ params }: Args) {
       </div>
 
       <div className="container mb-8">
-        <PageRange
-          currentPage={posts.page}
-          limit={POSTS_PER_PAGE}
-          totalDocs={posts.totalDocs}
-        />
+        <PageRange currentPage={posts.page} limit={POSTS_PER_PAGE} totalDocs={posts.totalDocs} />
       </div>
 
       <CollectionArchive docs={posts.docs} />
