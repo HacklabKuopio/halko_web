@@ -173,6 +173,7 @@ const ARCHIVE_SELECT = {
   slug: true,
   categories: true,
   heroImage: true,
+  publishedAt: true,
   meta: { title: true, description: true, image: true },
 } as const
 

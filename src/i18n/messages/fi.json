@@ -8,6 +8,8 @@
   "post": "Julkaisu",
   "showing": "Näytetään",
   "of": " / ",
+  "showing-range": "Näytetään {start}–{end} / {total}",
+  "no-results": "Ei tuloksia.",
   "search": "Haku",
   "dashboard": "Hallintapaneeli",
   "previous": "Edellinen",

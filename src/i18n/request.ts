@@ -27,5 +27,9 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages: (await import(`./messages/${locale}.json`)).default,
+    // Pinned so date formatting is identical on the server and in the browser. Without it
+    // next-intl falls back to the runtime's zone, which differs between the build host and
+    // a visitor and produces hydration mismatches on rendered dates.
+    timeZone: 'Europe/Helsinki',
   }
 })

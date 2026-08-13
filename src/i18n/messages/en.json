@@ -8,6 +8,8 @@
   "post": "Post",
   "showing": "Showing",
   "of": "of",
+  "showing-range": "Showing {start}–{end} of {total}",
+  "no-results": "No results found.",
   "search": "Search",
   "dashboard": "Dashboard",
   "previous": "Previous",
