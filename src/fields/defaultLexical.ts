@@ -1,20 +1,38 @@
 import type { TextFieldSingleValidation } from 'payload'
 import {
+  AlignFeature,
+  BlockquoteFeature,
   BoldFeature,
+  IndentFeature,
   ItalicFeature,
   lexicalEditor,
   LinkFeature,
   type LinkFields,
+  OrderedListFeature,
   ParagraphFeature,
   UnderlineFeature,
+  UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 
+/**
+ * The project-wide richText editor (`editor` in payload.config.ts).
+ *
+ * Every other richText field either uses this directly or extends it via
+ * `features: ({ rootFeatures }) => [...rootFeatures, …]` — see Posts.content and the
+ * Content block — so anything missing here is missing from every editor in the admin.
+ * That is why lists, quotes and alignment were unavailable everywhere.
+ */
 export const defaultLexical = lexicalEditor({
   features: [
     ParagraphFeature(),
     UnderlineFeature(),
     BoldFeature(),
     ItalicFeature(),
+    UnorderedListFeature(),
+    OrderedListFeature(),
+    BlockquoteFeature(),
+    AlignFeature(),
+    IndentFeature(),
     LinkFeature({
       enabledCollections: ['pages', 'posts'],
       fields: ({ defaultFields }) => {
