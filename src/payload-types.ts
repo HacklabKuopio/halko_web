@@ -706,9 +706,6 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
-  /**
-   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
-   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?: {
     root: {
@@ -728,9 +725,6 @@ export interface Form {
   redirect?: {
     url: string;
   };
-  /**
-   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
-   */
   emails?:
     | {
         emailTo?: string | null;
@@ -739,9 +733,6 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
-        /**
-         * Enter the message that should be sent in this email.
-         */
         message?: {
           root: {
             type: string;
@@ -989,6 +980,7 @@ export interface SavosecAboutBlock {
         icon?: ('Shield' | 'Users' | 'Wifi' | 'Terminal') | null;
         title?: string | null;
         description?: string | null;
+        url?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -1084,6 +1076,21 @@ export interface SavosecSpeakersBlock {
         title?: string | null;
         company?: string | null;
         bio?: string | null;
+        richContent?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         initials?: string | null;
         image?: (number | null) | Media;
         id?: string | null;
@@ -1104,6 +1111,7 @@ export interface SavosecSponsorsBlock {
   sponsors?:
     | {
         name?: string | null;
+        logo?: (number | null) | Media;
         url?: string | null;
         id?: string | null;
       }[]
@@ -1773,6 +1781,7 @@ export interface SavosecAboutBlockSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        url?: T;
         id?: T;
       };
   id?: T;
@@ -1847,6 +1856,7 @@ export interface SavosecSpeakersBlockSelect<T extends boolean = true> {
         title?: T;
         company?: T;
         bio?: T;
+        richContent?: T;
         initials?: T;
         image?: T;
         id?: T;
@@ -1866,6 +1876,7 @@ export interface SavosecSponsorsBlockSelect<T extends boolean = true> {
     | T
     | {
         name?: T;
+        logo?: T;
         url?: T;
         id?: T;
       };
@@ -2495,6 +2506,9 @@ export interface Footer {
   socialLinks?:
     | {
         icon?: (number | null) | Media;
+        /**
+         * Shown as the visible text if no icon image is selected.
+         */
         alt?: string | null;
         link?: {
           type?: ('reference' | 'custom') | null;
