@@ -81,6 +81,7 @@ export default buildConfig({
   cors: [getServerSideURL()].filter(Boolean),
   csrf: [getServerSideURL()].filter(Boolean),
   graphQL: {
+    disable: process.env.NODE_ENV === 'production',
     disablePlaygroundInProduction: true,
   },
   globals: [Header, Footer, Brand],
