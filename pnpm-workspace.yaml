@@ -19,5 +19,5 @@ overrides:
   esbuild: '>=0.28.0'
   nodemailer: '>=8.0.6'
   dompurify: '>=3.4.13'
-  vite: ^7.3.5
+  vite: ^8.3.1
   postcss: '>=8.5.10'
