@@ -34,7 +34,7 @@
 
 ## Integrations and cross-component coupling
 
-- External services: Bunny storage plugin (`src/plugins/storage-bunny/src`), Plausible script injection (`src/app/(frontend)/[locale]/layout.tsx`), KOK status API (`src/Header/KokStatusIndicator.tsx`).
+- External services: Cloudflare R2 media storage via `@payloadcms/storage-s3` (`src/plugins/index.ts`, env `R2_*`), Plausible script injection (`src/app/(frontend)/[locale]/layout.tsx`), KOK status API (`src/Header/KokStatusIndicator.tsx`).
 - Security headers/CSP are centralized in `next.config.js` and differ for public vs admin routes.
 - Custom admin redeploy endpoint is Payload-native and auth-guarded (`src/endpoints/redeploy.ts`, button in `src/components/BeforeDashboard/RedeployButton.tsx`).
 - Admin route string is duplicated across config/middleware/links/seed; change it atomically or you will break routing.
@@ -43,3 +43,13 @@
 
 - Runtime env types are documented in `src/environment.d.ts`; update it when introducing new env vars.
 - Source of truth DB adapter is PostgreSQL (`postgresAdapter`), while `docker-compose.yml` still references Mongo/yarn (legacy mismatch; validate local infra before relying on compose defaults).
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

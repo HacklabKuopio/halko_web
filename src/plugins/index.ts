@@ -4,6 +4,7 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { Plugin } from 'payload'
 import { revalidationPlugin } from '@/plugins/revalidation'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
@@ -13,7 +14,6 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
-import { bunnyStorage } from '@/plugins/storage-bunny/src'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | ${process.env.WEBSITE_NAME}` : 'My Website'
@@ -89,15 +89,24 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
-  bunnyStorage({
-    apiKey: process.env.BUNNY_API_KEY || '',
-    storageZone: process.env.BUNNY_STORAGE_ZONE_NAME || '',
-    region: process.env.BUNNY_REGION,
+  // Media lives in Cloudflare R2 (S3-compatible). Files are still served through
+  // Payload at /api/media/file/*, so stored URLs don't depend on the bucket.
+  s3Storage({
     collections: {
       media: true,
     },
-    disableLocalStorage: true,
-    enabled: true,
+    bucket: process.env.R2_BUCKET || '',
+    config: {
+      endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      region: 'auto',
+      credentials: {
+        accessKeyId: process.env.R2_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '',
+      },
+      // R2 doesn't support every checksum algorithm newer AWS SDKs send by default.
+      requestChecksumCalculation: 'WHEN_REQUIRED',
+      responseChecksumValidation: 'WHEN_REQUIRED',
+    },
   }),
   // Must stay last — see the note in ./revalidation.ts. It needs to see the
   // collections injected by every plugin above (redirects, forms, search).
