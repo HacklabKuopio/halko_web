@@ -17,7 +17,7 @@ onlyBuiltDependencies:
 overrides:
   sharp: ^0.35.3
   esbuild: '>=0.28.0'
-  nodemailer: '>=8.0.6'
+  nodemailer: ^9.1.1
   dompurify: '>=3.4.13'
   vite: ^8.3.1
   postcss: '>=8.5.10'

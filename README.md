@@ -70,6 +70,29 @@ Each site is deployed separately from this same codebase, distinguished by the `
 environment variable (`halko.fi`, `kuosec.fi`, `savosec.fi`). Coolify builds with Nixpacks
 (`NIXPACKS_NODE_VERSION` in the environment); there is no Dockerfile.
 
+### Database migrations
+
+Every site has its **own database** (`DATABASE_URI`) but shares one set of migrations in
+`src/migrations`. `HOSTNAME` only decides which blocks are offered in the admin; the schema
+in migrations is the superset of all sites, so every database also holds the Kuosec/Savosec/
+Sponsors tables even if that site never uses them.
+
+- The Coolify build command runs `pnpm payload migrate && pnpm build`, so each site applies
+  pending migrations against its own database on every deploy. Dev uses push mode and does
+  not need migrations, so a schema change only becomes visible in production if a migration
+  is committed.
+- **Always generate migrations and types with `IS_DEV=true`.** Without it the host-gated
+  blocks are missing from the config, and Payload would emit `DROP TABLE` statements for
+  them, which would then run on every site.
+
+```bash
+IS_DEV=true pnpm payload migrate:create <name>
+IS_DEV=true pnpm generate:types
+pnpm prettier --write src/migrations
+```
+
+Read the generated SQL before committing: it should only contain the changes you meant.
+
 ### Required: scheduled jobs cron
 
 **Every site needs a scheduled task calling the Payload job queue, or scheduled publishing
