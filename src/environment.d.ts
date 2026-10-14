@@ -10,6 +10,9 @@ declare global {
       R2_ACCESS_KEY_ID: string
       R2_SECRET_ACCESS_KEY: string
       R2_BUCKET: string
+      MATRIX_HOMESERVER_URL?: string
+      MATRIX_ACCESS_TOKEN?: string
+      MATRIX_ROOM_ID?: string
     }
   }
 }
