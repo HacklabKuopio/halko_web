@@ -9,19 +9,26 @@ import PageClient from './page.client'
 import { CardPostData } from '@/components/Card'
 import { getServerSideURL } from '@/utilities/getURL'
 import localization from '@/i18n/localization'
+import type { TypedLocale } from 'payload'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 
 type Args = {
+  params: Promise<{ locale: TypedLocale }>
   searchParams: Promise<{
     q: string
   }>
 }
-export default async function Page({ searchParams: searchParamsPromise }: Args) {
+export default async function Page({ params, searchParams: searchParamsPromise }: Args) {
+  const { locale } = await params
+  setRequestLocale(locale)
+  const t = await getTranslations()
   const { q: query } = await searchParamsPromise
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
     collection: 'search',
     depth: 1,
+    locale,
     limit: 12,
     select: {
       title: true,
@@ -70,7 +77,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       <PageClient />
       <div className="container mb-16">
         <div className="prose dark:prose-invert max-w-none text-center">
-          <h1 className="mb-8 lg:mb-16">Search</h1>
+          <h1 className="mb-8 lg:mb-16">{t('search')}</h1>
 
           <div className="max-w-200 mx-auto">
             <Search />
@@ -81,7 +88,7 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
       {posts.totalDocs > 0 ? (
         <CollectionArchive docs={posts.docs as CardPostData[]} />
       ) : (
-        <div className="container">No results found.</div>
+        <div className="container">{t('no-results')}</div>
       )}
     </div>
   )
@@ -92,7 +99,8 @@ export function generateMetadata({
 }: {
   params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  return params.then(({ locale = 'en' }) => {
+  return params.then(async ({ locale = 'en' }) => {
+    const t = await getTranslations({ locale })
     const serverUrl = getServerSideURL()
     const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'
     const canonicalUrl = `${serverUrl}/${locale}/search`
@@ -101,7 +109,7 @@ export function generateMetadata({
       languages[loc.code] = `${serverUrl}/${loc.code}/search`
     }
     return {
-      title: `${websiteName} Search`,
+      title: `${t('search')} | ${websiteName}`,
       alternates: { canonical: canonicalUrl, languages },
       robots: { index: false, follow: true },
       publisher: websiteName,

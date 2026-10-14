@@ -13,6 +13,7 @@ import {
 import React from 'react'
 
 import { Error } from '../Error'
+import { RequiredMark } from '../RequiredMark'
 import { Width } from '../Width'
 
 export const Select: React.FC<
@@ -26,9 +27,7 @@ export const Select: React.FC<
       <Label htmlFor={name}>
         {label}
         {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
+          <RequiredMark />
         )}
       </Label>
       <Controller

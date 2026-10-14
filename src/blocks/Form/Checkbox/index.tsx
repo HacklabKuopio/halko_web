@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label'
 import React from 'react'
 
 import { Error } from '../Error'
+import { RequiredMark } from '../RequiredMark'
 import { Width } from '../Width'
 
 export const Checkbox: React.FC<
@@ -31,9 +32,7 @@ export const Checkbox: React.FC<
         />
         <Label htmlFor={name}>
           {required && (
-            <span className="required">
-              * <span className="sr-only">(required)</span>
-            </span>
+            <RequiredMark />
           )}
           {label}
         </Label>

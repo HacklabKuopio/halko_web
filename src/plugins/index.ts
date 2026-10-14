@@ -18,9 +18,8 @@ import { validateFormSubmission } from '@/hooks/validateFormSubmission'
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
-const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | ${process.env.WEBSITE_NAME}` : 'My Website'
-}
+// Only the document title: generateMeta appends the site name when rendering the page.
+const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => doc?.title || ''
 
 const generateURL: GenerateURL<Post | Page> = ({ doc }) => {
   const url = getServerSideURL()

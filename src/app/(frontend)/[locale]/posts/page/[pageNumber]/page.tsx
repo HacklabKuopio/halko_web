@@ -89,9 +89,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 }
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { pageNumber } = await paramsPromise
+  const { locale, pageNumber } = await paramsPromise
+  const t = await getTranslations({ locale })
   return {
-    title: `${process.env.WEBSITE_NAME} - Page ${pageNumber || ''}`,
+    title: `${t('posts')} – ${t('page', { number: pageNumber })} | ${process.env.WEBSITE_NAME}`,
   }
 }
 

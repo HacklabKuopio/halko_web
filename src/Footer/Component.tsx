@@ -138,9 +138,9 @@ export async function Footer({ locale }: { locale: TypedLocale }) {
             {columns.map((col: any, idx: number) => (
               <div key={idx}>
                 {!col.hideTitle && col.title && (
-                  <h3 className="mb-4 text-sm font-semibold tracking-wide text-foreground uppercase">
+                  <p className="mb-4 text-sm font-semibold tracking-wide text-foreground uppercase">
                     {col.title}
-                  </h3>
+                  </p>
                 )}
                 <ul className="space-y-3">
                   {(col.links || []).map(({ link }: any, i: number) => (

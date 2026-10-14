@@ -17,5 +17,30 @@
   "more-pages": "Lisää sivuja",
   "navigation": {
     "main": "Päävalikko"
+  },
+  "page": "Sivu {number}",
+  "theme": {
+    "label": "Valitse teema",
+    "placeholder": "Teema",
+    "auto": "Automaattinen",
+    "light": "Vaalea",
+    "dark": "Tumma"
+  },
+  "labStatus": {
+    "open": "Labi on auki",
+    "closed": "Labi on kiinni",
+    "unknown": "Labin tila ei tiedossa",
+    "loading": "Tarkistetaan labin tilaa",
+    "lastChange": "Viimeisin muutos"
+  },
+  "form": {
+    "required": "Tämä kenttä on pakollinen",
+    "requiredSr": "(pakollinen)",
+    "invalidEmail": "Anna kelvollinen sähköpostiosoite",
+    "submitting": "Lähetetään, odota hetki...",
+    "invalid": "Tarkista lomakkeen tiedot ja yritä uudelleen.",
+    "tooMany": "Liian monta lähetystä. Yritä myöhemmin uudelleen.",
+    "failed": "Jokin meni vikaan. Yritä myöhemmin uudelleen.",
+    "honeypot": "Jätä tämä kenttä tyhjäksi"
   }
 }

@@ -2,7 +2,7 @@
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
 import { useRouter } from 'next/navigation'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useSyncExternalStore } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
@@ -11,6 +11,17 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
 import { HONEYPOT_FIELD } from './honeypot'
+import { useTranslations } from 'next-intl'
+
+const subscribeNoop = () => () => {}
+
+// False during server render and hydration, true once React handles events.
+const useHydrated = () =>
+  useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  )
 
 export type FormBlockType = {
   blockName?: string
@@ -60,8 +71,10 @@ export const FormBlock: React.FC<
 
   const [isLoading, setIsLoading] = useState(false)
   const [hasSubmitted, setHasSubmitted] = useState<boolean>()
-  const [error, setError] = useState<{ message: string; status?: string } | undefined>()
+  const [error, setError] = useState<string | undefined>()
   const router = useRouter()
+  const t = useTranslations('form')
+  const hydrated = useHydrated()
 
   const onSubmit = useCallback(
     (data: Record<string, unknown>, event?: React.BaseSyntheticEvent) => {
@@ -104,10 +117,11 @@ export const FormBlock: React.FC<
           if (req.status >= 400) {
             setIsLoading(false)
 
-            setError({
-              message: res.errors?.[0]?.message || 'Internal Server Error',
-              status: String(req.status),
-            })
+            // Server messages are English and technical; show a localized summary instead.
+            console.warn('Form submission rejected', req.status, res.errors?.[0]?.message)
+            setError(
+              req.status === 429 ? t('tooMany') : req.status < 500 ? t('invalid') : t('failed'),
+            )
 
             return
           }
@@ -125,15 +139,13 @@ export const FormBlock: React.FC<
         } catch (err) {
           console.warn(err)
           setIsLoading(false)
-          setError({
-            message: 'Something went wrong.',
-          })
+          setError(t('failed'))
         }
       }
 
       void submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, redirect, confirmationType, t],
   )
 
   return (
@@ -146,20 +158,19 @@ export const FormBlock: React.FC<
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
             <RichText data={confirmationMessage} />
           )}
-          {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
-          {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
+          {isLoading && !hasSubmitted && <p>{t('submitting')}</p>}
+          {error && (
+            <div role="alert" className="mb-4 text-red-500">
+              {error}
+            </div>
+          )}
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
               {/* Honeypot: hidden from people and assistive tech; bots that fill it are rejected. */}
               <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
                 <label>
-                  Leave this field empty
-                  <input
-                    autoComplete="off"
-                    name={HONEYPOT_FIELD}
-                    tabIndex={-1}
-                    type="text"
-                  />
+                  {t('honeypot')}
+                  <input autoComplete="off" name={HONEYPOT_FIELD} tabIndex={-1} type="text" />
                 </label>
               </div>
               <div className="mb-4 last:mb-0">
@@ -186,7 +197,9 @@ export const FormBlock: React.FC<
                   })}
               </div>
 
-              <Button form={formID} type="submit" variant="default">
+              {/* Disabled until hydrated: before that, a click would submit the form natively as a GET
+                  and put the visitor's message and email in the URL. */}
+              <Button disabled={!hydrated} form={formID} type="submit" variant="default">
                 {submitButtonLabel}
               </Button>
             </form>

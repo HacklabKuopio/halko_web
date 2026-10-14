@@ -80,5 +80,6 @@ export async function generateMetadata({
 
   // Use the shared generateMeta utility so canonical and hreflang alternates
   // are generated consistently (includes x-default and locale prefix).
-  return generateMeta({ doc: null, locale, path: 'posts' })
+  const t = await getTranslations({ locale })
+  return generateMeta({ doc: null, locale, path: 'posts', title: t('posts') })
 }

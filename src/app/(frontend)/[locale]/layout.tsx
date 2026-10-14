@@ -62,8 +62,6 @@ export default async function RootLayout({ children, params }: Args) {
     }
   }
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable)}
@@ -78,7 +76,6 @@ export default async function RootLayout({ children, params }: Args) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {brand?.googleFontsCode && <link href={brand.googleFontsCode} rel="stylesheet" />}
-        <title>{brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'}</title>
 
         {/* Brand Head Code */}
         {brand?.headCode && <div dangerouslySetInnerHTML={{ __html: brand.headCode }} />}
@@ -129,6 +126,9 @@ export async function generateMetadata({ params }: Pick<Args, 'params'>): Promis
   const websiteName = brand?.name || process.env.WEBSITE_NAME || 'MyWebsite'
 
   return {
+    // Fallback for routes without their own title. Don't add a <title> tag by hand in the
+    // layout: it would sit next to the one Next renders from page metadata.
+    title: websiteName,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'https://payloadcms.com'),
     openGraph: mergeOpenGraph(ogImageUrl ? { images: [{ url: ogImageUrl }] } : {}),
     twitter: {

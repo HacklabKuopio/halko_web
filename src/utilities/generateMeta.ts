@@ -25,16 +25,24 @@ interface GenerateMetaArgs {
   locale?: string
   /** URL path segment after /{locale}/, e.g. "posts/my-post" or "about" */
   path?: string
+  /** Title for routes without a document, e.g. listing pages */
+  title?: string
 }
 
 export const generateMeta = async (args: GenerateMetaArgs): Promise<Metadata> => {
-  const { doc, locale = 'en', path } = args
+  const { doc, locale = 'en', path, title: titleFromArgs } = args
 
   const ogImage = getImageURL(doc?.meta?.image)
   const serverUrl = getServerSideURL()
   const websiteName = process.env.WEBSITE_NAME || 'MyWebsite'
 
-  const title = doc?.meta?.title ? `${doc?.meta?.title} | ${websiteName}` : websiteName
+  const pageTitle = doc?.meta?.title || titleFromArgs
+  // Some CMS meta titles already end with the site name; don't append it twice.
+  const title = !pageTitle
+    ? websiteName
+    : pageTitle.includes(websiteName)
+      ? pageTitle
+      : `${pageTitle} | ${websiteName}`
 
   // Build the canonical path — always includes the active locale prefix
   const resolvedPath = path ?? (doc?.slug === 'home' ? '' : (doc?.slug ?? ''))

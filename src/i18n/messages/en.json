@@ -17,5 +17,30 @@
   "more-pages": "More pages",
   "navigation": {
     "main": "Main navigation"
+  },
+  "page": "Page {number}",
+  "theme": {
+    "label": "Select a theme",
+    "placeholder": "Theme",
+    "auto": "Auto",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "labStatus": {
+    "open": "Lab is open",
+    "closed": "Lab is closed",
+    "unknown": "Lab status unknown",
+    "loading": "Checking lab status",
+    "lastChange": "Last change"
+  },
+  "form": {
+    "required": "This field is required",
+    "requiredSr": "(required)",
+    "invalidEmail": "Enter a valid email address",
+    "submitting": "Sending, please wait...",
+    "invalid": "Please check the form fields and try again.",
+    "tooMany": "Too many submissions. Please try again later.",
+    "failed": "Something went wrong. Please try again later.",
+    "honeypot": "Leave this field empty"
   }
 }
