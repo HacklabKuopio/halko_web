@@ -98,6 +98,7 @@ const nextConfig = {
     includePaths: [path.join(dirname, 'node_modules')],
   },
   reactStrictMode: true,
+  poweredByHeader: false,
   async headers() {
     return [
       {

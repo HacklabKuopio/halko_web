@@ -1,5 +1,5 @@
 'use client'
-import type { Form as FormType, FormFieldBlock } from '@payloadcms/plugin-form-builder/types'
+import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
@@ -10,6 +10,7 @@ import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
+import { HONEYPOT_FIELD } from './honeypot'
 
 export type FormBlockType = {
   blockName?: string
@@ -32,7 +33,23 @@ export const FormBlock: React.FC<
   } = props
 
   const formMethods = useForm({
-    defaultValues: formFromProps.fields,
+    // Explicit per-field defaults. Without them react-hook-form reads the initial value from the
+    // DOM, and an untouched Radix checkbox reports its `value="on"`, so even an unchecked required
+    // consent box passed as checked.
+    defaultValues: Object.fromEntries(
+      (formFromProps.fields ?? []).flatMap((field) =>
+        'name' in field && field.name
+          ? [
+              [
+                field.name,
+                field.blockType === 'checkbox'
+                  ? Boolean(field.defaultValue)
+                  : ('defaultValue' in field && field.defaultValue) || '',
+              ],
+            ]
+          : [],
+      ),
+    ),
   })
   const {
     control,
@@ -47,10 +64,15 @@ export const FormBlock: React.FC<
   const router = useRouter()
 
   const onSubmit = useCallback(
-    (data: FormFieldBlock[]) => {
+    (data: Record<string, unknown>, event?: React.BaseSyntheticEvent) => {
       let loadingTimerID: ReturnType<typeof setTimeout>
       const submitForm = async () => {
         setError(undefined)
+
+        const honeypot =
+          event?.target instanceof HTMLFormElement
+            ? (new FormData(event.target).get(HONEYPOT_FIELD) ?? '')
+            : ''
 
         const dataToSend = Object.entries(data).map(([name, value]) => ({
           field: name,
@@ -67,6 +89,7 @@ export const FormBlock: React.FC<
             body: JSON.stringify({
               form: formID,
               submissionData: dataToSend,
+              [HONEYPOT_FIELD]: honeypot,
             }),
             headers: {
               'Content-Type': 'application/json',
@@ -83,7 +106,7 @@ export const FormBlock: React.FC<
 
             setError({
               message: res.errors?.[0]?.message || 'Internal Server Error',
-              status: res.status,
+              status: String(req.status),
             })
 
             return
@@ -127,6 +150,18 @@ export const FormBlock: React.FC<
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}
           {!hasSubmitted && (
             <form id={formID} onSubmit={handleSubmit(onSubmit)}>
+              {/* Honeypot: hidden from people and assistive tech; bots that fill it are rejected. */}
+              <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                <label>
+                  Leave this field empty
+                  <input
+                    autoComplete="off"
+                    name={HONEYPOT_FIELD}
+                    tabIndex={-1}
+                    type="text"
+                  />
+                </label>
+              </div>
               <div className="mb-4 last:mb-0">
                 {formFromProps &&
                   formFromProps.fields &&

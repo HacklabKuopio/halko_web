@@ -12,6 +12,8 @@ import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/
 import { searchFields } from '@/search/fieldOverrides'
 import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { notifyMatrixOnFormSubmission } from '@/hooks/notifyMatrixOnFormSubmission'
+import { rateLimitFormSubmissions } from '@/hooks/rateLimitFormSubmissions'
+import { validateFormSubmission } from '@/hooks/validateFormSubmission'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -81,6 +83,8 @@ export const plugins: Plugin[] = [
     },
     formSubmissionOverrides: {
       hooks: {
+        beforeOperation: [rateLimitFormSubmissions],
+        beforeValidate: [validateFormSubmission],
         afterChange: [notifyMatrixOnFormSubmission],
       },
     },
