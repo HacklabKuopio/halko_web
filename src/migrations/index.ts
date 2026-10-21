@@ -1,24 +1,25 @@
-import * as migration_20251109_205054 from './20251109_205054'
-import * as migration_20251110_221333 from './20251110_221333'
-import * as migration_20251119_145414 from './20251119_145414'
-import * as migration_20251119_152451 from './20251119_152451'
-import * as migration_20251119_192052 from './20251119_192052'
-import * as migration_20251119_192059 from './20251119_192059'
-import * as migration_20260106_212849 from './20260106_212849'
-import * as migration_20260107_233229 from './20260107_233229'
-import * as migration_20260109_172212 from './20260109_172212'
-import * as migration_20260111_104745 from './20260111_104745'
-import * as migration_20260118_085940 from './20260118_085940'
-import * as migration_20260118_185425 from './20260118_185425'
-import * as migration_20260125_155429 from './20260125_155429'
-import * as migration_20260125_155511 from './20260125_155511'
-import * as migration_20260125_155544 from './20260125_155544'
-import * as migration_20260219_210759 from './20260219_210759'
-import * as migration_20260318_211804 from './20260318_211804'
-import * as migration_20260416_172525 from './20260416_172525'
-import * as migration_20260416_181300 from './20260416_181300'
-import * as migration_20260423_173744 from './20260423_173744'
-import * as migration_20260926_112121_payload_update_columns from './20260926_112121_payload_update_columns'
+import * as migration_20251109_205054 from './20251109_205054';
+import * as migration_20251110_221333 from './20251110_221333';
+import * as migration_20251119_145414 from './20251119_145414';
+import * as migration_20251119_152451 from './20251119_152451';
+import * as migration_20251119_192052 from './20251119_192052';
+import * as migration_20251119_192059 from './20251119_192059';
+import * as migration_20260106_212849 from './20260106_212849';
+import * as migration_20260107_233229 from './20260107_233229';
+import * as migration_20260109_172212 from './20260109_172212';
+import * as migration_20260111_104745 from './20260111_104745';
+import * as migration_20260118_085940 from './20260118_085940';
+import * as migration_20260118_185425 from './20260118_185425';
+import * as migration_20260125_155429 from './20260125_155429';
+import * as migration_20260125_155511 from './20260125_155511';
+import * as migration_20260125_155544 from './20260125_155544';
+import * as migration_20260219_210759 from './20260219_210759';
+import * as migration_20260318_211804 from './20260318_211804';
+import * as migration_20260416_172525 from './20260416_172525';
+import * as migration_20260416_181300 from './20260416_181300';
+import * as migration_20260423_173744 from './20260423_173744';
+import * as migration_20260926_112121_payload_update_columns from './20260926_112121_payload_update_columns';
+import * as migration_20261021_144926 from './20261021_144926';
 
 export const migrations = [
   {
@@ -126,4 +127,9 @@ export const migrations = [
     down: migration_20260926_112121_payload_update_columns.down,
     name: '20260926_112121_payload_update_columns',
   },
-]
+  {
+    up: migration_20261021_144926.up,
+    down: migration_20261021_144926.down,
+    name: '20261021_144926'
+  },
+];
